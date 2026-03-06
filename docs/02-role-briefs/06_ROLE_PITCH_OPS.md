@@ -27,18 +27,18 @@ A **team lead / operator of a 5–20 person outsourced support pod or e-commerce
 An **explainable routing layer for small support teams** that classifies tickets, routes them with visible logic, escalates low-confidence cases to a human lead, and ends with a Work Distribution Visibility view.
 
 ### 4. Why this matters
-This is a **Future of Work** story because it shows AI supporting more legible, judgment-preserving service work in a Philippines context shaped by services and outsourcing.【91:0†08_VALIDATION_RESEARCH.md†L17-L20】【85:7†10_MENTOR_SPONSOR_MAP.md†L25-L33】
+This is a **Future of Work** story because it shows AI supporting more legible, judgment-preserving service work in a Philippines context shaped by services and outsourcing (sources: [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md), [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
 
-The **Collective Prosperity** angle is real but light: not ownership solved, but work allocation made more legible and less opaque. Keep this to the impact slide or Q&A, not the title slide.【85:7†10_MENTOR_SPONSOR_MAP.md†L8-L23】
+The **Collective Prosperity** angle is real but light: not ownership solved, but work allocation made more legible and less opaque. Keep this to the impact slide or Q&A, not the title slide (source: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
 
 ### 5. Feasibility
-We intentionally cut scope to a single customer support workflow with seeded data, deterministic routing, and a local no-network demo path.【85:0†11_TECH_RISK_AND_PLAN_B.md†L3-L10】【85:0†11_TECH_RISK_AND_PLAN_B.md†L45-L56】
+We intentionally cut scope to a single customer support workflow with seeded data, deterministic routing, and a local no-network demo path (sources: [11_TECH_RISK_AND_PLAN_B](../04-risks-decisions/11_TECH_RISK_AND_PLAN_B.md), [03_ROLE_TECH_LEAD](03_ROLE_TECH_LEAD.md)).
 
 ## Judging angle
-- **Innovation:** explainable routing + readable assignment reasons + visible low-confidence review for small support pods, not generic AI ticketing.【85:2†09_COMPETITOR_AND_ANALOGS.md†L24-L46】
-- **Feasibility:** thin vertical slice, seeded data, deterministic routing, no-network fallback.【85:0†11_TECH_RISK_AND_PLAN_B.md†L18-L30】【85:8†03_ROLE_TECH_LEAD.md†L43-L66】
-- **Impact potential:** better operational clarity and trust for small service teams in a large Philippine support-work context.【91:0†08_VALIDATION_RESEARCH.md†L22-L26】
-- **Track fit:** strong primary fit to Future of Work; secondary fit only where it strengthens the case.【85:7†10_MENTOR_SPONSOR_MAP.md†L3-L16】
+- **Innovation:** explainable routing + readable assignment reasons + visible low-confidence review for small support pods, not generic AI ticketing (source: [09_COMPETITOR_AND_ANALOGS](../03-research-validation/09_COMPETITOR_AND_ANALOGS.md)).
+- **Feasibility:** thin vertical slice, seeded data, deterministic routing, no-network fallback (sources: [11_TECH_RISK_AND_PLAN_B](../04-risks-decisions/11_TECH_RISK_AND_PLAN_B.md), [03_ROLE_TECH_LEAD](03_ROLE_TECH_LEAD.md)).
+- **Impact potential:** better operational clarity and trust for small service teams in a large Philippine support-work context (sources: [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md), [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
+- **Track fit:** strong primary fit to Future of Work; secondary fit only where it strengthens the case (source: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
 
 ## Speaking parts for 5 members
 1. **Product Lead:** user + problem
@@ -67,7 +67,7 @@ We intentionally cut scope to a single customer support workflow with seeded dat
 - Do **not** say “worker ownership is solved”
 - Do **not** say “AI triage” is novel
 - Do **not** lead with “worker-led” or “co-op”
-- Do say: “AI clears repetitive structure; humans keep judgment” if asked about the pattern【91:1†Exploring The Four Focus Tracks.txt†L45-L49】
+- Do say: “AI clears repetitive structure; humans keep judgment” if asked about the pattern (sources: [09_COMPETITOR_AND_ANALOGS](../03-research-validation/09_COMPETITOR_AND_ANALOGS.md), [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md))
 
 ## What this person must get done before the next checkpoint (4 hours)
 1. Write the 30-second opening and 15-second close.

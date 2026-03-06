@@ -5,8 +5,8 @@ Lock the first serious team direction fast enough to start building without pret
 
 ## Pre-read instructions
 Read these before the meeting:
-1. **Required:** `/12_TEAM_REVIEW_PACKET.md`
-2. **Skim only if needed:** `/08_VALIDATION_RESEARCH.md`, `/09_COMPETITOR_AND_ANALOGS.md`, `/11_TECH_RISK_AND_PLAN_B.md`
+1. **Required:** [12_TEAM_REVIEW_PACKET](12_TEAM_REVIEW_PACKET.md)
+2. **Skim only if needed:** [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md), [09_COMPETITOR_AND_ANALOGS](../03-research-validation/09_COMPETITOR_AND_ANALOGS.md), [11_TECH_RISK_AND_PLAN_B](../04-risks-decisions/11_TECH_RISK_AND_PLAN_B.md)
 
 Come prepared to answer only this:
 - What part of the current direction is strongest?

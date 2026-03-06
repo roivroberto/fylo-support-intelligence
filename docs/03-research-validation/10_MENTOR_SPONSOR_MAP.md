@@ -1,4 +1,4 @@
-# /10_MENTOR_SPONSOR_MAP.md
+# 10_MENTOR_SPONSOR_MAP
 
 ## Recommended primary track
 **Future of Work**
@@ -180,7 +180,7 @@ Do **not** force these into the pitch unless the conversation specifically goes 
 - **Climate examples in general** — they dilute the story
 - **Judge name-dropping** — the hackathon materials show judge names and photos, but not enough domain detail to justify tailoring the idea to a specific judge
 
-## Recommended edits to /06_ROLE_PITCH_OPS.md
+## Recommended edits to 06_ROLE_PITCH_OPS.md
 ### 1. Change the lead phrase
 Current:
 - “worker-led service team OS”
@@ -210,7 +210,7 @@ Add a note in the speaker script:
 Add:
 - “This is designed for teams still running on chat threads, spreadsheets, and lead intuition—not enterprise support stacks.”
 
-## Recommended edits to /07_OPEN_QUESTIONS_AND_DECISIONS.md
+## Recommended edits to 07_OPEN_QUESTIONS_AND_DECISIONS.md
 ### 1. Change the secondary track status
 Current:
 - “Secondary track: Collective Prosperity”
@@ -247,4 +247,3 @@ Add:
 ### 7. Add one immediate decision
 Add to Decide now:
 - “Which phrase replaces ‘worker-led’ in the first sentence?”
-

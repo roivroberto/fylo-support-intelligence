@@ -1,7 +1,7 @@
-# /08_VALIDATION_RESEARCH.md
+# 08_VALIDATION_RESEARCH
 
 ## Draft idea being tested
-A **worker-led service team OS** for small Filipino customer support teams that ingests tickets, classifies them, routes them with visible logic, adds human review when confidence is low, and ends with a **Contribution Visibility** view. Internal draft files define the target user as a **team lead or operator of a 5–20 person Filipino customer support team** using lightweight tools and manual assignment habits, with a secondary user of the support worker inside the team. The current story is anchored in **Future of Work** with an optional **Collective Prosperity** layer through visibility/ownership language. Source: `/00_README.md`, `/01_IDEA_DRAFT.md`, `/02_ROLE_PRODUCT_LEAD.md`, `/07_OPEN_QUESTIONS_AND_DECISIONS.md`.
+A **worker-led service team OS** for small Filipino customer support teams that ingests tickets, classifies them, routes them with visible logic, adds human review when confidence is low, and ends with a **Contribution Visibility** view. Internal draft files define the target user as a **team lead or operator of a 5–20 person Filipino customer support team** using lightweight tools and manual assignment habits, with a secondary user of the support worker inside the team. The current story is anchored in **Future of Work** with an optional **Collective Prosperity** layer through visibility/ownership language. Sources: [00_README](../01-foundation/00_README.md), [01_IDEA_DRAFT](../01-foundation/01_IDEA_DRAFT.md), [02_ROLE_PRODUCT_LEAD](../02-role-briefs/02_ROLE_PRODUCT_LEAD.md), [07_OPEN_QUESTIONS_AND_DECISIONS](../04-risks-decisions/07_OPEN_QUESTIONS_AND_DECISIONS.md).
 
 This review is **validation research**, not product strategy. It is intentionally skeptical.
 
@@ -15,8 +15,8 @@ This review is **validation research**, not product strategy. It is intentionall
 
 ## Evidence found
 ### 1) Hackathon fit is real
-- **Evidence:** Developer Camp explicitly frames **Future of Work** around meaningful, equitable, empowering work in a Philippines context shaped by services, outsourcing, and overseas labor. It also says the best projects can touch multiple tracks and asks builders to get specific about who benefits, who was previously excluded, and how relationships change. (`Exploring The Four Focus Tracks.txt`, lines 15–18, 40–47, 83–89)
-- **Evidence:** The hackathon judges projects on **innovation, feasibility, impact potential, and how well the solution addresses real human needs within the chosen focus track**. (`Hackathon Details.pdf`, page 6)
+- **Evidence:** Developer Camp explicitly frames **Future of Work** around meaningful, equitable, empowering work in a Philippines context shaped by services, outsourcing, and overseas labor. It also says the best projects can touch multiple tracks and asks builders to get specific about who benefits, who was previously excluded, and how relationships change (source summary: [10_MENTOR_SPONSOR_MAP](10_MENTOR_SPONSOR_MAP.md)).
+- **Evidence:** The hackathon judges projects on **innovation, feasibility, impact potential, and how well the solution addresses real human needs within the chosen focus track** (source summary: [10_MENTOR_SPONSOR_MAP](10_MENTOR_SPONSOR_MAP.md)).
 - **Inference:** A support-workflow idea can fit the hackathon well, but only if the team proves it addresses a real operational pain and does not collapse into “AI helpdesk demo.”
 
 ### 2) Philippine market relevance is real
@@ -88,12 +88,12 @@ Why this wins over the broader MSME framing:
 - **Evidence:** Priority handling, routing, and visibility are recognized operational problems.[^zendesk-call-routing][^zendesk-wfm][^hubspot-ai-routing]
 - **Inference:** The draft’s **intake → classify → route → human review** flow is directionally aligned with real support-work evolution.[^intercom-team-evolution]
 - **Inference:** The strongest value in the current draft is **operational clarity + human oversight**, not “AI magic.”
-- **Evidence:** The hackathon itself rewards practical, human-need-centered projects over flashy demos. (`Hackathon Details.pdf`, page 6; `Exploring The Four Focus Tracks.txt`, lines 7–8, 83–89)
+- **Evidence:** The hackathon itself rewards practical, human-need-centered projects over flashy demos (source summary: [10_MENTOR_SPONSOR_MAP](10_MENTOR_SPONSOR_MAP.md)).
 
 ## What seems shaky
-- **“Worker-led” as a lead label is weakly supported.** There is track-level inspiration for shared-benefit models, but no direct evidence here that support-team buyers describe their pain this way or that the phrase improves comprehension. This is still mostly a narrative choice, not a validated user term. (`/01_IDEA_DRAFT.md`, `/07_OPEN_QUESTIONS_AND_DECISIONS.md`; `Exploring The Four Focus Tracks.txt`, lines 40–47, 445–457)
+- **“Worker-led” as a lead label is weakly supported.** There is track-level inspiration for shared-benefit models, but no direct evidence here that support-team buyers describe their pain this way or that the phrase improves comprehension. This is still mostly a narrative choice, not a validated user term (sources: [01_IDEA_DRAFT](../01-foundation/01_IDEA_DRAFT.md), [07_OPEN_QUESTIONS_AND_DECISIONS](../04-risks-decisions/07_OPEN_QUESTIONS_AND_DECISIONS.md), [10_MENTOR_SPONSOR_MAP](10_MENTOR_SPONSOR_MAP.md)).
 - **“Contribution Visibility” is only partly validated.** There is strong evidence that managers need visibility; there is not yet strong evidence that workers specifically want contribution dashboards rather than fearing surveillance.[^zendesk-wfm]
-- **The user segment is still too broad.** “Micro-agency, startup support desk, subcontracting pod, or service collective” is not one user. Those segments have different buyers, existing tools, and definitions of success. (`/01_IDEA_DRAFT.md`)
+- **The user segment is still too broad.** “Micro-agency, startup support desk, subcontracting pod, or service collective” is not one user. Those segments have different buyers, existing tools, and definitions of success (source: [01_IDEA_DRAFT](../01-foundation/01_IDEA_DRAFT.md)).
 - **Novelty is easy to overclaim.** AI classification, routing, and human review are already established support-software patterns. The idea cannot credibly claim uniqueness on routing automation alone.[^hubspot-ai-routing][^hubspot-ticketing][^intercom-team-evolution]
 - **The threshold problem is unresolved.** There is no evidence yet for the minimum ticket volume / team size where routing legibility becomes painful enough to matter.
 
@@ -121,7 +121,7 @@ Use these during the hackathon. Keep them short and operational.
 11. **What would make you reject this immediately?**
 12. **Would you rather see this as a new dashboard, or as something inside tools you already use?**
 
-## Recommended edits to /01_IDEA_DRAFT.md
+## Recommended edits to 01_IDEA_DRAFT.md
 - Narrow the primary user from a broad category to one concrete first segment, e.g. **“team lead of a 5–20 person outsourced support pod / e-commerce support micro-agency already using business email/shared inbox workflows.”**
 - Change **“worker-led”** from a default lead phrase to a **validation-dependent label**. Treat it as a hypothesis, not a locked framing.
 - Reword the problem statement so the **manager/ops pain** is clearly primary and the **worker visibility benefit** is clearly secondary/hypothesis-level.
@@ -130,7 +130,7 @@ Use these during the hackathon. Keep them short and operational.
 - Add one explicit validation gap: **worker benefit is not yet evidenced; only team-lead pain is currently well supported.**
 - Remove or soften any line that implies contribution visibility is already known to be empowering.
 
-## Recommended edits to /02_ROLE_PRODUCT_LEAD.md
+## Recommended edits to 02_ROLE_PRODUCT_LEAD.md
 - Replace the current primary persona with a more specific operator profile:
   - current tools;
   - approximate ticket volume;
@@ -142,7 +142,7 @@ Use these during the hackathon. Keep them short and operational.
 - Add one rejection test: **if users say Screen 3 feels more useful to managers than workers, stop pretending the worker benefit is validated.**
 - Add one explicit check on **team size / ticket threshold** so the product lead does not assume 5–20 is automatically correct.
 
-## Recommended edits to /07_OPEN_QUESTIONS_AND_DECISIONS.md
+## Recommended edits to 07_OPEN_QUESTIONS_AND_DECISIONS.md
 - Move **exact first user segment** into the top set of open questions. It is not resolved yet.
 - Add a new open product question: **What minimum ticket volume / urgency mix makes routing pain acute enough to matter?**
 - Add a new open product question: **If a team already uses Zendesk/Freshdesk/HubSpot/shared inbox tooling, what remains manual and painful?**
@@ -156,12 +156,12 @@ Use these during the hackathon. Keep them short and operational.
 
 ## Sources
 ### Internal files
-- `/00_README.md`
-- `/01_IDEA_DRAFT.md`
-- `/02_ROLE_PRODUCT_LEAD.md`
-- `/07_OPEN_QUESTIONS_AND_DECISIONS.md`
-- `Exploring The Four Focus Tracks.txt`
-- `Hackathon Details.pdf`
+- `../01-foundation/00_README.md`
+- `../01-foundation/01_IDEA_DRAFT.md`
+- `../02-role-briefs/02_ROLE_PRODUCT_LEAD.md`
+- `../04-risks-decisions/07_OPEN_QUESTIONS_AND_DECISIONS.md`
+- `10_MENTOR_SPONSOR_MAP.md` (event-material synthesis)
+- Event files referenced during research but not stored in this repo: `Exploring The Four Focus Tracks.txt`, `Hackathon Details.pdf`
 
 ### External sources
 - [IBPAP, *IT-BPM LEAP: The Philippine IT-BPM Industry Roadmap 2028*](https://admin.ibpap.org/storage/hub-resources/1fntWJGQKvZg4CfwP4yfXs0Jr1n85DVR1vYXJvSn.pdf)

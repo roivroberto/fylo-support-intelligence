@@ -52,10 +52,10 @@
 4. **Groupmuse / Kyle Schmolze:** Are we overstating “worker-led” or ownership if MVP only shows legible routing and visibility?
 
 ## Sponsor / judge / partner relevance
-- **Bestsign:** best model for AI as structure + oversight, not black-box automation.【85:6†10_MENTOR_SPONSOR_MAP.md†L33-L42】【91:1†Exploring The Four Focus Tracks.txt†L45-L49】
-- **Softype / Nana Luz:** best for pressure-testing whether the product upgrades work or just automates triage.【85:7†10_MENTOR_SPONSOR_MAP.md†L55-L65】【91:4†Exploring The Four Focus Tracks.txt†L1-L19】
-- **YGG Pilipinas:** useful if you keep any worker-upside language around access, growth, or inclusion.【85:6†10_MENTOR_SPONSOR_MAP.md†L44-L53】【91:4†Exploring The Four Focus Tracks.txt†L37-L45】
-- **Groupmuse:** useful only if you keep ownership language and need help not overclaiming it.【85:6†10_MENTOR_SPONSOR_MAP.md†L55-L64】
+- **Bestsign:** best model for AI as structure + oversight, not black-box automation (sources: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md), [09_COMPETITOR_AND_ANALOGS](../03-research-validation/09_COMPETITOR_AND_ANALOGS.md)).
+- **Softype / Nana Luz:** best for pressure-testing whether the product upgrades work or just automates triage (sources: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md), [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md)).
+- **YGG Pilipinas:** useful if you keep any worker-upside language around access, growth, or inclusion (sources: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md), [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md)).
+- **Groupmuse:** useful only if you keep ownership language and need help not overclaiming it (source: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
 
 ## What must be decided now vs later
 ### Decide now

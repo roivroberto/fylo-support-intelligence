@@ -1,4 +1,4 @@
-# /09_COMPETITOR_AND_ANALOGS.md
+# 09_COMPETITOR_AND_ANALOGS
 
 Current draft is **one step away from collapsing into an existing category**: AI helpdesk / shared inbox / ticket routing. The core workflow already exists in Zendesk, Freshdesk, Intercom, Front, Kustomer, Help Scout, and Gorgias. The only credible MVP wedge is **not** “AI triage,” “smart routing,” or “human in the loop.” It is **explainable routing + worker-visible reasoning + low-overhead setup for 5–20 person support pods**.[^zendesk-route][^freshdesk-feat][^intercom-ai][^front-load][^kustomer-agent][^helpscout-routing][^gorgias-automation]
 
@@ -95,7 +95,7 @@ This is the only wedge I would defend with a straight face:
 
 That is fine. Just say it.
 
-## Recommended edits to /01_IDEA_DRAFT.md
+## Recommended edits to 01_IDEA_DRAFT.md
 
 1. **Replace the top-line category.** Change “worker-led service team OS” to something like **“explainable routing layer for small support teams.”** Keep “worker-led” as secondary framing, not category. This avoids sounding like fake co-op theater.
 2. **Add a category-collapse warning.** Explicitly note: “This can easily collapse into AI helpdesk/shared inbox unless the wedge stays on routing legibility + worker-facing visibility.”
@@ -105,7 +105,7 @@ That is fine. Just say it.
 6. **Define success in user terms.** Add one sentence: “A new team member can understand why 5 tickets were assigned the way they were in under 30 seconds.”
 7. **Add a non-goal:** “We are not claiming fairness optimization, workforce governance, or legal worker ownership.”
 
-## Recommended edits to /03_ROLE_TECH_LEAD.md
+## Recommended edits to 03_ROLE_TECH_LEAD.md
 
 1. **Bias even harder toward no-backend complexity.** Make routing a pure deterministic function with fixture tests before wiring UI.
 2. **Add a visual contract.** Freeze a single object shape for `TicketRow`, `RoutingDecision`, and `WorkerCard` before frontend work starts.
@@ -114,7 +114,7 @@ That is fine. Just say it.
 5. **Add one explicit instrumentation task.** Log which rule fired for each routing decision so the demo can show readable explanations.
 6. **Add a “demo reset” script.** One command to restore seed state for repeated judging runs.
 
-## Recommended edits to /05_ROLE_BACKEND_DATA_AI.md
+## Recommended edits to 05_ROLE_BACKEND_DATA_AI.md
 
 1. **Add fields that make the wedge visible:**
    - `required_skills[]`
@@ -132,8 +132,8 @@ That is fine. Just say it.
 ## Sources
 
 ### Uploaded event materials
-- [Hackathon Details.pdf](sandbox:/mnt/data/Hackathon%20Details.pdf) — page 4 (track framing), page 6 (judging criteria), page 13 (Nana Luz mentor listing), page 16 (sponsors/partners).
-- [Exploring The Four Focus Tracks.txt](sandbox:/mnt/data/Exploring%20The%20Four%20Focus%20Tracks.txt) — Bestsign, Softype, YGG Pilipinas, and Groupmuse sections.
+- Hackathon Details (event handout referenced during research; not stored in this repo) — page 4 (track framing), page 6 (judging criteria), page 13 (Nana Luz mentor listing), page 16 (sponsors/partners).
+- Exploring The Four Focus Tracks (event brief referenced during research; not stored in this repo) — Bestsign, Softype, YGG Pilipinas, and Groupmuse sections.
 
 ### Official product / docs sources
 [^zendesk-route]: [Zendesk — Routing and automation options for incoming tickets](https://support.zendesk.com/hc/en-us/articles/4408831658650-Routing-and-automation-options-for-incoming-tickets)
@@ -160,5 +160,5 @@ That is fine. Just say it.
 [^genesys-routing]: [Genesys — Work automation and task routing capabilities](https://www.genesys.com/en-sg/capabilities/work-automation-and-task-routing)
 [^genesys-scheduling]: [Genesys Docs — Scheduling / closed-loop routing with WFM](https://all.docs.genesys.com/PEC-WFM/Current/Administrator/Scheduling)
 [^nice-ai]: [NiCE — AI contact center platform](https://www.nice.com/ai-contact-center-platform)
-[^hackathon-details]: [Hackathon Details.pdf](sandbox:/mnt/data/Hackathon%20Details.pdf)
-[^focus-tracks]: [Exploring The Four Focus Tracks.txt](sandbox:/mnt/data/Exploring%20The%20Four%20Focus%20Tracks.txt)
+[^hackathon-details]: Hackathon Details (event handout referenced during research; not stored in this repo).
+[^focus-tracks]: Exploring The Four Focus Tracks (event brief referenced during research; not stored in this repo).

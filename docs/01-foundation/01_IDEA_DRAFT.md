@@ -46,9 +46,9 @@ AI can reduce repetitive triage work, but if it becomes a black box or just anot
 - QA usually happens later, after errors or customer friction
 
 ## Why now
-- The event’s **Future of Work** framing is explicitly about meaningful, equitable, empowering work in a Philippines context shaped by services, outsourcing, and overseas labor, and it asks who benefits as AI changes work.【91:0†08_VALIDATION_RESEARCH.md†L17-L20】【85:7†10_MENTOR_SPONSOR_MAP.md†L25-L33】
-- The event also treats tracks as **lenses, not silos**, so a light secondary **Collective Prosperity** angle is acceptable only if it strengthens the primary story rather than replacing it.【85:1†Exploring The Four Focus Tracks.txt†L21-L24】【85:7†10_MENTOR_SPONSOR_MAP.md†L8-L23】
-- Bestsign and Softype both reinforce the pattern that matters here: AI should handle repetitive structure while humans retain judgment and oversight.【91:1†Exploring The Four Focus Tracks.txt†L45-L55】【91:4†Exploring The Four Focus Tracks.txt†L17-L31】
+- The event’s **Future of Work** framing is explicitly about meaningful, equitable, empowering work in a Philippines context shaped by services, outsourcing, and overseas labor, and it asks who benefits as AI changes work (sources: [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md), [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
+- The event also treats tracks as **lenses, not silos**, so a light secondary **Collective Prosperity** angle is acceptable only if it strengthens the primary story rather than replacing it (sources: [08_VALIDATION_RESEARCH](../03-research-validation/08_VALIDATION_RESEARCH.md), [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md)).
+- Bestsign and Softype both reinforce the pattern that matters here: AI should handle repetitive structure while humans retain judgment and oversight (sources: [10_MENTOR_SPONSOR_MAP](../03-research-validation/10_MENTOR_SPONSOR_MAP.md), [09_COMPETITOR_AND_ANALOGS](../03-research-validation/09_COMPETITOR_AND_ANALOGS.md)).
 
 ## Proposed solution direction
 Build an **explainable routing layer for small support teams** with one thin vertical slice:

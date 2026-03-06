@@ -1,4 +1,4 @@
-# /11_TECH_RISK_AND_PLAN_B.md
+# 11_TECH_RISK_AND_PLAN_B
 
 ## Smallest technical proof
 The thinnest slice that proves the idea is **not** “AI ticket routing.” It is:
@@ -215,7 +215,7 @@ If the app itself becomes unstable:
   3. contribution view after routing
 - narrate honestly that the demo is based on the local prototype flow
 
-## Recommended edits to /03_ROLE_TECH_LEAD.md
+## Recommended edits to 03_ROLE_TECH_LEAD.md
 ### Edit 1 — change the mission
 Add:
 > Lock a no-network demo path before attempting any live AI or deployment polish.
@@ -255,7 +255,7 @@ Recommended order:
 5. optional live AI experiment
 6. deployment last
 
-## Recommended edits to /05_ROLE_BACKEND_DATA_AI.md
+## Recommended edits to 05_ROLE_BACKEND_DATA_AI.md
 ### Edit 1 — redefine the mission
 Replace with:
 > Make the routing behavior believable and testable first. Treat AI as optional until the deterministic path is locked.
