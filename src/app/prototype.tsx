@@ -49,7 +49,7 @@ const urgencyColors = {
 
 // --- COMPONENTS ---
 
-const Badge = ({ children, className = '' }) => (
+const Badge = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
   <span className={`px-2.5 py-1 text-xs font-medium rounded-md border ${className}`}>
     {children}
   </span>
@@ -180,7 +180,7 @@ function IntakeScreen() {
                 </td>
                 <td className="px-6 py-4">{ticket.category}</td>
                 <td className="px-6 py-4">
-                  <Badge className={urgencyColors[ticket.urgency]}>
+                  <Badge className={urgencyColors[ticket.urgency as keyof typeof urgencyColors]}>
                     {ticket.urgency.charAt(0).toUpperCase() + ticket.urgency.slice(1)}
                   </Badge>
                 </td>
@@ -267,13 +267,14 @@ function RoutingScreen() {
         <div className="divide-y divide-slate-100">
           {reviews.map(route => {
             const ticket = mockTickets.find(t => t.id === route.ticketId);
+            if (!ticket) return null;
             return (
               <div key={route.ticketId} className="p-5">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium text-slate-900">{route.ticketId}</span>
-                  <Badge className={urgencyColors[ticket.urgency]}>{ticket.urgency}</Badge>
+                  <Badge className={urgencyColors[ticket.urgency as keyof typeof urgencyColors]}>{ticket.urgency}</Badge>
                 </div>
-                <p className="text-sm text-slate-600 line-clamp-2 mb-3">{ticket?.subject}</p>
+                <p className="text-sm text-slate-600 line-clamp-2 mb-3">{ticket.subject}</p>
                 <div className="text-xs text-red-600 bg-red-50 p-2 rounded border border-red-100 mb-3">
                   {route.reason}
                 </div>
@@ -358,7 +359,7 @@ function VisibilityScreen() {
 
 // --- UTILS ---
 
-function NavItem({ icon, label, isActive, onClick, badge }) {
+function NavItem({ icon, label, isActive, onClick, badge }: { icon: React.ReactNode; label: string; isActive: boolean; onClick: () => void; badge?: React.ReactNode }) {
   return (
     <button
       onClick={onClick}
@@ -381,7 +382,7 @@ function NavItem({ icon, label, isActive, onClick, badge }) {
   );
 }
 
-function MetricCard({ title, value, subtitle, icon }) {
+function MetricCard({ title, value, subtitle, icon }: { title: string; value: number | string; subtitle?: string; icon: React.ReactNode }) {
   return (
     <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start justify-between">
       <div>
