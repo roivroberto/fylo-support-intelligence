@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import {
 	ArrowRight,
 	Zap,
@@ -17,6 +17,7 @@ import {
 	CheckCircle2,
 	Star,
 	ChevronRight,
+	Loader2,
 } from "lucide-react";
 import "./landing.css";
 
@@ -54,53 +55,156 @@ function AnimatedSection({
 	);
 }
 
-// --- Dashboard Mockup ---
+// --- Dashboard Mockup (looping conveyor animation) ---
+
+type Ticket = {
+	id: string;
+	subject: string;
+	assignee: string | null;
+	skill: "Billing" | "Technical" | "Onboarding";
+	confidence: number;
+	review: boolean;
+};
+
+const TICKET_POOL: Ticket[] = [
+	{ id: "T-1042", subject: "Cannot export CSV report",       assignee: "Priya K.", skill: "Billing",    confidence: 94, review: false },
+	{ id: "T-1043", subject: "API timeout on batch endpoint",  assignee: "Omar B.",  skill: "Technical",  confidence: 88, review: false },
+	{ id: "T-1044", subject: "Refund request – order #8821",   assignee: null,       skill: "Billing",    confidence: 61, review: true  },
+	{ id: "T-1045", subject: "How do I add a team member?",    assignee: "Lena M.",  skill: "Onboarding", confidence: 97, review: false },
+	{ id: "T-1046", subject: "Webhook not firing on prod",     assignee: "Omar B.",  skill: "Technical",  confidence: 83, review: false },
+	{ id: "T-1047", subject: "Seat limit – billing threshold", assignee: "Priya K.", skill: "Billing",    confidence: 91, review: false },
+	{ id: "T-1048", subject: "SSO setup guide needed",         assignee: "Lena M.",  skill: "Onboarding", confidence: 76, review: false },
+	{ id: "T-1049", subject: "Dashboard slow for large orgs",  assignee: null,       skill: "Technical",  confidence: 58, review: true  },
+];
+
+const SKILL_COLORS: Record<string, string> = {
+	Billing:    "text-violet-400 bg-violet-400/10",
+	Technical:  "text-sky-400 bg-sky-400/10",
+	Onboarding: "text-teal-400 bg-teal-400/10",
+};
+
+// Timings (ms)
+const IDLE_DURATION    = 2200; // how long the queue rests between transitions
+const ROUTING_DURATION = 1500; // how long "Routing…" badge is shown before exit
+
+function TicketRow({ ticket, isRouting }: { ticket: Ticket; isRouting: boolean }) {
+	return (
+		<>
+			<div className="flex items-start justify-between gap-3">
+				{/* Left: id + skill + subject */}
+				<div className="flex-1 min-w-0">
+					<div className="flex items-center gap-2 mb-1">
+						<span className="font-mono text-[10px] text-white/30">{ticket.id}</span>
+						<span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${SKILL_COLORS[ticket.skill]}`}>
+							{ticket.skill}
+						</span>
+					</div>
+					<p className="text-xs text-white/80 truncate">{ticket.subject}</p>
+				</div>
+
+				{/* Right: status badge + assignee */}
+				<div className="flex flex-col items-end gap-1 shrink-0">
+					<AnimatePresence mode="wait" initial={false}>
+						{isRouting ? (
+							<motion.span
+								key="routing"
+								initial={{ opacity: 0, scale: 0.88 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0.88 }}
+								transition={{ duration: 0.18, ease: "easeInOut" }}
+								className="ticket-badge-routing"
+							>
+								<Loader2 size={9} className="animate-spin" />
+								Routing…
+							</motion.span>
+						) : (
+							<motion.span
+								key="status"
+								initial={{ opacity: 0, scale: 0.88 }}
+								animate={{ opacity: 1, scale: 1 }}
+								exit={{ opacity: 0, scale: 0.88 }}
+								transition={{ duration: 0.18, ease: "easeInOut" }}
+								className={`text-[10px] px-2 py-0.5 rounded border font-mono ${
+									ticket.review
+										? "text-amber-400 bg-amber-400/10 border-amber-400/20"
+										: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20"
+								}`}
+							>
+								{ticket.review ? "⚠ Review" : "✓ Routed"}
+							</motion.span>
+						)}
+					</AnimatePresence>
+
+					{ticket.assignee ? (
+						<span className="text-[10px] text-white/40">→ {ticket.assignee}</span>
+					) : (
+						<span className="text-[10px] text-amber-400/60">Awaiting review</span>
+					)}
+				</div>
+			</div>
+
+			{/* Confidence bar */}
+			<div className="mt-2 flex items-center gap-2">
+				<span className="text-[10px] text-white/30 font-mono w-16">Confidence</span>
+				<div className="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden">
+					<motion.div
+						initial={{ width: 0 }}
+						animate={{ width: `${ticket.confidence}%` }}
+						transition={{ duration: 0.55, ease: "easeOut", delay: 0.1 }}
+						className={`h-full rounded-full ${ticket.confidence >= 75 ? "bg-emerald-400" : "bg-amber-400"}`}
+					/>
+				</div>
+				<span className="text-[10px] font-mono text-white/40">{ticket.confidence}%</span>
+			</div>
+		</>
+	);
+}
+
+// Each slot in the visible queue gets a unique, never-reused instance key.
+// This prevents Framer Motion's layout engine from interpolating a
+// re-entering ticket from its previous DOM position.
+type QueueEntry = { ticket: Ticket; ikey: number };
+
 function DashboardMockup() {
-	const tickets = [
-		{
-			id: "T-1042",
-			subject: "Cannot export CSV report",
-			assignee: "Priya K.",
-			skill: "Billing",
-			confidence: 94,
-			status: "routed",
-		},
-		{
-			id: "T-1043",
-			subject: "API timeout on batch endpoint",
-			assignee: "Omar B.",
-			skill: "Technical",
-			confidence: 88,
-			status: "routed",
-		},
-		{
-			id: "T-1044",
-			subject: "Refund request – order #8821",
-			assignee: null,
-			skill: "Billing",
-			confidence: 61,
-			status: "review",
-		},
-		{
-			id: "T-1045",
-			subject: "How do I add a team member?",
-			assignee: "Lena M.",
-			skill: "Onboarding",
-			confidence: 97,
-			status: "routed",
-		},
-	];
+	const [queue, setQueue] = useState<QueueEntry[]>(() =>
+		TICKET_POOL.slice(0, 4).map((ticket, i) => ({ ticket, ikey: i })),
+	);
+	const [routingIkey, setRoutingIkey] = useState<number | null>(null);
+	const nextPoolIdx = useRef(4); // next index into TICKET_POOL
+	const nextIkey    = useRef(4); // next unique instance key to assign
+	const queueRef    = useRef(queue);
+	useEffect(() => { queueRef.current = queue; }, [queue]);
 
-	const statusColors: Record<string, string> = {
-		routed: "text-emerald-400 bg-emerald-400/10 border-emerald-400/20",
-		review: "text-amber-400 bg-amber-400/10 border-amber-400/20",
-	};
+	useEffect(() => {
+		let t1: ReturnType<typeof setTimeout>;
+		let t2: ReturnType<typeof setTimeout>;
 
-	const skillColors: Record<string, string> = {
-		Billing: "text-violet-400 bg-violet-400/10",
-		Technical: "text-sky-400 bg-sky-400/10",
-		Onboarding: "text-teal-400 bg-teal-400/10",
-	};
+		const cycle = () => {
+			// Step 1 – light up "Routing…" on current top entry
+			const top = queueRef.current[0];
+			if (!top) return;
+			setRoutingIkey(top.ikey);
+
+			// Step 2 – after routing badge has shown, swap the queue
+			t2 = setTimeout(() => {
+				setRoutingIkey(null);
+				setQueue((prev) => {
+					const nextTicket = TICKET_POOL[nextPoolIdx.current % TICKET_POOL.length];
+					const newEntry: QueueEntry = { ticket: nextTicket, ikey: nextIkey.current };
+					nextPoolIdx.current += 1;
+					nextIkey.current    += 1;
+					return [...prev.slice(1), newEntry];
+				});
+
+				// Step 3 – idle pause, then repeat
+				t1 = setTimeout(cycle, IDLE_DURATION);
+			}, ROUTING_DURATION);
+		};
+
+		// First cycle fires after a brief initial pause
+		t1 = setTimeout(cycle, 1400);
+		return () => { clearTimeout(t1); clearTimeout(t2); };
+	}, []);
 
 	return (
 		<div className="mockup-shell w-full max-w-xl">
@@ -111,14 +215,13 @@ function DashboardMockup() {
 					<span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
 					<span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
 				</div>
-				<span className="text-xs text-white/30 font-mono">
-					fylo — ticket queue
-				</span>
+				<span className="text-xs text-white/30 font-mono">fylo — ticket queue</span>
 				<div />
 			</div>
 
-			{/* Queue header */}
+			{/* Body */}
 			<div className="mockup-body">
+				{/* Queue header */}
 				<div className="flex items-center justify-between mb-3">
 					<div className="flex items-center gap-2">
 						<Inbox size={13} className="text-white/40" />
@@ -126,69 +229,50 @@ function DashboardMockup() {
 							Incoming Queue
 						</span>
 					</div>
-					<span className="text-xs text-white/30">4 tickets</span>
+					<AnimatePresence mode="wait" initial={false}>
+						{routingIkey !== null ? (
+							<motion.span
+								key="processing"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.2 }}
+								className="text-xs text-violet-400/70 font-mono"
+							>
+								Processing…
+							</motion.span>
+						) : (
+							<motion.span
+								key="count"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.2 }}
+								className="text-xs text-white/30"
+							>
+								4 tickets
+							</motion.span>
+						)}
+					</AnimatePresence>
 				</div>
 
-				{/* Tickets */}
-				<div className="space-y-2">
-					{tickets.map((t, i) => (
-						<motion.div
-							key={t.id}
-							initial={{ opacity: 0, x: 12 }}
-							animate={{ opacity: 1, x: 0 }}
-							transition={{ delay: 0.3 + i * 0.12, duration: 0.4, ease: "easeOut" }}
-							className="ticket-row"
-						>
-							<div className="flex items-start justify-between gap-3">
-								<div className="flex-1 min-w-0">
-									<div className="flex items-center gap-2 mb-1">
-										<span className="font-mono text-[10px] text-white/30">
-											{t.id}
-										</span>
-										<span
-											className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${skillColors[t.skill]}`}
-										>
-											{t.skill}
-										</span>
-									</div>
-									<p className="text-xs text-white/80 truncate">{t.subject}</p>
-								</div>
-								<div className="flex flex-col items-end gap-1 shrink-0">
-									<span
-										className={`text-[10px] px-2 py-0.5 rounded border font-mono ${statusColors[t.status]}`}
-									>
-										{t.status === "review" ? "⚠ Review" : "✓ Routed"}
-									</span>
-									{t.assignee ? (
-										<span className="text-[10px] text-white/40">
-											→ {t.assignee}
-										</span>
-									) : (
-										<span className="text-[10px] text-amber-400/60">
-											Awaiting review
-										</span>
-									)}
-								</div>
-							</div>
-							{/* Confidence bar */}
-							<div className="mt-2 flex items-center gap-2">
-								<span className="text-[10px] text-white/30 font-mono w-16">
-									Confidence
-								</span>
-								<div className="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden">
-									<motion.div
-										initial={{ width: 0 }}
-										animate={{ width: `${t.confidence}%` }}
-										transition={{ delay: 0.5 + i * 0.12, duration: 0.6 }}
-										className={`h-full rounded-full ${t.confidence >= 80 ? "bg-emerald-400" : "bg-amber-400"}`}
-									/>
-								</div>
-								<span className="text-[10px] font-mono text-white/40">
-									{t.confidence}%
-								</span>
-							</div>
-						</motion.div>
-					))}
+				{/* ── The looping ticket list ── */}
+				<div className="flex flex-col gap-2 overflow-hidden">
+					<AnimatePresence mode="popLayout" initial={false}>
+						{queue.map((entry) => (
+							<motion.div
+								key={entry.ikey}
+								layout
+								initial={{ opacity: 0, y: 18 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, x: 72, transition: { duration: 0.36, ease: "easeInOut" } }}
+								transition={{ duration: 0.38, ease: "easeInOut" }}
+								className="ticket-row"
+							>
+								<TicketRow ticket={entry.ticket} isRouting={routingIkey === entry.ikey} />
+							</motion.div>
+						))}
+					</AnimatePresence>
 				</div>
 
 				{/* Pod summary */}
@@ -206,9 +290,7 @@ function DashboardMockup() {
 							{ name: "Lena M.", load: 1, max: 5 },
 						].map((agent) => (
 							<div key={agent.name} className="agent-pod">
-								<div className="text-[10px] text-white/50 mb-1 truncate">
-									{agent.name}
-								</div>
+								<div className="text-[10px] text-white/50 mb-1 truncate">{agent.name}</div>
 								<div className="flex gap-0.5">
 									{Array.from({ length: agent.max }).map((_, j) => (
 										<div

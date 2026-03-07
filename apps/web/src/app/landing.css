@@ -236,6 +236,35 @@ body:has(.landing-page) {
 	padding: 0.4rem 0.5rem;
 }
 
+/* "Routing…" badge shown on the top ticket while it is being processed */
+.landing-page .ticket-badge-routing {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 10px;
+	font-weight: 600;
+	padding: 0.2rem 0.5rem;
+	border-radius: 4px;
+	border: 1px solid rgba(167, 139, 250, 0.35);
+	background: rgba(167, 139, 250, 0.12);
+	color: rgba(167, 139, 250, 0.9);
+	/* subtle shimmer sweep */
+	background-image: linear-gradient(
+		90deg,
+		transparent 0%,
+		rgba(167, 139, 250, 0.08) 50%,
+		transparent 100%
+	);
+	background-size: 200% 100%;
+	animation: badge-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes badge-shimmer {
+	0%   { background-position: 200% center; }
+	100% { background-position: -200% center; }
+}
+
 /* ═══════════════ SOCIAL PROOF ═══════════════ */
 
 .landing-page .logo-pill {
