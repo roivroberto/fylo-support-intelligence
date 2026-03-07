@@ -8,3 +8,22 @@ export const authClient = createAuthClient({
 });
 
 export type AuthSession = typeof authClient.$Infer.Session;
+
+type AuthClientResponse = {
+	error?: {
+		message?: string | null;
+	} | null;
+} | null;
+
+export function getAuthErrorMessage(
+	response: AuthClientResponse,
+	fallbackMessage: string,
+) {
+	const message = response?.error?.message;
+
+	if (typeof message !== "string" || message.trim().length === 0) {
+		return fallbackMessage;
+	}
+
+	return message;
+}

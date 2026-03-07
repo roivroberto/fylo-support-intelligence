@@ -128,6 +128,19 @@ Then open:
 
 - `http://localhost:3001/queue`
 
+### Auth routes and protected views
+
+- User auth pages:
+  - `http://localhost:3001/sign-in`
+  - `http://localhost:3001/sign-up`
+- Protected routes:
+  - `/visibility`
+  - `/settings/policy`
+  - `/tickets/<ticketId>`
+- If a user is signed out and visits a protected route, the proxy redirects to:
+  - `/sign-in?next=<requested-path>`
+- After successful sign-in/sign-up, the app sends the user to the safe `next` path.
+
 ## 5) Tests and verification
 
 ### Unit/integration tests (Vitest workspace)

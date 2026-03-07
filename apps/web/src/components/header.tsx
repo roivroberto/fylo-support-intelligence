@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 
-import { authClient } from "@/lib/auth-client";
-import { normalizeSessionUser } from "@/lib/current-user";
+import { authClient } from "../lib/auth-client";
+import { normalizeSessionUser } from "../lib/current-user";
 
 export default function Header() {
 	const { data: session, isPending } = authClient.useSession();
@@ -39,7 +39,22 @@ export default function Header() {
 						>
 							Sign out
 						</button>
-					) : null}
+					) : (
+						<>
+							<Link
+								href="/sign-in"
+								className="text-muted-foreground transition-colors hover:text-foreground"
+							>
+								Sign in
+							</Link>
+							<Link
+								href="/sign-up"
+								className="text-muted-foreground transition-colors hover:text-foreground"
+							>
+								Sign up
+							</Link>
+						</>
+					)}
 				</div>
 			</div>
 			<hr />

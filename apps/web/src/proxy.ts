@@ -3,12 +3,28 @@ import { NextResponse } from "next/server";
 
 import { AUTH_SESSION_HEADER, hasAuthSessionCookie } from "./lib/auth-session";
 
-export function proxy(request: NextRequest) {
-	const requestHeaders = new Headers(request.headers);
-	requestHeaders.set(
-		AUTH_SESSION_HEADER,
-		hasAuthSessionCookie(request.headers.get("cookie")) ? "1" : "0",
+const PROTECTED_ROUTE_PREFIXES = ["/visibility", "/settings", "/tickets"];
+
+function isProtectedRoute(pathname: string) {
+	return PROTECTED_ROUTE_PREFIXES.some(
+		(prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
 	);
+}
+
+export function proxy(request: NextRequest) {
+	const isAuthenticated = hasAuthSessionCookie(request.headers.get("cookie"));
+	const pathname = request.nextUrl.pathname;
+	const search = request.nextUrl.search;
+
+	if (!isAuthenticated && isProtectedRoute(pathname)) {
+		const signInUrl = new URL("/sign-in", request.url);
+		signInUrl.searchParams.set("next", `${pathname}${search}`);
+
+		return NextResponse.redirect(signInUrl);
+	}
+
+	const requestHeaders = new Headers(request.headers);
+	requestHeaders.set(AUTH_SESSION_HEADER, isAuthenticated ? "1" : "0");
 
 	return NextResponse.next({
 		request: {
