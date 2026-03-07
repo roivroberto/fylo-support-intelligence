@@ -1,0 +1,3 @@
+{
+  "extends": "@Fylo/config/tsconfig.base.json"
+}
