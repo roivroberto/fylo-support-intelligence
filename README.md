@@ -76,7 +76,7 @@ bunx convex env set SUPPORT_INBOX_EMAIL support@fyloph.com
 
 Notes:
 
-- `AI_PROVIDER_API_KEY` enables provider-backed draft generation through Gemini. The current default model is `gemini-2.5-flash`.
+- `AI_PROVIDER_API_KEY` enables provider-backed draft generation through Google hosted models. The current default model is `gemma-3-27b-it`.
 - If `AI_PROVIDER_API_KEY` is missing or the provider response is unusable, the draft path falls back to deterministic copy and persists the fallback metadata.
 - The app runs on port `3001` in dev (`apps/web/package.json`).
 
