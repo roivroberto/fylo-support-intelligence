@@ -33,6 +33,7 @@ Come prepared to answer only this:
 - confirm the 3-screen MVP
 - decide what is explicitly out of scope
 - decide whether live AI is shown at all
+- decide whether live inbox sync or LinkedIn bootstrap is parked
 
 ### 0:30–0:38 — Pressure-test the pitch risk
 - ask what makes this look like generic helpdesk software
@@ -75,9 +76,11 @@ Ask and answer these in order:
 5. Is worker-side value strong enough to say directly, or does it stay a hypothesis?
 6. Is the MVP strictly the 3-screen deterministic flow?
 7. Is live AI removed from the critical path?
-8. What one thing would make judges say, "This is just another helpdesk"?
-9. What exact claims are banned from the pitch?
-10. Who owns copy lock, seed data quality, routing logic, UI, and backup demo?
+8. Are live inbox sync and LinkedIn bootstrap both out of MVP?
+9. Do we lock the confidence thresholds now?
+10. What one thing would make judges say, "This is just another helpdesk"?
+11. What exact claims are banned from the pitch?
+12. Who owns copy lock, seed data quality, routing logic, UI, and backup demo?
 
 ## Disagreement resolution rule
 Use this order:
@@ -101,6 +104,7 @@ Park these automatically unless the MVP is already stable:
 - policy toggles
 - live integrations
 - auth, database, multi-user state
+- LinkedIn OAuth / skill extraction
 - fairness scoring
 - ownership / co-op mechanisms
 - branding debates that do not affect comprehension
