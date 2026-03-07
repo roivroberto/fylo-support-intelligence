@@ -34,7 +34,7 @@ jobs:
       - name: Run unit tests
         run: bun test
 
-      - name: Run pilot smoke test
+      - name: Run CI-safe pilot smoke test
         env:
           NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3001
           NEXT_PUBLIC_CONVEX_URL: https://example.convex.cloud

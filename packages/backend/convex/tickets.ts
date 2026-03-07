@@ -4,6 +4,7 @@ import {
 	queryGeneric as query,
 } from "convex/server";
 import { ConvexError, v } from "convex/values";
+import { authComponent } from "./auth";
 import type {
 	ClassifyTicketInput,
 	ClassifyTicketResult,
@@ -70,7 +71,6 @@ export function canAccessOperationalCorePilot(memberships: unknown[]) {
 }
 
 async function requireCurrentUser(ctx: any) {
-	const { authComponent } = await import("./auth");
 	const user = await authComponent.getAuthUser(ctx);
 
 	if (!user) {
