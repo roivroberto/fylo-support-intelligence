@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { buildApprovedReplyRequest, sendApprovedReply } from "../send-reply";
+import { buildApprovedReplyRequest, sendApprovedReply } from "../send_reply";
 
 describe("sendApprovedReply", () => {
 	it("records outbound message id when resend succeeds", async () => {
@@ -36,8 +36,8 @@ describe("sendApprovedReply", () => {
 });
 
 describe("buildApprovedReplyRequest", () => {
-	it("uses stored ticket destination and subject", () => {
-		const result = buildApprovedReplyRequest({
+	it("uses stored ticket destination and subject", async () => {
+		const result = await buildApprovedReplyRequest({
 			ticket: {
 				_id: "ticket_1",
 				requesterEmail: "customer@example.com",
@@ -55,8 +55,8 @@ describe("buildApprovedReplyRequest", () => {
 		);
 	});
 
-	it("builds a bounded newline-safe stable idempotency key for multiline drafts", () => {
-		const first = buildApprovedReplyRequest({
+	it("builds a bounded newline-safe stable idempotency key for multiline drafts", async () => {
+		const first = await buildApprovedReplyRequest({
 			ticket: {
 				_id: "ticket_1",
 				requesterEmail: "customer@example.com",
@@ -66,7 +66,7 @@ describe("buildApprovedReplyRequest", () => {
 			},
 			draftReply: "Hello there\n\nLine two\nLine three",
 		});
-		const second = buildApprovedReplyRequest({
+		const second = await buildApprovedReplyRequest({
 			ticket: {
 				_id: "ticket_1",
 				requesterEmail: "customer@example.com",
@@ -82,8 +82,8 @@ describe("buildApprovedReplyRequest", () => {
 		expect(first.idempotencyKey.length).toBeLessThanOrEqual(128);
 	});
 
-	it("rejects mismatched destination metadata", () => {
-		expect(() =>
+	it("rejects mismatched destination metadata", async () => {
+		await expect(
 			buildApprovedReplyRequest({
 				ticket: {
 					requesterEmail: "customer@example.com",
@@ -94,11 +94,11 @@ describe("buildApprovedReplyRequest", () => {
 				draftReply: "Hello there",
 				requestedTo: "other@example.com",
 			}),
-		).toThrow("Reply destination mismatch");
+		).rejects.toThrow("Reply destination mismatch");
 	});
 
-	it("rejects tickets that are not approved for sending", () => {
-		expect(() =>
+	it("rejects tickets that are not approved for sending", async () => {
+		await expect(
 			buildApprovedReplyRequest({
 				ticket: {
 					requesterEmail: "customer@example.com",
@@ -108,6 +108,6 @@ describe("buildApprovedReplyRequest", () => {
 				},
 				draftReply: "Hello there",
 			}),
-		).toThrow("Ticket is not approved for sending");
+		).rejects.toThrow("Ticket is not approved for sending");
 	});
 });

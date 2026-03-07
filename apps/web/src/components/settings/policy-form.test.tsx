@@ -18,7 +18,7 @@ vi.mock("convex/react", () => ({
 	useQuery,
 }));
 
-vi.mock("../../../../../packages/backend/convex/policies-reference", () => ({
+vi.mock("../../../../../packages/backend/convex/policies_reference", () => ({
 	getCurrentPolicyReference: {},
 	saveCurrentPolicyReference: {},
 }));

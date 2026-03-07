@@ -1,7 +1,7 @@
-import { createHash } from "node:crypto";
+import { sha256Hex } from "./lib/hash";
 
-export function createPayloadDigest(payload: string) {
-	return createHash("sha256").update(payload).digest("hex").slice(0, 16);
+export async function createPayloadDigest(payload: string) {
+	return (await sha256Hex(payload)).slice(0, 16);
 }
 
 export async function recordIngestFailure(

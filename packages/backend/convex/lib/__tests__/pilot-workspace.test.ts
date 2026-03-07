@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
 	assertPilotWorkspaceCanBeCreated,
 	requireSinglePilotWorkspaceMembership,
-} from "../pilot-workspace";
+} from "../pilot_workspace";
 
 describe("requireSinglePilotWorkspaceMembership", () => {
 	it("returns the only workspace membership in single-workspace mode", () => {

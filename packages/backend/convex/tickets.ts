@@ -7,11 +7,11 @@ import { ConvexError, v } from "convex/values";
 import type {
 	ClassifyTicketInput,
 	ClassifyTicketResult,
-} from "./ai/classify-ticket";
-import { FALLBACK_TICKET_CLASSIFICATION } from "./lib/classification-schema";
-import type { ApplyLeadReviewDecisionResult } from "./lib/review-workflow";
+} from "./ai/classify_ticket";
+import { FALLBACK_TICKET_CLASSIFICATION } from "./lib/classification_schema";
+import type { ApplyLeadReviewDecisionResult } from "./lib/review_workflow";
 import type { RoutingDecision } from "./lib/routing/types";
-import type { ReviewState } from "./lib/routing-thresholds";
+import type { ReviewState } from "./lib/routing_thresholds";
 
 export const INBOUND_TICKET_SOURCE = "resend" as const;
 
@@ -57,7 +57,7 @@ export const classifyTicketReference = makeFunctionReference<
 	"action",
 	ClassifyTicketInput,
 	ClassifyTicketResult
->("ai/classify-ticket:classifyTicket");
+>("ai/classify_ticket:classifyTicket");
 
 export const getTicketDetailReference = makeFunctionReference<
 	"query",

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { classifyTicketWithFallback } from "../../ai/classify-ticket";
+import { classifyTicketWithFallback } from "../../ai/classify_ticket";
 import {
 	buildTicketClassificationInput,
 	INBOUND_TICKET_SOURCE,
 } from "../../tickets";
-import { classificationSchema } from "../classification-schema";
+import { classificationSchema } from "../classification_schema";
 
 describe("classificationSchema", () => {
 	it("rejects confidence above 1", () => {

@@ -6,8 +6,8 @@ import {
 import { ConvexError, v } from "convex/values";
 
 import { authComponent } from "./auth";
-import { createResendClientFromEnv } from "./lib/resend-client";
-import { buildApprovedReplyRequest, sendApprovedReply } from "./lib/send-reply";
+import { createResendClientFromEnv } from "./lib/resend_client";
+import { buildApprovedReplyRequest, sendApprovedReply } from "./lib/send_reply";
 import {
 	finalizeOutboundMessageReference,
 	OUTBOUND_MESSAGE_SENT,
@@ -102,7 +102,7 @@ export const sendApproved = action({
 			throw new ConvexError("Ticket not found");
 		}
 
-		const reply = buildApprovedReplyRequest({
+		const reply = await buildApprovedReplyRequest({
 			ticket,
 			draftReply: args.draftReply,
 			requestedTo: args.to,

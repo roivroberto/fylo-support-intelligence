@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
 	getCurrentPolicyReference,
 	saveCurrentPolicyReference,
-} from "../../../../../packages/backend/convex/policies-reference";
+} from "../../../../../packages/backend/convex/policies_reference";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";

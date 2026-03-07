@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 
-import { getTeamVisibilityReference } from "../../../../../../packages/backend/convex/visibility-reference";
+import { getTeamVisibilityReference } from "../../../../../../packages/backend/convex/visibility_reference";
 import {
 	type WorkloadCard,
 	WorkloadCards,

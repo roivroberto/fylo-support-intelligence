@@ -1,5 +1,5 @@
-import { computeReviewState } from "../routing-thresholds";
-import { scoreCandidate } from "./score-candidate";
+import { computeReviewState } from "../routing_thresholds";
+import { scoreCandidate } from "./score_candidate";
 import type { RouteTicketInput, RoutingDecision } from "./types";
 
 type ScoredCandidate = RoutingDecision["scoredCandidates"][number];

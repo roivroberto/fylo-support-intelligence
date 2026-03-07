@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
 	createResendIdempotencyKey,
 	verifyResendSignature,
-} from "../resend-signature";
+} from "../resend_signature";
 
 describe("verifyResendSignature", () => {
 	const secret = "whsec_dGVzdF9zZWNyZXQ=";
@@ -60,21 +60,21 @@ describe("verifyResendSignature", () => {
 });
 
 describe("createResendIdempotencyKey", () => {
-	it("prefers the delivery id when present", () => {
-		expect(createResendIdempotencyKey("msg_123", "evt_123", "{}")).toBe(
+	it("prefers the delivery id when present", async () => {
+		expect(await createResendIdempotencyKey("msg_123", "evt_123", "{}")).toBe(
 			"resend:delivery:msg_123",
 		);
 	});
 
-	it("falls back to the webhook event id when delivery id is missing", () => {
-		expect(createResendIdempotencyKey("", "evt_123", "{}")).toBe(
+	it("falls back to the webhook event id when delivery id is missing", async () => {
+		expect(await createResendIdempotencyKey("", "evt_123", "{}")).toBe(
 			"resend:event:evt_123",
 		);
 	});
 
-	it("falls back to a stable hash of the raw body", () => {
-		const one = createResendIdempotencyKey("", "", '{"hello":"world"}');
-		const two = createResendIdempotencyKey("", "", '{"hello":"world"}');
+	it("falls back to a stable hash of the raw body", async () => {
+		const one = await createResendIdempotencyKey("", "", '{"hello":"world"}');
+		const two = await createResendIdempotencyKey("", "", '{"hello":"world"}');
 
 		expect(one).toBe(two);
 		expect(one.startsWith("resend:body:")).toBe(true);

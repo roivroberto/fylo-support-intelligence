@@ -1,6 +1,6 @@
 import { internalMutationGeneric as internalMutation } from "convex/server";
 import { v } from "convex/values";
-import { routeTicket } from "./lib/routing/route-ticket";
+import { routeTicket } from "./lib/routing/route_ticket";
 import { buildTicketRoutingPatch } from "./tickets";
 
 export const applyRoutingDecision = internalMutation({

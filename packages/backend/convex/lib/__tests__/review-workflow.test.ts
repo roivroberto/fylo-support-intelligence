@@ -6,7 +6,7 @@ import {
 	buildLeadReviewTicketPatch,
 	canApplyLeadReview,
 	canApplyRoutingDecision,
-} from "../review-workflow";
+} from "../review_workflow";
 
 describe("applyLeadReviewDecision", () => {
 	it("marks reviewed ticket as assigned when approved", () => {

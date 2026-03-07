@@ -8,7 +8,7 @@ vi.mock("convex/react", () => ({
 	useAction: () => sendApprovedMock,
 }));
 
-vi.mock("../../../../../../packages/backend/convex/replies-reference", () => ({
+vi.mock("../../../../../../packages/backend/convex/replies_reference", () => ({
 	sendApprovedReplyReference: {},
 }));
 

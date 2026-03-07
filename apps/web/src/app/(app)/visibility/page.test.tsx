@@ -9,7 +9,7 @@ vi.mock("convex/react", () => ({
 }));
 
 vi.mock(
-	"../../../../../../packages/backend/convex/visibility-reference",
+	"../../../../../../packages/backend/convex/visibility_reference",
 	() => ({
 		getTeamVisibilityReference: {},
 	}),

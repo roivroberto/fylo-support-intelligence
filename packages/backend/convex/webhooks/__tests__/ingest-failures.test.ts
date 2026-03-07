@@ -3,14 +3,14 @@ import { describe, expect, it } from "vitest";
 import {
 	createPayloadDigest,
 	recordIngestFailure,
-} from "../../ingest-failures";
+} from "../../ingest_failures";
 
 describe("ingest failure helpers", () => {
-	it("builds a stable payload digest", () => {
-		const digest = createPayloadDigest('{"id":"evt_123"}');
+	it("builds a stable payload digest", async () => {
+		const digest = await createPayloadDigest('{"id":"evt_123"}');
 
 		expect(digest).toMatch(/^[a-f0-9]{16}$/);
-		expect(createPayloadDigest('{"id":"evt_123"}')).toBe(digest);
+		expect(await createPayloadDigest('{"id":"evt_123"}')).toBe(digest);
 	});
 
 	it("returns a recorded failure payload", async () => {

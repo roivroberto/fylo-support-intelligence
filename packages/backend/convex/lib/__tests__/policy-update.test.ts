@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { sanitizePolicyInput } from "../policy-update";
+import { sanitizePolicyInput } from "../policy_update";
 
 describe("sanitizePolicyInput", () => {
 	it("clamps auto-assign threshold to max 0.95", () => {

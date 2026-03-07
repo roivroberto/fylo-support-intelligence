@@ -19,14 +19,14 @@ vi.mock("../../../../components/ticket/ticket-detail", () => ({
 }));
 
 vi.mock(
-	"../../../../../../../packages/backend/convex/ticket-detail-reference",
+	"../../../../../../../packages/backend/convex/ticket_detail_reference",
 	() => ({
 		getTicketDetailReference: {},
 	}),
 );
 
 vi.mock(
-	"../../../../../../../packages/backend/convex/drafts-reference",
+	"../../../../../../../packages/backend/convex/drafts_reference",
 	() => ({
 		getTicketDraftReference: {},
 	}),

@@ -4,7 +4,7 @@ import {
 	generateDeterministicDraftReply,
 	generateDraftReplyWithFallback,
 	getDraftGeneratedLabel,
-} from "./ai/generate-draft-reply";
+} from "./ai/generate_draft_reply";
 import { authComponent } from "./auth";
 import { canAccessOperationalCorePilot } from "./tickets";
 

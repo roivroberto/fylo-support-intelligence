@@ -1,10 +1,10 @@
 import { httpActionGeneric, makeFunctionReference } from "convex/server";
-import { createPayloadDigest, recordIngestFailure } from "../ingest-failures";
+import { createPayloadDigest, recordIngestFailure } from "../ingest_failures";
 import {
 	createResendIdempotencyKey,
 	type ResendSignatureHeaders,
 	verifyResendSignature,
-} from "../lib/resend-signature";
+} from "../lib/resend_signature";
 import { INBOUND_MESSAGE_SOURCE, type InboundMessageSeed } from "../messages";
 import { INBOUND_TICKET_SOURCE } from "../tickets";
 
@@ -115,7 +115,7 @@ export function parseResendInboundPayload(
 
 export const resendInboundWebhook = httpAction(async (ctx, request) => {
 	const rawBody = await request.text();
-	const payloadDigest = createPayloadDigest(rawBody);
+	const payloadDigest = await createPayloadDigest(rawBody);
 	const signatureHeaders = getSignatureHeaders(request);
 	const secret = process.env.RESEND_WEBHOOK_SECRET ?? "";
 	const isValid = await verifyResendSignature(
@@ -155,7 +155,7 @@ export const resendInboundWebhook = httpAction(async (ctx, request) => {
 		);
 	}
 
-	const idempotencyKey = createResendIdempotencyKey(
+	const idempotencyKey = await createResendIdempotencyKey(
 		signatureHeaders.svixId,
 		parsedPayload.externalId,
 		rawBody,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { routeTicket } from "../route-ticket";
+import { routeTicket } from "../route_ticket";
 
 describe("routeTicket", () => {
 	it("prefers primary skill match over lower-load secondary", () => {

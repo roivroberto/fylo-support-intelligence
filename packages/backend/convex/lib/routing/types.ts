@@ -1,4 +1,4 @@
-import type { ReviewState } from "../routing-thresholds";
+import type { ReviewState } from "../routing_thresholds";
 
 export type RequestType = string;
 

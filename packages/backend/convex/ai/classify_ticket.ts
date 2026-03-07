@@ -4,7 +4,7 @@ import {
 	createFallbackTicketClassification,
 	parseTicketClassification,
 	type TicketClassification,
-} from "../lib/classification-schema";
+} from "../lib/classification_schema";
 
 export type ClassifyTicketInput = {
 	ticketId: string;

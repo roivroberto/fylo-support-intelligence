@@ -1,6 +1,6 @@
 import { buildLeadReviewPatch, type TicketLeadReviewPatch } from "../tickets";
 import type { WorkspaceRole } from "./authz";
-import type { ReviewState } from "./routing-thresholds";
+import type { ReviewState } from "./routing_thresholds";
 
 export type LeadReviewAction = "approve" | "reassign";
 

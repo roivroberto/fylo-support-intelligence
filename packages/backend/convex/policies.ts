@@ -7,12 +7,12 @@ import { ConvexError, v } from "convex/values";
 
 import { authComponent } from "./auth";
 import { canManagePolicy } from "./lib/authz";
-import { requireSinglePilotWorkspaceMembership } from "./lib/pilot-workspace";
+import { requireSinglePilotWorkspaceMembership } from "./lib/pilot_workspace";
 import {
 	DEFAULT_ROUTING_POLICY,
 	type RoutingPolicyInput,
 	sanitizePolicyInput,
-} from "./lib/policy-update";
+} from "./lib/policy_update";
 
 const ROUTING_POLICY_SLUG = "routing-policy";
 const ROUTING_POLICY_TITLE = "Routing policy";

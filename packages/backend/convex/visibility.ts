@@ -2,7 +2,7 @@ import { makeFunctionReference, queryGeneric as query } from "convex/server";
 import { ConvexError } from "convex/values";
 
 import { authComponent } from "./auth";
-import { requireSinglePilotWorkspaceMembership } from "./lib/pilot-workspace";
+import { requireSinglePilotWorkspaceMembership } from "./lib/pilot_workspace";
 
 export type VisibilityCard = {
 	id: string;

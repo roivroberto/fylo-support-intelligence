@@ -1,4 +1,4 @@
-import type { ApprovedReplyPayload, ApprovedReplySender } from "./send-reply";
+import type { ApprovedReplyPayload, ApprovedReplySender } from "./send_reply";
 
 type ResendClientOptions = {
 	apiKey: string;

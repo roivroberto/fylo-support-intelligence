@@ -5,7 +5,7 @@ import {
 import { ConvexError, v } from "convex/values";
 
 import { authComponent } from "./auth";
-import { assertPilotWorkspaceCanBeCreated } from "./lib/pilot-workspace";
+import { assertPilotWorkspaceCanBeCreated } from "./lib/pilot_workspace";
 
 function isDefined<T>(value: T | null): value is T {
 	return value !== null;

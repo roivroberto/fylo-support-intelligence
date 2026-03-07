@@ -36,7 +36,7 @@ class InMemoryMessageStore implements MessageStore<string> {
 	}
 }
 
-class InMemoryTicketStore implements TicketStore<string> {
+class InMemoryTicketStore implements TicketStore<string, string> {
 	private nextId = 1;
 	private readonly tickets = new Map<
 		string,

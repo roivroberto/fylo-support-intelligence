@@ -4,7 +4,7 @@ import {
 	generateDeterministicDraftReply,
 	generateDraftReplyWithFallback,
 	getDraftGeneratedLabel,
-} from "../../ai/generate-draft-reply";
+} from "../../ai/generate_draft_reply";
 
 describe("generateDraftReplyWithFallback", () => {
 	it("returns generated draft content without fallback when the generator is valid", async () => {

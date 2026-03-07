@@ -4,7 +4,7 @@ import { authComponent } from "./auth";
 import {
 	buildLeadReviewTicketPatch,
 	canApplyLeadReview,
-} from "./lib/review-workflow";
+} from "./lib/review_workflow";
 
 const leadReviewActionValidator = v.union(
 	v.literal("approve"),

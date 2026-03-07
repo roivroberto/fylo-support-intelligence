@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { draftReplySchema } from "../draft-schema";
+import { draftReplySchema } from "../draft_schema";
 
 describe("draftReplySchema", () => {
 	it("requires summary and draft text", () => {

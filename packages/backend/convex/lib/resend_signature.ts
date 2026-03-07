@@ -1,5 +1,5 @@
-import { createHash } from "node:crypto";
 import { Webhook } from "svix";
+import { sha256Hex } from "./hash";
 
 export type ResendSignatureHeaders = {
 	svixId: string;
@@ -33,7 +33,7 @@ export async function verifyResendSignature(
 	}
 }
 
-export function createResendIdempotencyKey(
+export async function createResendIdempotencyKey(
 	deliveryId: string,
 	eventId: string,
 	rawBody: string,
@@ -46,6 +46,6 @@ export function createResendIdempotencyKey(
 		return `resend:event:${eventId}`;
 	}
 
-	const digest = createHash("sha256").update(rawBody).digest("hex");
+	const digest = await sha256Hex(rawBody);
 	return `resend:body:${digest}`;
 }

@@ -3,7 +3,7 @@
 import { useAction } from "convex/react";
 import React, { useState } from "react";
 
-import { sendApprovedReplyReference } from "../../../../../packages/backend/convex/replies-reference";
+import { sendApprovedReplyReference } from "../../../../../packages/backend/convex/replies_reference";
 
 type DraftReplyPanelProps = {
 	ticketId: string;

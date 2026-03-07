@@ -5,7 +5,7 @@ import {
 	createFallbackDraftReply,
 	type DraftReply,
 	parseDraftReply,
-} from "../lib/draft-schema";
+} from "../lib/draft_schema";
 
 export type GenerateDraftReplyInput = {
 	ticketId: string;

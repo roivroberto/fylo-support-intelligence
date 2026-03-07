@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computeReviewState } from "../routing-thresholds";
+import { computeReviewState } from "../routing_thresholds";
 
 describe("computeReviewState", () => {
 	it("routes <0.5 confidence to manual triage", () => {

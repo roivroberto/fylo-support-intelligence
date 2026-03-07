@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { sha256Hex } from "./hash";
 
 export type ApprovedReplyPayload = {
 	to: string;
@@ -22,7 +22,7 @@ export async function sendApprovedReply(
 	};
 }
 
-export function buildApprovedReplyRequest(input: {
+export async function buildApprovedReplyRequest(input: {
 	ticket: {
 		_id?: string;
 		requesterEmail?: string | null;
@@ -69,7 +69,7 @@ export function buildApprovedReplyRequest(input: {
 		subject,
 		text,
 		html: formatReplyHtml(text),
-		idempotencyKey: buildOutboundIdempotencyKey({
+		idempotencyKey: await buildOutboundIdempotencyKey({
 			ticketId: input.ticket._id ?? "ticket",
 			to,
 			subject,
@@ -78,21 +78,19 @@ export function buildApprovedReplyRequest(input: {
 	};
 }
 
-function buildOutboundIdempotencyKey(input: {
+async function buildOutboundIdempotencyKey(input: {
 	ticketId: string;
 	to: string;
 	subject: string;
 	text: string;
 }) {
-	const digest = createHash("sha256")
-		.update(
-			JSON.stringify({
-				to: input.to,
-				subject: input.subject,
-				text: input.text,
-			}),
-		)
-		.digest("hex");
+	const digest = await sha256Hex(
+		JSON.stringify({
+			to: input.to,
+			subject: input.subject,
+			text: input.text,
+		}),
+	);
 
 	return `resend:outbound:${input.ticketId}:${digest}`;
 }

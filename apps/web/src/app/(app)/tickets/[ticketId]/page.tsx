@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { getTicketDraftReference } from "../../../../../../../packages/backend/convex/drafts-reference";
-import { getTicketDetailReference } from "../../../../../../../packages/backend/convex/ticket-detail-reference";
+import { getTicketDraftReference } from "../../../../../../../packages/backend/convex/drafts_reference";
+import { getTicketDetailReference } from "../../../../../../../packages/backend/convex/ticket_detail_reference";
 import { TicketDetail } from "../../../../components/ticket/ticket-detail";
 import { fetchAuthQuery } from "../../../../lib/auth-server";
 
