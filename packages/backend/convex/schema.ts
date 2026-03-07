@@ -72,6 +72,25 @@ export default defineSchema({
 		authorLabel: v.string(),
 		createdAt: v.number(),
 	}).index("by_ticketId", ["ticketId"]),
+	draftReplies: defineTable({
+		ticketId: v.id("tickets"),
+		summary: v.string(),
+		recommendedAction: v.string(),
+		draftReply: v.string(),
+		generationStatus: v.optional(
+			v.union(v.literal("pending"), v.literal("ready")),
+		),
+		claimToken: v.optional(v.string()),
+		claimExpiresAt: v.optional(v.number()),
+		generationSource: v.union(v.literal("provider"), v.literal("deterministic")),
+		usedFallback: v.boolean(),
+		fallbackReason: v.union(
+			v.literal("generator_error"),
+			v.literal("invalid_schema"),
+			v.null(),
+		),
+		generatedAt: v.number(),
+	}).index("by_ticketId", ["ticketId"]),
 	tickets: defineTable({
 		source: v.literal("resend"),
 		externalId: v.string(),

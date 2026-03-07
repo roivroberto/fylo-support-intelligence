@@ -1,7 +1,8 @@
-import { mutationGeneric as mutation } from "convex/server";
+import { mutationGeneric as mutation, queryGeneric as query } from "convex/server";
 import { ConvexError, v } from "convex/values";
 
 import { authComponent } from "./auth";
+import { canAccessOperationalCorePilot } from "./tickets";
 
 const ROUTING_POLICY_SLUG = "routing-policy";
 const ROUTING_POLICY_TITLE = "Routing policy";
@@ -34,6 +35,18 @@ type SeededTicket = {
 	};
 };
 
+type OutboundMessageWorkspace = {
+	id: string;
+	deliveryStatus: string | null;
+	providerMessageId: string | null;
+	externalId: string | null;
+	to: string[];
+	from: string | null;
+	subject: string | null;
+	sentAt: number | null;
+	rawBody: string;
+};
+
 async function requireCurrentUser(ctx: any) {
 	const user = await authComponent.getAuthUser(ctx);
 
@@ -46,6 +59,20 @@ async function requireCurrentUser(ctx: any) {
 		email?: string | null;
 		name?: string | null;
 	};
+}
+
+async function requireOperationalCoreAccess(ctx: any) {
+	const user = await requireCurrentUser(ctx);
+	const memberships = await ctx.db
+		.query("memberships")
+		.withIndex("by_userId", (q: any) => q.eq("userId", String(user._id)))
+		.collect();
+
+	if (!canAccessOperationalCorePilot(memberships)) {
+		throw new ConvexError("Forbidden");
+	}
+
+	return user;
 }
 
 function buildPolicyBody() {
@@ -67,6 +94,10 @@ function buildWorkspaceSlug(userId: string) {
 
 function buildWorkspaceUserId(userId: string, label: string) {
 	return `${label}-${userId}@fylo.local`;
+}
+
+function buildPersistedDraftSeedTicketKey(seedKey: string) {
+	return `persisted-draft-${seedKey}`;
 }
 
 async function ensureWorkspace(db: any, userId: string, now: number) {
@@ -258,13 +289,26 @@ async function ensureTicketNote(
 	});
 }
 
+async function clearStoredDraft(db: any, ticketId: string) {
+	const existingDraft = await db
+		.query("draftReplies")
+		.withIndex("by_ticketId", (q: any) => q.eq("ticketId", ticketId))
+		.unique();
+
+	if (existingDraft) {
+		await db.delete(existingDraft._id);
+	}
+}
+
 function buildSeededTickets(input: {
 	viewerId: string;
 	viewerLabel: string;
 	busyAgentUserId: string;
 	watchAgentUserId: string;
+	liveSendTo?: string;
+	persistedDraftSeedKey?: string;
 }) {
-	return [
+	const tickets: SeededTicket[] = [
 		{
 			key: "vip-review",
 			from: "vip@northstar.example",
@@ -353,12 +397,51 @@ function buildSeededTickets(input: {
 			reviewState: "manual_triage" as const,
 			status: "new" as const,
 		},
-	] satisfies SeededTicket[];
+	];
+
+	if (input.persistedDraftSeedKey) {
+		tickets.push({
+			key: buildPersistedDraftSeedTicketKey(input.persistedDraftSeedKey),
+			from: "renewals@northstar.example",
+			requesterEmail: "renewals@northstar.example",
+			subject: "Contract renewal timeline",
+			messageText:
+				"Please confirm the current renewal owner and when we should expect the next contract update from your team.",
+			assignedWorkerId: input.watchAgentUserId,
+			reviewState: "auto_assign_allowed" as const,
+			routingReason: "Seeded specifically to verify persisted draft generation.",
+			status: "assigned" as const,
+		});
+	}
+
+	if (input.liveSendTo) {
+		tickets.push({
+			key: "approved-send",
+			from: input.liveSendTo,
+			requesterEmail: input.liveSendTo,
+			subject: "Fylo live send verification",
+			messageText:
+				"Please use this ticket to verify the real approved reply send path through Resend.",
+			assignedWorkerId: input.busyAgentUserId,
+			reviewState: "auto_assign_allowed",
+			routingReason: "Prepared specifically for live approved-reply verification.",
+			status: "assigned",
+			note: {
+				body: "Live-send verification ticket seeded for approved reply testing.",
+				authorUserId: input.viewerId,
+				authorLabel: input.viewerLabel,
+			},
+		});
+	}
+
+	return tickets;
 }
 
 export const seedData = mutation({
 	args: {
 		viewerRole: v.optional(v.union(v.literal("lead"), v.literal("agent"))),
+		liveSendTo: v.optional(v.string()),
+		persistedDraftSeedKey: v.optional(v.string()),
 	},
 	handler: async (ctx, args) => {
 		const user = await requireCurrentUser(ctx);
@@ -387,7 +470,12 @@ export const seedData = mutation({
 			viewerLabel: userName,
 			busyAgentUserId,
 			watchAgentUserId,
+			liveSendTo: args.liveSendTo,
+			persistedDraftSeedKey: args.persistedDraftSeedKey,
 		});
+		const persistedDraftTicketKey = args.persistedDraftSeedKey
+			? buildPersistedDraftSeedTicketKey(args.persistedDraftSeedKey)
+			: null;
 		const ids = new Map<string, string>();
 
 		for (const ticket of tickets) {
@@ -397,6 +485,10 @@ export const seedData = mutation({
 
 			if (ticket.note) {
 				await ensureTicketNote(ctx.db, ticketId, ticket.note, now);
+			}
+
+			if (persistedDraftTicketKey && ticket.key === persistedDraftTicketKey) {
+				await clearStoredDraft(ctx.db, String(ticketId));
 			}
 		}
 
@@ -408,6 +500,45 @@ export const seedData = mutation({
 			clearAgentUserId,
 			ticketId: ids.get("vip-review") ?? "",
 			missingInfoTicketId: ids.get("missing-info") ?? "",
+			persistedDraftTicketId: persistedDraftTicketKey
+				? (ids.get(persistedDraftTicketKey) ?? "")
+				: "",
+			approvedSendTicketId: ids.get("approved-send") ?? null,
+		};
+	},
+});
+
+export const getLatestOutboundForTicket = query({
+	args: {
+		ticketId: v.id("tickets"),
+	},
+	handler: async (ctx, args): Promise<OutboundMessageWorkspace | null> => {
+		await requireOperationalCoreAccess(ctx);
+		const outboundMessages = await ctx.db
+			.query("messages")
+			.withIndex("by_ticketId", (q: any) => q.eq("ticketId", args.ticketId))
+			.collect();
+		const latestMessage = outboundMessages
+			.filter((message: any) => message.direction === "outbound")
+			.sort(
+				(a: any, b: any) =>
+					(b.sentAt ?? b.createdAt ?? 0) - (a.sentAt ?? a.createdAt ?? 0),
+			)[0];
+
+		if (!latestMessage) {
+			return null;
+		}
+
+		return {
+			id: String(latestMessage._id),
+			deliveryStatus: latestMessage.deliveryStatus ?? null,
+			providerMessageId: latestMessage.providerMessageId ?? null,
+			externalId: latestMessage.externalId ?? null,
+			to: latestMessage.to,
+			from: latestMessage.from,
+			subject: latestMessage.subject,
+			sentAt: latestMessage.sentAt ?? null,
+			rawBody: latestMessage.rawBody,
 		};
 	},
 });

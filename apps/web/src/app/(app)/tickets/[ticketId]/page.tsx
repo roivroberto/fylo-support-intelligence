@@ -1,11 +1,17 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { getTicketDraftReference } from "../../../../../../../packages/backend/convex/drafts_reference";
+import {
+	ensureTicketDraftReference,
+	getTicketDraftReference,
+} from "../../../../../../../packages/backend/convex/drafts_reference";
 import { getTicketDetailReference } from "../../../../../../../packages/backend/convex/ticket_detail_reference";
 import { TicketDetail } from "../../../../components/ticket/ticket-detail";
-import { fetchAuthQuery } from "../../../../lib/auth-server";
+import { fetchAuthAction, fetchAuthQuery } from "../../../../lib/auth-server";
 
 function isTicketIdValidationError(error: unknown) {
+	// Convex currently surfaces malformed-id failures as generic validation errors,
+	// so this stays as a narrow best-effort message check until a structured
+	// discriminator is available in the auth query path.
 	if (!(error instanceof Error)) {
 		return false;
 	}
@@ -41,5 +47,11 @@ export default async function TicketDetailPage({
 		notFound();
 	}
 
-	return <TicketDetail ticket={{ ...ticket, draft: draft ?? undefined }} />;
+	const ensuredDraft =
+		draft ??
+		(await fetchAuthAction(ensureTicketDraftReference, {
+			ticketId,
+		}));
+
+	return <TicketDetail ticket={ticket} draft={ensuredDraft} />;
 }

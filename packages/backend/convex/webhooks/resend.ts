@@ -75,6 +75,15 @@ function getExternalId(payload: ResendInboundPayload) {
 	return readString(payload.data?.email_id) ?? "";
 }
 
+type ResendInboundWebhookDeps = {
+	createPayloadDigest?: typeof createPayloadDigest;
+	recordIngestFailure?: typeof recordIngestFailure;
+	verifyResendSignature?: typeof verifyResendSignature;
+	createResendIdempotencyKey?: typeof createResendIdempotencyKey;
+	now?: () => number;
+	secret?: string;
+};
+
 type ParsedResendInboundPayload = {
 	ok: true;
 	externalId: string;
@@ -113,12 +122,25 @@ export function parseResendInboundPayload(
 	};
 }
 
-export const resendInboundWebhook = httpAction(async (ctx, request) => {
+
+export async function handleResendInboundWebhook(
+	ctx: any,
+	request: Request,
+	deps: ResendInboundWebhookDeps = {},
+) {
+	const createPayloadDigestImpl = deps.createPayloadDigest ?? createPayloadDigest;
+	const recordIngestFailureImpl =
+		deps.recordIngestFailure ?? recordIngestFailure;
+	const verifyResendSignatureImpl =
+		deps.verifyResendSignature ?? verifyResendSignature;
+	const createResendIdempotencyKeyImpl =
+		deps.createResendIdempotencyKey ?? createResendIdempotencyKey;
+	const now = deps.now ?? Date.now;
 	const rawBody = await request.text();
-	const payloadDigest = await createPayloadDigest(rawBody);
+	const payloadDigest = await createPayloadDigestImpl(rawBody);
 	const signatureHeaders = getSignatureHeaders(request);
-	const secret = process.env.RESEND_WEBHOOK_SECRET ?? "";
-	const isValid = await verifyResendSignature(
+	const secret = deps.secret ?? process.env.RESEND_WEBHOOK_SECRET ?? "";
+	const isValid = await verifyResendSignatureImpl(
 		signatureHeaders,
 		rawBody,
 		secret,
@@ -137,7 +159,7 @@ export const resendInboundWebhook = httpAction(async (ctx, request) => {
 			{
 				ok: false,
 				error: "Invalid JSON",
-				failure: await recordIngestFailure("invalid_json", payloadDigest),
+				failure: await recordIngestFailureImpl("invalid_json", payloadDigest),
 			},
 			400,
 		);
@@ -149,18 +171,21 @@ export const resendInboundWebhook = httpAction(async (ctx, request) => {
 			{
 				ok: false,
 				error: parsedPayload.error,
-				failure: await recordIngestFailure("invalid_payload", payloadDigest),
+				failure: await recordIngestFailureImpl(
+					"invalid_payload",
+					payloadDigest,
+				),
 			},
 			400,
 		);
 	}
 
-	const idempotencyKey = await createResendIdempotencyKey(
+	const idempotencyKey = await createResendIdempotencyKeyImpl(
 		signatureHeaders.svixId,
 		parsedPayload.externalId,
 		rawBody,
 	);
-	const receivedAt = Date.now();
+	const receivedAt = now();
 	const message: InboundMessageSeed = {
 		source: INBOUND_MESSAGE_SOURCE,
 		externalId: parsedPayload.externalId,
@@ -174,18 +199,18 @@ export const resendInboundWebhook = httpAction(async (ctx, request) => {
 		rawBody,
 	};
 	try {
-		const messageResult = await ctx.runMutation(
+		const messageResult = (await ctx.runMutation(
 			ingestInboundMessageReference,
 			message,
-		);
-		const ticketResult = await ctx.runMutation(ingestInboundTicketReference, {
+		)) as { messageId: string; created: boolean };
+		const ticketResult = (await ctx.runMutation(ingestInboundTicketReference, {
 			source: INBOUND_TICKET_SOURCE,
 			externalId: parsedPayload.externalId,
 			messageId: messageResult.messageId,
 			requesterEmail: parsedPayload.from,
 			subject: parsedPayload.subject,
 			receivedAt,
-		});
+		})) as { ticketId: string; created: boolean };
 
 		return json(
 			{
@@ -203,7 +228,7 @@ export const resendInboundWebhook = httpAction(async (ctx, request) => {
 			{
 				ok: false,
 				error: "Failed to ingest inbound email",
-				failure: await recordIngestFailure(
+				failure: await recordIngestFailureImpl(
 					"ingest_mutation_failed",
 					payloadDigest,
 				),
@@ -211,4 +236,8 @@ export const resendInboundWebhook = httpAction(async (ctx, request) => {
 			500,
 		);
 	}
+}
+
+export const resendInboundWebhook = httpAction(async (ctx, request) => {
+	return handleResendInboundWebhook(ctx, request);
 });

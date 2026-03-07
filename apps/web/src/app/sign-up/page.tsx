@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -7,8 +8,8 @@ import { EmailPasswordAuthForm } from "../../components/auth/email-password-auth
 import { getSafeNextPath } from "../../lib/auth-redirect";
 import { authClient, getAuthErrorMessage } from "../../lib/auth-client";
 
-function buildSignInHref(nextPath: string) {
-	return `/sign-in?next=${encodeURIComponent(nextPath)}`;
+function buildSignInHref(nextPath: string): Route {
+	return `/sign-in?next=${encodeURIComponent(nextPath)}` as Route;
 }
 
 export default function SignUpPage() {
@@ -43,7 +44,7 @@ export default function SignUpPage() {
 								);
 							}
 
-							router.push(nextPath);
+							router.push(nextPath as Route);
 						}}
 					/>
 				</div>

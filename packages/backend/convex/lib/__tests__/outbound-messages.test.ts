@@ -75,11 +75,13 @@ describe("reserveOutboundMessage", () => {
 
 		const first = await reserveOutboundMessage(store, seed);
 		const second = await reserveOutboundMessage(store, seed);
+ 		const stored = await store.get(first.messageId);
 
 		expect(first.created).toBe(true);
 		expect(second.created).toBe(false);
 		expect(second.messageId).toBe(first.messageId);
 		expect(second.deliveryStatus).toBe("pending");
+		expect(stored?.sentAt).toBeUndefined();
 	});
 });
 

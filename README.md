@@ -76,8 +76,8 @@ bunx convex env set SUPPORT_INBOX_EMAIL support@fyloph.com
 
 Notes:
 
-- `AI_PROVIDER_API_KEY` is listed in `.env.example` but current draft/classification paths are deterministic fallback-first.
-- The current draft and classification code paths do not read `AI_PROVIDER_API_KEY` yet; the AI-looking behavior is deterministic today.
+- `AI_PROVIDER_API_KEY` enables provider-backed draft generation through Gemini. The current default model is `gemini-2.5-flash`.
+- If `AI_PROVIDER_API_KEY` is missing or the provider response is unusable, the draft path falls back to deterministic copy and persists the fallback metadata.
 - The app runs on port `3001` in dev (`apps/web/package.json`).
 
 ## 3) Initialize Convex and database (first run)
@@ -176,6 +176,16 @@ Run the minimal smoke check only:
 ```bash
 bunx playwright test apps/web/tests/e2e/pilot-smoke.spec.ts
 ```
+
+Run the guarded live outbound email verification:
+
+```bash
+E2E_RESEND_LIVE=1 bunx playwright test apps/web/tests/e2e/resend-live.spec.ts
+```
+
+This spec sends a real approved reply through Resend and verifies the persisted outbound message, so it is opt-in rather than part of the default suite.
+
+True live inbound webhook verification is not part of the default local or CI suite because Resend needs a public callback target that can receive the webhook request.
 
 The Playwright config starts its own web server for these runs.
 If you already have the app running on port `3001`, stop it before launching Playwright.

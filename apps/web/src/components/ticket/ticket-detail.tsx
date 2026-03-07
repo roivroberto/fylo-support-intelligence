@@ -1,5 +1,7 @@
 import React from "react";
 
+import type { TicketDraftWorkspace } from "../../../../../packages/backend/convex/drafts_reference";
+
 import { DraftReplyPanel } from "./draft-reply-panel";
 import { type TicketNote, TicketNotes } from "./ticket-notes";
 
@@ -13,16 +15,17 @@ type TicketWorkspace = {
 	assignedWorkerLabel?: string;
 	assignmentContext?: string;
 	notes?: TicketNote[];
-	draft?: {
-		summary: string;
-		recommendedAction: string;
-		draftReply: string;
-		usedFallback: boolean;
-		generatedAtLabel: string;
-	};
+	draft?: TicketDraftWorkspace;
 };
 
-export function TicketDetail({ ticket }: { ticket: TicketWorkspace }) {
+type TicketDetailProps = {
+	ticket: TicketWorkspace;
+	draft?: TicketDraftWorkspace;
+};
+
+export function TicketDetail({ ticket, draft }: TicketDetailProps) {
+	const ticketDraft = draft ?? ticket.draft;
+
 	return (
 		<section className="grid gap-4">
 			<div className="border bg-card p-5 text-card-foreground">
@@ -94,12 +97,12 @@ export function TicketDetail({ ticket }: { ticket: TicketWorkspace }) {
 
 				<div className="grid gap-4">
 					<TicketNotes notes={ticket.notes ?? []} />
-					{ticket.draft ? (
+					{ticketDraft ? (
 						<DraftReplyPanel
 							ticketId={ticket.id}
 							to={ticket.requesterEmail ?? null}
 							subject={ticket.title ?? null}
-							draft={ticket.draft}
+							draft={ticketDraft}
 						/>
 					) : null}
 				</div>

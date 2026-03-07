@@ -8,11 +8,27 @@ type BootstrapPayload = {
 	clearAgentUserId: string;
 	ticketId: string;
 	missingInfoTicketId: string;
+	persistedDraftTicketId: string;
 };
 
 type BootstrapOptions = {
 	viewerRole?: "lead" | "agent";
+	persistedDraftSeedKey?: string;
+	bootstrapUserKey?: string;
 };
+
+async function ensureBootstrapUserKey(page: Page) {
+	return page.evaluate(() => {
+		const existing = window.sessionStorage.getItem("fylo:e2e-bootstrap-user-key");
+		if (existing) {
+			return existing;
+		}
+
+		const next = window.crypto.randomUUID();
+		window.sessionStorage.setItem("fylo:e2e-bootstrap-user-key", next);
+		return next;
+	});
+}
 
 async function requestBootstrap(
 	page: Page,
@@ -43,7 +59,11 @@ async function requestBootstrap(
 async function bootstrapSession(page: Page, options: BootstrapOptions = {}) {
 	const secret = process.env.E2E_BOOTSTRAP_SECRET ?? "fylo-e2e-secret";
 	await page.goto("/");
-	const sessionResponse = await requestBootstrap(page, secret, options);
+	const bootstrapUserKey = await ensureBootstrapUserKey(page);
+	const sessionResponse = await requestBootstrap(page, secret, {
+		...options,
+		bootstrapUserKey,
+	});
 
 	expect(sessionResponse.status, sessionResponse.body).toBe(201);
 	expect(sessionResponse.ok, sessionResponse.body).toBeTruthy();
@@ -67,12 +87,35 @@ async function bootstrapSession(page: Page, options: BootstrapOptions = {}) {
 	expect(tokenResponse.status, tokenResponse.body).toBe(200);
 	expect(tokenResponse.ok, tokenResponse.body).toBeTruthy();
 
-	const response = await requestBootstrap(page, secret, options);
+	const response = await requestBootstrap(page, secret, {
+		...options,
+		bootstrapUserKey,
+	});
 
 	expect(response.status, response.body).toBe(200);
 	expect(response.ok, response.body).toBeTruthy();
 
 	return JSON.parse(response.body) as BootstrapPayload;
+}
+
+async function readDraftReply(page: Page) {
+	return page
+		.locator("pre")
+		.filter({ hasText: /./ })
+		.last()
+		.textContent();
+}
+
+async function readDraftMetadata(page: Page) {
+	return page
+		.locator("section span")
+		.filter({ hasText: /draft/i })
+		.first()
+		.textContent();
+}
+
+async function readDraftGeneratedAt(page: Page) {
+	return page.getByText(/^Generated /).first().textContent();
 }
 
 test.describe("pilot app routes", () => {
@@ -269,12 +312,77 @@ test.describe("pilot app routes", () => {
 				.first(),
 		).toBeVisible();
 		await expect(page.getByText("AI reply workspace")).toBeVisible();
-		await expect(page.getByText("Deterministic generated draft")).toBeVisible();
+		await expect(
+			page.locator("section span").filter({ hasText: /draft/i }).first(),
+		).toBeVisible();
 		await expect(page.getByText("Conversation summary")).toBeVisible();
 		await expect(page.getByText(/ready to send to/i)).toBeVisible();
 		await expect(
 			page.getByRole("button", { name: "Send approved reply" }),
 		).toBeEnabled();
+	});
+
+	test("persists persisted draft generation across reloads and regeneration", async ({
+		page,
+	}) => {
+		const seeded = await bootstrapSession(page, {
+			persistedDraftSeedKey: "persisted-draft-proof",
+		});
+		expect(seeded.persistedDraftTicketId).toBeTruthy();
+
+		await page.goto(`/tickets/${seeded.persistedDraftTicketId}`);
+		await expect(page.getByText("AI reply workspace")).toBeVisible();
+
+		const initialDraftReply = (await readDraftReply(page))?.trim() ?? "";
+		const initialDraftMetadata = (await readDraftMetadata(page))?.trim() ?? "";
+		const initialGeneratedAt = (await readDraftGeneratedAt(page))?.trim() ?? "";
+
+		expect(initialDraftReply).toBeTruthy();
+		expect(initialDraftMetadata).toMatch(/draft/i);
+		expect(initialGeneratedAt).toMatch(/^Generated /);
+
+		await page.reload();
+		await expect(page.getByText(initialDraftReply)).toBeVisible();
+		await expect(
+			page.locator("section span").filter({ hasText: initialDraftMetadata }).first(),
+		).toBeVisible();
+		await expect(page.getByText(initialGeneratedAt)).toBeVisible();
+
+		await page.getByRole("button", { name: "Regenerate draft" }).click();
+		await expect(page.getByText(/^Generated /).first()).not.toHaveText(
+			initialGeneratedAt,
+		);
+
+		const regeneratedDraftReply = (await readDraftReply(page))?.trim() ?? "";
+		const regeneratedDraftMetadata = (await readDraftMetadata(page))?.trim() ?? "";
+		const regeneratedGeneratedAt = (await readDraftGeneratedAt(page))?.trim() ?? "";
+
+		expect(
+			regeneratedDraftReply !== initialDraftReply ||
+				regeneratedDraftMetadata !== initialDraftMetadata ||
+				regeneratedGeneratedAt !== initialGeneratedAt,
+		).toBeTruthy();
+	});
+
+	test("isolates persisted draft bootstrap data per run", async ({ browser }) => {
+		const firstContext = await browser.newContext();
+		const secondContext = await browser.newContext();
+		const firstPage = await firstContext.newPage();
+		const secondPage = await secondContext.newPage();
+
+		const first = await bootstrapSession(firstPage, {
+			persistedDraftSeedKey: "persisted-draft-run-a",
+		});
+		const second = await bootstrapSession(secondPage, {
+			persistedDraftSeedKey: "persisted-draft-run-b",
+		});
+
+		expect(first.persistedDraftTicketId).toBeTruthy();
+		expect(second.persistedDraftTicketId).toBeTruthy();
+		expect(first.persistedDraftTicketId).not.toBe(second.persistedDraftTicketId);
+
+		await firstContext.close();
+		await secondContext.close();
 	});
 
 	test("disables approved send when requester details are missing", async ({ page }) => {
@@ -285,14 +393,16 @@ test.describe("pilot app routes", () => {
 		await expect(
 			page.getByText("No notes yet. Capture reviewer context and handoff details here."),
 		).toBeVisible();
-		await expect(page.getByText("Deterministic generated draft")).toBeVisible();
+		await expect(
+			page.locator("section span").filter({ hasText: /draft/i }).first(),
+		).toBeVisible();
 		await expect(
 			page.getByText("Requester email and subject are required before sending."),
 		).toBeVisible();
 		await expect(
 			page.getByRole("button", { name: "Send approved reply" }),
 		).toBeDisabled();
-		await expect(page.getByText(/Hi the customer,/i)).toBeVisible();
+		expect((await readDraftReply(page))?.trim()).toBeTruthy();
 	});
 
 	test("returns a 404 for invalid ticket ids", async ({ page }) => {

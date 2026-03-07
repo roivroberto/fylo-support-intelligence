@@ -16,6 +16,8 @@ const selectedEnv = {
 		rootEnv.BETTER_AUTH_SECRET ?? process.env.BETTER_AUTH_SECRET,
 	BETTER_AUTH_URL:
 		rootEnv.BETTER_AUTH_URL ?? process.env.BETTER_AUTH_URL ?? "http://localhost:3001",
+	SUPPORT_INBOX_EMAIL:
+		rootEnv.SUPPORT_INBOX_EMAIL ?? process.env.SUPPORT_INBOX_EMAIL,
 	NEXT_PUBLIC_CONVEX_SITE_URL:
 		webEnv.NEXT_PUBLIC_CONVEX_SITE_URL ??
 		process.env.NEXT_PUBLIC_CONVEX_SITE_URL,
