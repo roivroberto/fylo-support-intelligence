@@ -13,7 +13,6 @@ type AuthFormInput = {
 	email: string;
 	password: string;
 	name?: string;
-	podCode?: string;
 };
 
 type EmailPasswordAuthFormProps = {
@@ -30,7 +29,6 @@ export function EmailPasswordAuthForm({
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [podCode, setPodCode] = useState("");
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -45,13 +43,8 @@ export function EmailPasswordAuthForm({
 		setIsPending(true);
 
 		try {
-			const trimmedPodCode = podCode.trim();
-
-			await onSubmit({
+		await onSubmit({
 				...(mode === "sign-up" ? { name: name.trim() } : {}),
-				...(mode === "sign-up" && trimmedPodCode
-					? { podCode: trimmedPodCode }
-					: {}),
 				email: email.trim(),
 				password,
 			});
@@ -68,38 +61,22 @@ export function EmailPasswordAuthForm({
 
 	return (
 		<form className="grid gap-4" onSubmit={handleSubmit}>
-			{mode === "sign-up" ? (
-				<>
-					<div className="grid gap-2">
-						<Label htmlFor="auth-name">Name</Label>
-						<Input
-							id="auth-name"
-							autoComplete="name"
-							disabled={isPending}
-							name="name"
-							required
-							value={name}
-							onChange={(event) => {
-								setName(event.currentTarget.value);
-							}}
-						/>
-					</div>
-					<div className="grid gap-2">
-						<Label htmlFor="auth-pod-code">Pod code</Label>
-						<Input
-							id="auth-pod-code"
-							autoComplete="off"
-							disabled={isPending}
-							name="podCode"
-							placeholder="Optional"
-							value={podCode}
-							onChange={(event) => {
-								setPodCode(event.currentTarget.value);
-							}}
-						/>
-					</div>
-				</>
-			) : null}
+		{mode === "sign-up" ? (
+			<div className="grid gap-2">
+				<Label htmlFor="auth-name">Name</Label>
+				<Input
+					id="auth-name"
+					autoComplete="name"
+					disabled={isPending}
+					name="name"
+					required
+					value={name}
+					onChange={(event) => {
+						setName(event.currentTarget.value);
+					}}
+				/>
+			</div>
+		) : null}
 			<div className="grid gap-2">
 				<Label htmlFor="auth-email">Email</Label>
 				<Input
