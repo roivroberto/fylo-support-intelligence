@@ -151,6 +151,8 @@ test.describe("pilot app routes", () => {
 	});
 
 	test("shows the public route surfaces with current queue and review content", async ({ page }) => {
+		const seeded = await bootstrapSession(page);
+
 		await page.goto("/");
 		await expect(page.getByRole("heading", { name: "Fylo" })).toBeVisible();
 
@@ -158,21 +160,24 @@ test.describe("pilot app routes", () => {
 		await expect(
 			page.getByRole("heading", { name: "Shared Queue" }),
 		).toBeVisible();
-		await expect(page.getByText("3 tickets visible in pilot view")).toBeVisible();
+		await expect(page.getByText(/tickets visible in the current queue/i)).toBeVisible();
 		await expect(
-			page.getByText("Billing exception needs manual routing"),
+			page.getByRole("link", { name: "VIP onboarding escalation" }),
 		).toBeVisible();
+		await expect(page.getByText(/provider|fallback/i).first()).toBeVisible();
 
 		await page.getByRole("link", { name: "Review" }).click();
 		await expect(
 			page.getByRole("heading", { name: "Human decisions still in flight" }),
 		).toBeVisible();
 		await expect(
-			page.getByText("Approve billing exception routing"),
+			page.getByRole("link", { name: "VIP onboarding escalation" }),
 		).toBeVisible();
 		await expect(
-			page.getByText("Confirm VIP onboarding escalation"),
+			page.getByText(/manager_verification|manual_triage/i),
 		).toBeVisible();
+		await page.getByRole("link", { name: "VIP onboarding escalation" }).click();
+		await expect(page).toHaveURL(new RegExp(`/tickets/${seeded.ticketId}$`));
 	});
 
 	test("loads seeded authenticated routes with rich visibility data", async ({ page }) => {
@@ -316,10 +321,29 @@ test.describe("pilot app routes", () => {
 			page.locator("section span").filter({ hasText: /draft/i }).first(),
 		).toBeVisible();
 		await expect(page.getByText("Conversation summary")).toBeVisible();
-		await expect(page.getByText(/ready to send to/i)).toBeVisible();
+			await expect(page.getByText(/ready to send to/i)).toBeVisible();
+			await expect(
+				page.getByRole("button", { name: "Send approved reply" }),
+			).toBeEnabled();
+			await expect(page.getByRole("button", { name: "Add note" })).toBeVisible();
 		await expect(
-			page.getByRole("button", { name: "Send approved reply" }),
-		).toBeEnabled();
+			page.getByRole("button", { name: "Approve assignment" }),
+		).toBeVisible();
+	});
+
+	test("adds notes and applies review actions from the ticket workspace", async ({ page }) => {
+		const seeded = await bootstrapSession(page);
+
+		await page.goto(`/tickets/${seeded.ticketId}`);
+		await page.getByLabel("New note").fill("Lead confirmed the next customer update.");
+		await page.getByRole("button", { name: "Add note" }).click();
+		await expect(page.getByText("Note added")).toBeVisible();
+		await expect(
+			page.getByText("Lead confirmed the next customer update."),
+		).toBeVisible();
+
+		await page.getByRole("button", { name: "Approve assignment" }).click();
+		await expect(page.getByText("Review approved")).toBeVisible();
 	});
 
 	test("persists persisted draft generation across reloads and regeneration", async ({
@@ -349,8 +373,12 @@ test.describe("pilot app routes", () => {
 		await expect(page.getByText(initialGeneratedAt)).toBeVisible();
 
 		await page.getByRole("button", { name: "Regenerate draft" }).click();
+		await expect(
+			page.getByRole("button", { name: "Regenerate draft" }),
+		).toBeEnabled({ timeout: 30_000 });
 		await expect(page.getByText(/^Generated /).first()).not.toHaveText(
 			initialGeneratedAt,
+			{ timeout: 30_000 },
 		);
 
 		const regeneratedDraftReply = (await readDraftReply(page))?.trim() ?? "";

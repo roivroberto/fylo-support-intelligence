@@ -49,10 +49,12 @@ describe("classifyTicketWithFallback", () => {
 				ticketId: "ticket_1",
 				subject: "API is down",
 				requesterEmail: "ops@example.com",
+				messageText: "The API is down for all users.",
 			},
 		);
 
 		expect(result.usedFallback).toBe(false);
+		expect(result.generationSource).toBe("provider");
 		expect(result.classification.request_type).toBe("technical_problem");
 	});
 
@@ -67,10 +69,12 @@ describe("classifyTicketWithFallback", () => {
 				ticketId: "ticket_1",
 				subject: "API is down",
 				requesterEmail: "ops@example.com",
+				messageText: "The API is down for all users.",
 			},
 		);
 
 		expect(result.usedFallback).toBe(true);
+		expect(result.generationSource).toBe("deterministic");
 		expect(result.classification.classification_confidence).toBe(0);
 	});
 
@@ -83,10 +87,12 @@ describe("classifyTicketWithFallback", () => {
 				ticketId: "ticket_1",
 				subject: "API is down",
 				requesterEmail: "ops@example.com",
+				messageText: "The API is down for all users.",
 			},
 		);
 
 		expect(result.usedFallback).toBe(true);
+		expect(result.generationSource).toBe("deterministic");
 		expect(result.classification.request_type).toBe("general_inquiry");
 	});
 
@@ -99,6 +105,7 @@ describe("classifyTicketWithFallback", () => {
 				ticketId: "t1",
 				subject: null,
 				requesterEmail: null,
+				messageText: null,
 				fallbackClassification: {
 					classification_confidence: 5,
 				},
@@ -106,6 +113,7 @@ describe("classifyTicketWithFallback", () => {
 		);
 
 		expect(result.usedFallback).toBe(true);
+		expect(result.generationSource).toBe("deterministic");
 		expect(result.fallbackReason).toBe("classifier_error");
 		expect(result.classification).toEqual({
 			request_type: "general_inquiry",

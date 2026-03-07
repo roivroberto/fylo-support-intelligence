@@ -1,35 +1,16 @@
+"use client";
+
+import { useQuery } from "convex/react";
 import React from "react";
 
-import { TicketTable } from "@/components/queue/ticket-table";
-
-const queueRows = [
-	{
-		id: "T-104",
-		title: "Billing exception needs manual routing",
-		requester: "ops@northstar.example",
-		reason: "Primary skill match",
-		priority: "high" as const,
-		status: "Awaiting owner",
-	},
-	{
-		id: "T-118",
-		title: "VIP onboarding checklist gap",
-		requester: "success@northstar.example",
-		reason: "Escalated by policy rule",
-		priority: "medium" as const,
-		status: "Needs review slot",
-	},
-	{
-		id: "T-121",
-		title: "Data retention question from support",
-		requester: "support@northstar.example",
-		reason: "Fallback queue coverage",
-		priority: "low" as const,
-		status: "Ready for review",
-	},
-];
+import { TicketTable } from "../../../components/queue/ticket-table";
+import { getQueueSnapshotReference } from "../../../../../../packages/backend/convex/tickets_reference";
 
 export default function QueuePage() {
+	const queue = useQuery(getQueueSnapshotReference, {});
+	const rows = queue?.rows ?? [];
+	const summary = queue ?? { totalCount: 0, urgentCount: 0, fallbackCount: 0 };
+
 	return (
 		<section className="grid gap-4">
 			<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
@@ -41,29 +22,41 @@ export default function QueuePage() {
 						Shared Queue
 					</h2>
 					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-						Static pilot data keeps the surface usable while live workflow
-						wiring lands in a later task.
+						Live queue coverage shows AI classification, routing status, and
+						who needs follow-through right now.
 					</p>
 				</div>
 				<div className="border bg-card p-5 text-sm text-muted-foreground">
 					<p className="text-[11px] uppercase tracking-[0.2em]">Queue health</p>
 					<div className="mt-3 space-y-2">
 						<p>
-							<span className="font-medium text-foreground">3 tickets</span>{" "}
-							visible in pilot view
+							<span className="font-medium text-foreground">
+								{summary.totalCount} tickets
+							</span>{" "}
+							visible in the current queue
 						</p>
 						<p>
-							<span className="font-medium text-foreground">1 urgent</span> item
-							needs immediate routing
+							<span className="font-medium text-foreground">
+								{summary.urgentCount} urgent
+							</span>{" "}
+							item{summary.urgentCount === 1 ? "" : "s"} need immediate review
 						</p>
 						<p>
-							<span className="font-medium text-foreground">Static data</span>{" "}
-							until backend query wiring is ready
+							<span className="font-medium text-foreground">
+								{summary.fallbackCount} fallback
+							</span>{" "}
+							classification result{summary.fallbackCount === 1 ? "" : "s"}
 						</p>
 					</div>
 				</div>
 			</div>
-			<TicketTable rows={queueRows} />
+			{queue ? (
+				<TicketTable rows={rows} />
+			) : (
+				<div className="border bg-card p-5 text-sm text-muted-foreground">
+					Loading live queue...
+				</div>
+			)}
 		</section>
 	);
 }

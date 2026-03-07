@@ -24,6 +24,10 @@ type SeededTicket = {
 	requesterEmail: string | null;
 	subject: string | null;
 	messageText: string | null;
+	requestType?: string;
+	priority?: "low" | "medium" | "high" | "urgent" | "critical";
+	classificationConfidence?: number;
+	classificationSource?: "provider" | "fallback";
 	assignedWorkerId?: string | null;
 	reviewState?: TicketReviewState;
 	routingReason?: string;
@@ -218,6 +222,7 @@ async function ensureInboundMessage(
 
 async function ensureTicket(
 	db: any,
+	workspaceId: any,
 	userId: string,
 	messageId: any,
 	seed: SeededTicket,
@@ -231,11 +236,21 @@ async function ensureTicket(
 		)
 		.unique();
 	const payload = {
+		workspaceId,
 		source: "resend" as const,
 		externalId,
 		messageId,
 		requesterEmail: seed.requesterEmail,
 		subject: seed.subject,
+		...(seed.requestType !== undefined ? { requestType: seed.requestType } : {}),
+		...(seed.priority !== undefined ? { priority: seed.priority } : {}),
+		...(seed.classificationConfidence !== undefined
+			? { classificationConfidence: seed.classificationConfidence }
+			: {}),
+		...(seed.classificationSource !== undefined
+			? { classificationSource: seed.classificationSource }
+			: {}),
+		language: seed.requesterEmail?.endsWith(".ph") ? "fil" : "en",
 		receivedAt: now,
 		...(seed.assignedWorkerId !== undefined
 			? { assignedWorkerId: seed.assignedWorkerId }
@@ -316,6 +331,10 @@ function buildSeededTickets(input: {
 			subject: "VIP onboarding escalation",
 			messageText:
 				"VIP onboarding needs lead confirmation. Please confirm owner and next step.",
+			requestType: "complaint",
+			priority: "high",
+			classificationConfidence: 0.72,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "manager_verification" as const,
 			routingReason: "Escalated by policy rule for lead confirmation.",
@@ -333,6 +352,10 @@ function buildSeededTickets(input: {
 			subject: "Billing exception needs manual routing",
 			messageText:
 				"The exception still needs a specialist owner, but the queue should keep moving.",
+			requestType: "billing_issue",
+			priority: "high",
+			classificationConfidence: 0.91,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Secondary-skill coverage kept the queue moving.",
@@ -345,6 +368,10 @@ function buildSeededTickets(input: {
 			subject: "Data retention routing question",
 			messageText:
 				"Need a confirmed owner for the retention workflow follow-up before the SLA window closes.",
+			requestType: "general_inquiry",
+			priority: "medium",
+			classificationConfidence: 0.61,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Backlog relief routed to the current specialist.",
@@ -357,6 +384,10 @@ function buildSeededTickets(input: {
 			subject: "Account ownership confirmation",
 			messageText:
 				"Please confirm the current owner and the next update we should send back to the customer.",
+			requestType: "account_access",
+			priority: "medium",
+			classificationConfidence: 0.88,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Existing owner retained after deterministic routing.",
@@ -369,6 +400,10 @@ function buildSeededTickets(input: {
 			subject: "VIP checklist variance",
 			messageText:
 				"The checklist gap is small, but we still need human confirmation before rerouting.",
+			requestType: "feature_request",
+			priority: "medium",
+			classificationConfidence: 0.68,
+			classificationSource: "provider",
 			assignedWorkerId: input.watchAgentUserId,
 			reviewState: "manager_verification" as const,
 			routingReason: "Confidence stayed below the auto-assign threshold.",
@@ -381,6 +416,10 @@ function buildSeededTickets(input: {
 			subject: "Refund policy question",
 			messageText:
 				"The backup coverage lane picked this up, but one more review could crowd the queue.",
+			requestType: "refund_request",
+			priority: "high",
+			classificationConfidence: 0.84,
+			classificationSource: "provider",
 			assignedWorkerId: input.watchAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Matched the backup skill coverage lane.",
@@ -393,6 +432,10 @@ function buildSeededTickets(input: {
 			subject: null,
 			messageText:
 				"Following up on a request that omitted the sender details, but still needs a human handoff.",
+			requestType: "general_inquiry",
+			priority: "medium",
+			classificationConfidence: 0,
+			classificationSource: "fallback",
 			assignedWorkerId: null,
 			reviewState: "manual_triage" as const,
 			status: "new" as const,
@@ -400,30 +443,38 @@ function buildSeededTickets(input: {
 	];
 
 	if (input.persistedDraftSeedKey) {
-		tickets.push({
-			key: buildPersistedDraftSeedTicketKey(input.persistedDraftSeedKey),
-			from: "renewals@northstar.example",
-			requesterEmail: "renewals@northstar.example",
-			subject: "Contract renewal timeline",
-			messageText:
-				"Please confirm the current renewal owner and when we should expect the next contract update from your team.",
-			assignedWorkerId: input.watchAgentUserId,
-			reviewState: "auto_assign_allowed" as const,
-			routingReason: "Seeded specifically to verify persisted draft generation.",
+			tickets.push({
+				key: buildPersistedDraftSeedTicketKey(input.persistedDraftSeedKey),
+				from: "renewals@northstar.example",
+				requesterEmail: "renewals@northstar.example",
+				subject: "Contract renewal timeline",
+				messageText:
+					"Please confirm the current renewal owner and when we should expect the next contract update from your team.",
+				requestType: "general_inquiry",
+				priority: "medium",
+				classificationConfidence: 0.9,
+				classificationSource: "provider",
+				assignedWorkerId: input.watchAgentUserId,
+				reviewState: "auto_assign_allowed" as const,
+				routingReason: "Seeded specifically to verify persisted draft generation.",
 			status: "assigned" as const,
 		});
 	}
 
 	if (input.liveSendTo) {
-		tickets.push({
-			key: "approved-send",
-			from: input.liveSendTo,
-			requesterEmail: input.liveSendTo,
-			subject: "Fylo live send verification",
-			messageText:
-				"Please use this ticket to verify the real approved reply send path through Resend.",
-			assignedWorkerId: input.busyAgentUserId,
-			reviewState: "auto_assign_allowed",
+			tickets.push({
+				key: "approved-send",
+				from: input.liveSendTo,
+				requesterEmail: input.liveSendTo,
+				subject: "Fylo live send verification",
+				messageText:
+					"Please use this ticket to verify the real approved reply send path through Resend.",
+				requestType: "general_inquiry",
+				priority: "medium",
+				classificationConfidence: 0.89,
+				classificationSource: "provider",
+				assignedWorkerId: input.busyAgentUserId,
+				reviewState: "auto_assign_allowed",
 			routingReason: "Prepared specifically for live approved-reply verification.",
 			status: "assigned",
 			note: {
@@ -480,7 +531,14 @@ export const seedData = mutation({
 
 		for (const ticket of tickets) {
 			const messageId = await ensureInboundMessage(ctx.db, userId, ticket, now);
-			const ticketId = await ensureTicket(ctx.db, userId, messageId, ticket, now);
+			const ticketId = await ensureTicket(
+				ctx.db,
+				workspaceId,
+				userId,
+				messageId,
+				ticket,
+				now,
+			);
 			ids.set(ticket.key, String(ticketId));
 
 			if (ticket.note) {

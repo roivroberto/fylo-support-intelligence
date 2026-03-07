@@ -5,6 +5,7 @@ import {
 	buildLeadReviewTicketPatch,
 	canApplyLeadReview,
 } from "./lib/review_workflow";
+import { rerouteTicketReference } from "./tickets_reference";
 
 const leadReviewActionValidator = v.union(
 	v.literal("approve"),
@@ -54,6 +55,14 @@ export const applyLeadReview = mutation({
 			assignedWorkerId: args.assignedWorkerId,
 			reviewedAt: Date.now(),
 		});
+
+		if (args.action === "reassign") {
+			const rerouted = await ctx.runMutation(rerouteTicketReference, {
+				ticketId: String(args.ticketId),
+			});
+
+			return rerouted;
+		}
 
 		await ctx.db.patch(args.ticketId, patch as never);
 

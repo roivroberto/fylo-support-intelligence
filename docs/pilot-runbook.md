@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this runbook to verify the operational core pilot is up, the expanded local E2E suite still passes, and inbound webhook failures leave a small breadcrumb for follow-up.
+Use this runbook to verify the operational core pilot is up, the expanded local E2E suite still covers the live MVP flows, and inbound webhook failures leave a small breadcrumb for follow-up.
 
 ## Before a pilot session
 
@@ -18,7 +18,9 @@ Run the full pilot E2E suite when your local env files and Convex dev setup are 
 bunx playwright test apps/web/tests/e2e/pilot-app.spec.ts
 ```
 
-Expected result: authenticated bootstrap, visibility, policy, and ticket workflows all pass without sending a real email.
+Expected result: authenticated bootstrap, live queue/review views, visibility, policy, ticket workspace actions, and draft workflows all pass without sending a real email.
+
+Known limitation: the broader Playwright suite still has the existing sign-out-related failure outside the MVP scope for this pass. Treat sign-out assertions as a separate follow-up item.
 
 ## Live outbound email verification
 
@@ -62,8 +64,9 @@ A true provider-to-app inbound verification still requires a public callback tar
 
 1. Re-run `bunx playwright test apps/web/tests/e2e/pilot-app.spec.ts` if local env/bootstrap coverage failed, or `bunx playwright test apps/web/tests/e2e/pilot-smoke.spec.ts` for the CI-safe smoke path.
 2. Open the generated Playwright trace or `test-results/` error context.
-3. Manually load `/queue`, `/visibility`, and `/settings/policy` and confirm the pilot shell renders.
+3. Manually load `/queue`, `/review`, `/visibility`, `/settings/policy`, and one seeded `/tickets/<ticketId>` route to confirm the pilot shell renders live data.
 4. If the failure started after inbound email changes, inspect webhook logs for `ingest_failure` records and compare the `reason` plus `payloadDigest`.
+5. If the only failing assertion is around `Sign out`, treat it as the known out-of-scope issue for this MVP pass.
 
 ## CI expectation
 

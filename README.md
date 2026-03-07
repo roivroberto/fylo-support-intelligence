@@ -76,8 +76,8 @@ bunx convex env set SUPPORT_INBOX_EMAIL support@fyloph.com
 
 Notes:
 
-- `AI_PROVIDER_API_KEY` enables provider-backed draft generation through Google hosted models. The current default model is `gemma-3-27b-it`.
-- If `AI_PROVIDER_API_KEY` is missing or the provider response is unusable, the draft path falls back to deterministic copy and persists the fallback metadata.
+- `AI_PROVIDER_API_KEY` enables provider-backed draft generation and ticket classification through Google hosted models. The current default model is `gemma-3-27b-it`.
+- If `AI_PROVIDER_API_KEY` is missing or the provider response is unusable, the classification and draft paths fall back to deterministic output and persist the fallback metadata.
 - The app runs on port `3001` in dev (`apps/web/package.json`).
 
 ## 3) Initialize Convex and database (first run)
@@ -98,7 +98,8 @@ Database notes:
 
 - Convex creates/updates tables from the schema automatically.
 - There is currently no committed seed script in the repo.
-- Queue/review pages have static pilot rows; live visibility/policy/ticket data paths rely on authenticated membership + Convex data.
+- Queue, review, visibility, policy, and ticket workspace flows rely on authenticated membership plus live Convex data.
+- Inbound ticket ingestion now persists classification metadata and routing state so `/queue`, `/review`, and `/tickets/[ticketId]` reflect the current workflow.
 
 ## 4) Run the app locally
 
@@ -134,6 +135,8 @@ Then open:
   - `http://localhost:3001/sign-in`
   - `http://localhost:3001/sign-up`
 - Protected routes:
+  - `/queue`
+  - `/review`
   - `/visibility`
   - `/settings/policy`
   - `/tickets/<ticketId>`
@@ -171,6 +174,8 @@ Run the expanded pilot coverage file directly:
 bunx playwright test apps/web/tests/e2e/pilot-app.spec.ts
 ```
 
+This file now covers the live queue, review, ticket workspace, note-entry, and lead-review flows. The known sign-out assertion issue is still excluded from MVP scope.
+
 Run the minimal smoke check only:
 
 ```bash
@@ -203,6 +208,14 @@ bun run check-types
 ```
 
 At the moment this command is wired through Turbo, but no package defines a `check-types` task yet, so it is currently a no-op.
+
+## Current MVP surfaces
+
+- `/queue` - live queue with AI classification, routing reason, assignee, and drill-in links
+- `/review` - live review-needed queue for manager verification and manual triage
+- `/tickets/[ticketId]` - live ticket workspace with note entry, routing context, recommended assignees, draft reply generation, approved send, and lead review actions
+- `/visibility` - live workload view across the pilot workspace
+- `/settings/policy` - live routing policy controls
 
 ## Helpful scripts (repo root)
 

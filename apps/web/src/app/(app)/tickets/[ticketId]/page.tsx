@@ -4,7 +4,7 @@ import {
 	ensureTicketDraftReference,
 	getTicketDraftReference,
 } from "../../../../../../../packages/backend/convex/drafts_reference";
-import { getTicketDetailReference } from "../../../../../../../packages/backend/convex/ticket_detail_reference";
+import { getTicketDetailReference } from "../../../../../../../packages/backend/convex/tickets_reference";
 import { TicketDetail } from "../../../../components/ticket/ticket-detail";
 import { fetchAuthAction, fetchAuthQuery } from "../../../../lib/auth-server";
 

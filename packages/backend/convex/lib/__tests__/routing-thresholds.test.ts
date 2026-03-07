@@ -17,4 +17,19 @@ describe("computeReviewState", () => {
 	it("routes >0.8 confidence to auto assign allowed", () => {
 		expect(computeReviewState(0.81)).toBe("auto_assign_allowed");
 	});
+
+	it("supports policy threshold overrides", () => {
+		expect(
+			computeReviewState(0.76, {
+				autoAssignThreshold: 0.75,
+				manualTriageThreshold: 0.4,
+			}),
+		).toBe("auto_assign_allowed");
+		expect(
+			computeReviewState(0.39, {
+				autoAssignThreshold: 0.75,
+				manualTriageThreshold: 0.4,
+			}),
+		).toBe("manual_triage");
+	});
 });

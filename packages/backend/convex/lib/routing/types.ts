@@ -22,6 +22,12 @@ export interface RoutingWorker {
 export interface RouteTicketInput {
 	ticket: RoutingTicket;
 	workers: RoutingWorker[];
+	policy?: {
+		autoAssignThreshold?: number;
+		manualTriageThreshold?: number;
+		allowSecondarySkills?: boolean;
+		requireLeadReview?: boolean;
+	};
 }
 
 export interface CandidateScore {

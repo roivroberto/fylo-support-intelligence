@@ -24,7 +24,7 @@ vi.mock("../../../../components/ticket/ticket-detail", () => ({
 }));
 
 vi.mock(
-	"../../../../../../../packages/backend/convex/ticket_detail_reference",
+	"../../../../../../../packages/backend/convex/tickets_reference",
 	() => ({
 		getTicketDetailReference,
 	}),

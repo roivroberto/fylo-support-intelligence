@@ -7,6 +7,8 @@ import {
 } from "../lib/resend_signature";
 import { INBOUND_MESSAGE_SOURCE, type InboundMessageSeed } from "../messages";
 import { INBOUND_TICKET_SOURCE } from "../tickets";
+import { classifyAndRouteTicketReference } from "../tickets_reference";
+import { authComponent } from "../auth";
 
 type ResendInboundPayload = {
 	type?: unknown;
@@ -203,7 +205,16 @@ export async function handleResendInboundWebhook(
 			ingestInboundMessageReference,
 			message,
 		)) as { messageId: string; created: boolean };
+		const viewer = await authComponent.getAuthUser(ctx);
+		const memberships = viewer
+			? await ctx.db
+					.query("memberships")
+					.withIndex("by_userId", (q: any) => q.eq("userId", String(viewer._id)))
+					.collect()
+			: [];
+		const workspaceId = memberships[0]?.workspaceId;
 		const ticketResult = (await ctx.runMutation(ingestInboundTicketReference, {
+			workspaceId,
 			source: INBOUND_TICKET_SOURCE,
 			externalId: parsedPayload.externalId,
 			messageId: messageResult.messageId,
@@ -211,6 +222,11 @@ export async function handleResendInboundWebhook(
 			subject: parsedPayload.subject,
 			receivedAt,
 		})) as { ticketId: string; created: boolean };
+		if (messageResult.created || ticketResult.created) {
+			await ctx.runMutation(classifyAndRouteTicketReference, {
+				ticketId: ticketResult.ticketId,
+			});
+		}
 
 		return json(
 			{

@@ -2,6 +2,12 @@ import { describe, expect, it, vi } from "vitest";
 
 import { handleResendInboundWebhook } from "../resend";
 
+vi.mock("../../auth", () => ({
+	authComponent: {
+		getAuthUser: vi.fn().mockResolvedValue(null),
+	},
+}));
+
 function createRequest(body: string) {
 	return new Request("https://example.com/webhooks/resend", {
 		method: "POST",
@@ -125,7 +131,22 @@ describe("handleResendInboundWebhook", () => {
 		const runMutation = vi
 			.fn()
 			.mockResolvedValueOnce({ messageId: "message_1", created: true })
-			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false });
+			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false })
+			.mockResolvedValueOnce({
+				classification: {
+					request_type: "billing_issue",
+					priority: "high",
+					classification_confidence: 0.82,
+				},
+				classificationSource: "provider",
+				fallbackReason: null,
+				routingDecision: {
+					assignedWorkerId: "worker_1",
+					reviewState: "auto_assign_allowed",
+					routingReason: "Recommended worker_1.",
+					scoredCandidates: [],
+				},
+			});
 		const verifyResendSignature = vi.fn().mockResolvedValue(true);
 
 		const response = await handleResendInboundWebhook(
@@ -149,7 +170,7 @@ describe("handleResendInboundWebhook", () => {
 			rawBody,
 			"whsec_test",
 		);
-		expect(runMutation).toHaveBeenCalledTimes(2);
+		expect(runMutation).toHaveBeenCalledTimes(3);
 		expect(runMutation).toHaveBeenNthCalledWith(1, expect.anything(), {
 			source: "resend",
 			externalId: "email_123",
@@ -163,12 +184,16 @@ describe("handleResendInboundWebhook", () => {
 			rawBody,
 		});
 		expect(runMutation).toHaveBeenNthCalledWith(2, expect.anything(), {
+			workspaceId: undefined,
 			source: "resend",
 			externalId: "email_123",
 			messageId: "message_1",
 			requesterEmail: "sender@example.com",
 			subject: "Hello",
 			receivedAt: 1234,
+		});
+		expect(runMutation).toHaveBeenNthCalledWith(3, expect.anything(), {
+			ticketId: "ticket_1",
 		});
 		expect(response.status).toBe(200);
 		await expect(response.json()).resolves.toEqual({
@@ -204,6 +229,12 @@ describe("handleResendInboundWebhook", () => {
 			},
 		);
 
+		expect((response as Response).status).toBe(200);
+		expect(
+			((
+				(response as unknown as { runMutation?: ReturnType<typeof vi.fn> })
+			) as never),
+		).toBeDefined();
 		expect(response.status).toBe(200);
 		await expect(response.json()).resolves.toEqual({
 			ok: true,
@@ -213,6 +244,32 @@ describe("handleResendInboundWebhook", () => {
 			messageId: "message_1",
 			ticketId: "ticket_1",
 		});
+	});
+
+	it("does not reclassify duplicate webhook deliveries", async () => {
+		const runMutation = vi
+			.fn()
+			.mockResolvedValueOnce({ messageId: "message_1", created: false })
+			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false });
+
+		await handleResendInboundWebhook(
+			{ runMutation } as never,
+			createRequest(
+				JSON.stringify({
+					type: "email.received",
+					data: { email_id: "email_123" },
+				}),
+			),
+			{
+				secret: "whsec_test",
+				verifyResendSignature: vi.fn().mockResolvedValue(true),
+				createPayloadDigest: vi.fn().mockResolvedValue("digest_123"),
+				createResendIdempotencyKey: vi.fn().mockResolvedValue("idem_123"),
+				now: vi.fn().mockReturnValue(1234),
+			},
+		);
+
+		expect(runMutation).toHaveBeenCalledTimes(2);
 	});
 
 	it("records mutation failures", async () => {
