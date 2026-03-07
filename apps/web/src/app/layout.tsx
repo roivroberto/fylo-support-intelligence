@@ -32,7 +32,7 @@ export default async function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body
-				className={`${jetbrainsMono.variable} ${dmSans.variable} antialiased`}
+				className={`${jetbrainsMono.variable} ${dmSans.variable} font-sans antialiased`}
 			>
 				<Providers initialToken={initialToken}>
 					<LayoutContent>{children}</LayoutContent>

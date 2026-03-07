@@ -10,8 +10,10 @@ import { authClient, getAuthErrorMessage } from "../../lib/auth-client";
 
 import "../landing.css";
 
-function buildSignUpHref(nextPath: string) {
-	return `/sign-up?next=${encodeURIComponent(nextPath)}`;
+import type { Route } from "next";
+
+function buildSignUpHref(nextPath: string): Route {
+	return `/sign-up?next=${encodeURIComponent(nextPath)}` as Route;
 }
 
 function SignInContent() {
@@ -35,7 +37,7 @@ function SignInContent() {
 					<LandingAuthForm
 						mode="sign-in"
 						submitLabel="Sign in"
-						onSuccess={() => router.push(nextPath)}
+						onSuccess={() => router.push(nextPath as Route)}
 						onSubmit={async ({ email, password }) => {
 							const response = await authClient.signIn.email({
 								email,

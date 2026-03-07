@@ -10,6 +10,8 @@ import { getSafeNextPath } from "../../lib/auth-redirect";
 
 import "../landing.css";
 
+import type { Route } from "next";
+
 function SignUpContent() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -56,7 +58,7 @@ function SignUpContent() {
 						<p className="mt-6 text-center text-accent/50 text-sm">
 							Already have an account?{" "}
 							<Link
-								href={`/sign-in?next=${encodeURIComponent(nextPath)}`}
+								href={`/sign-in?next=${encodeURIComponent(nextPath)}` as Route}
 								className="underline opacity-80 hover:opacity-100 transition-opacity"
 							>
 								Click here
@@ -72,7 +74,7 @@ function SignUpContent() {
 						</h1>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 							<div
-								onClick={() => router.push(nextPath || "/visibility")}
+								onClick={() => router.push((nextPath || "/visibility") as Route)}
 								className="vellum-card p-12 cursor-pointer group"
 							>
 								<div className="mono text-[10px] opacity-30 mb-4">
@@ -89,7 +91,7 @@ function SignUpContent() {
 							</div>
 
 							<div
-								onClick={() => router.push(nextPath || "/visibility")}
+								onClick={() => router.push((nextPath || "/visibility") as Route)}
 								className="vellum-card p-12 cursor-pointer group"
 							>
 								<div className="mono text-[10px] opacity-30 mb-4">
