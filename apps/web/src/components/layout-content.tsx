@@ -16,7 +16,7 @@ export default function LayoutContent({
 	}
 
 	if (isAuth) {
-		return <div className="h-svh overflow-hidden">{children}</div>;
+		return <>{children}</>;
 	}
 
 	return (
