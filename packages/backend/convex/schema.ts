@@ -2,6 +2,12 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 const workspaceRole = v.union(v.literal("lead"), v.literal("agent"));
+const agentProfileParseStatus = v.union(
+	v.literal("idle"),
+	v.literal("processing"),
+	v.literal("ready"),
+	v.literal("failed"),
+);
 const ticketReviewState = v.union(
 	v.literal("auto_assign_allowed"),
 	v.literal("manager_verification"),
@@ -29,6 +35,30 @@ export default defineSchema({
 		userId: v.string(),
 		role: workspaceRole,
 		createdAt: v.number(),
+	})
+		.index("by_workspaceId", ["workspaceId"])
+		.index("by_userId", ["userId"])
+		.index("by_workspaceId_userId", ["workspaceId", "userId"]),
+	agentProfiles: defineTable({
+		workspaceId: v.id("workspaces"),
+		userId: v.string(),
+		resumeStorageId: v.optional(v.id("_storage")),
+		resumeFileName: v.optional(v.string()),
+		resumeMimeType: v.optional(v.string()),
+		resumeUploadedAt: v.optional(v.number()),
+		parseStatus: agentProfileParseStatus,
+		primarySkills: v.array(v.string()),
+		secondarySkills: v.array(v.string()),
+		languages: v.array(v.string()),
+		summary: v.optional(v.string()),
+		parseSource: v.optional(v.union(v.literal("provider"), v.literal("fallback"))),
+		parseFallbackReason: v.optional(
+			v.union(v.literal("parser_error"), v.literal("invalid_schema"), v.null()),
+		),
+		parseError: v.optional(v.string()),
+		lastParsedAt: v.optional(v.number()),
+		createdAt: v.number(),
+		updatedAt: v.number(),
 	})
 		.index("by_workspaceId", ["workspaceId"])
 		.index("by_userId", ["userId"])
