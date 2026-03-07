@@ -2,11 +2,14 @@
 
 import { useQuery } from "convex/react";
 
+import { getCurrentWorkspaceReference } from "../../../../../../packages/backend/convex/workspaces_reference";
 import { getTeamVisibilityReference } from "../../../../../../packages/backend/convex/visibility_reference";
 import {
 	type WorkloadCard,
 	WorkloadCards,
 } from "../../../components/visibility/workload-cards";
+import { authClient } from "../../../lib/auth-client";
+import { WorkspaceAccessPanel } from "../../../components/workspace/workspace-access-panel";
 
 function buildWorkloadNote(card: {
 	status: WorkloadCard["status"];
@@ -28,7 +31,15 @@ function buildWorkloadNote(card: {
 }
 
 export default function VisibilityPage() {
-	const visibility = useQuery(getTeamVisibilityReference, {});
+	const { data: session, isPending: isSessionPending } = authClient.useSession();
+	const workspaceState = useQuery(
+		getCurrentWorkspaceReference,
+		session ? {} : "skip",
+	);
+	const visibility = useQuery(
+		getTeamVisibilityReference,
+		workspaceState?.isMember ? {} : "skip",
+	);
 	const workloadCards: WorkloadCard[] = (visibility?.cards ?? []).map(
 		(card) => ({
 			id: card.id,
@@ -43,6 +54,26 @@ export default function VisibilityPage() {
 			}),
 		}),
 	);
+
+	if (!isSessionPending && workspaceState && !workspaceState.isMember) {
+		return (
+			<section className="grid gap-4">
+				<div className="border bg-card p-5 text-card-foreground">
+					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+						Team visibility
+					</p>
+					<h2 className="mt-2 text-xl font-semibold tracking-tight">
+						Join a workspace to see team visibility
+					</h2>
+					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+						Create a workspace or join one with a pod code to view workload
+						capacity and review pressure.
+					</p>
+				</div>
+				<WorkspaceAccessPanel />
+			</section>
+		);
+	}
 
 	return (
 		<section className="grid gap-4">
