@@ -14,6 +14,11 @@ const sections: Array<{ href: Route; label: string; description: string }> = [
 		description: "Track items waiting on human confirmation.",
 	},
 	{
+		href: "/settings/profile" as Route,
+		label: "Profile",
+		description: "Upload your resume and tune assignment fit.",
+	},
+	{
 		href: "/settings/policy" as Route,
 		label: "Policy",
 		description: "Tune routing thresholds and workload guardrails.",

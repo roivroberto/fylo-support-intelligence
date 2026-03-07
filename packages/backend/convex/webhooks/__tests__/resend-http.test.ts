@@ -1,12 +1,39 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { handleResendInboundWebhook } from "../resend";
+import { authComponent } from "../../auth";
 
 vi.mock("../../auth", () => ({
 	authComponent: {
 		getAuthUser: vi.fn().mockResolvedValue(null),
 	},
 }));
+
+function createMembershipDb(workspaceId = "ws_1") {
+	return {
+		query(table: string) {
+			if (table !== "memberships") {
+				throw new Error(`Unexpected table query: ${table}`);
+			}
+
+			return {
+				withIndex(_indexName: string, builder: (q: any) => any) {
+					builder({
+						eq() {
+							return this;
+						},
+					});
+
+					return {
+						async collect() {
+							return [{ workspaceId, userId: "user_1", role: "lead" }];
+						},
+					};
+				},
+			};
+		},
+	};
+}
 
 function createRequest(body: string) {
 	return new Request("https://example.com/webhooks/resend", {
@@ -117,6 +144,7 @@ describe("handleResendInboundWebhook", () => {
 	});
 
 	it("ingests valid inbound emails", async () => {
+		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_1" } as any);
 		const rawBody = JSON.stringify({
 			type: "email.received",
 			data: {
@@ -150,7 +178,7 @@ describe("handleResendInboundWebhook", () => {
 		const verifyResendSignature = vi.fn().mockResolvedValue(true);
 
 		const response = await handleResendInboundWebhook(
-			{ runMutation } as never,
+			{ runMutation, db: createMembershipDb("ws_1") } as never,
 			createRequest(rawBody),
 			{
 				secret: "whsec_test",
@@ -184,7 +212,7 @@ describe("handleResendInboundWebhook", () => {
 			rawBody,
 		});
 		expect(runMutation).toHaveBeenNthCalledWith(2, expect.anything(), {
-			workspaceId: undefined,
+			workspaceId: "ws_1",
 			source: "resend",
 			externalId: "email_123",
 			messageId: "message_1",
@@ -207,12 +235,14 @@ describe("handleResendInboundWebhook", () => {
 	});
 
 	it("accepts duplicate webhook deliveries through idempotent mutations", async () => {
+		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_1" } as any);
 		const response = await handleResendInboundWebhook(
 			{
 				runMutation: vi
 					.fn()
 					.mockResolvedValueOnce({ messageId: "message_1", created: false })
 					.mockResolvedValueOnce({ ticketId: "ticket_1", created: false }),
+				db: createMembershipDb("ws_1"),
 			} as never,
 			createRequest(
 				JSON.stringify({
@@ -247,13 +277,14 @@ describe("handleResendInboundWebhook", () => {
 	});
 
 	it("does not reclassify duplicate webhook deliveries", async () => {
+		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_1" } as any);
 		const runMutation = vi
 			.fn()
 			.mockResolvedValueOnce({ messageId: "message_1", created: false })
 			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false });
 
 		await handleResendInboundWebhook(
-			{ runMutation } as never,
+			{ runMutation, db: createMembershipDb("ws_1") } as never,
 			createRequest(
 				JSON.stringify({
 					type: "email.received",

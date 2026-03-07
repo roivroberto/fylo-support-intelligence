@@ -5,6 +5,7 @@ import {
 } from "convex/server";
 import { ConvexError, v } from "convex/values";
 
+import type { AgentProfileSnapshot } from "./agent_profiles_reference";
 import { authComponent } from "./auth";
 import type {
 	ClassifyTicketInput,
@@ -296,12 +297,20 @@ function buildWorkerProfile(
 	role: string,
 	load: number,
 	capacity: number,
+	profile?: Pick<
+		AgentProfileSnapshot,
+		"parseStatus" | "primarySkills" | "secondarySkills" | "languages"
+	> | null,
 ): RoutingWorker {
 	const isLead = role === "lead";
+	const usesParsedProfile =
+		profile?.parseStatus === "ready" && profile.primarySkills.length > 0;
 
 	return {
 		id: userId,
-		primary: isLead
+		primary: usesParsedProfile
+			? profile.primarySkills
+			: isLead
 			? [
 				"billing_issue",
 				"complaint",
@@ -314,13 +323,31 @@ function buildWorkerProfile(
 				"feature_request",
 				"general_inquiry",
 			],
-		secondary: isLead
+		secondary: usesParsedProfile
+			? profile.secondarySkills
+			: isLead
 			? ["refund_request", "feature_request", "technical_problem"]
 			: ["billing_issue", "account_access", "complaint"],
 		load,
 		capacity,
-		languages: userId.includes(".ph") ? ["en", "fil"] : ["en"],
+		languages:
+			usesParsedProfile && profile.languages.length > 0
+				? profile.languages
+				: userId.includes(".ph")
+					? ["en", "fil"]
+					: ["en"],
 	};
+}
+
+async function listAgentProfilesForWorkspace(ctx: any, workspaceId: any) {
+	if (!workspaceId) {
+		return [];
+	}
+
+	return ctx.db
+		.query("agentProfiles")
+		.withIndex("by_workspaceId", (q: any) => q.eq("workspaceId", workspaceId))
+		.collect();
 }
 
 async function getPilotWorkspaceId(ctx: any, memberships?: any[]) {
@@ -375,8 +402,24 @@ async function buildRoutingWorkers(
 	policy: RoutingPolicySettings,
 ) {
 	const memberships = await listWorkspaceMemberships(ctx, workspaceId);
+	const profiles = await listAgentProfilesForWorkspace(ctx, workspaceId);
 	const tickets = ((await ctx.db.query("tickets").collect()) as any[]).filter(
 		(ticket) => ticket.workspaceId === workspaceId,
+	);
+	const profileByUserId = new Map<
+		string,
+		Pick<
+			AgentProfileSnapshot,
+			"parseStatus" | "primarySkills" | "secondarySkills" | "languages"
+		>
+	>(
+		profiles.map((profile: any) => [
+			profile.userId,
+			profile as Pick<
+				AgentProfileSnapshot,
+				"parseStatus" | "primarySkills" | "secondarySkills" | "languages"
+			>,
+		]),
 	);
 
 	return memberships.map((membership: any) => {
@@ -389,6 +432,7 @@ async function buildRoutingWorkers(
 			membership.role,
 			load,
 			policy.maxAssignmentsPerWorker,
+			profileByUserId.get(membership.userId) ?? null,
 		);
 	});
 }
