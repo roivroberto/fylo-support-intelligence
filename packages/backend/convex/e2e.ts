@@ -1,7 +1,8 @@
-import { mutationGeneric as mutation } from "convex/server";
+import { mutationGeneric as mutation, queryGeneric as query } from "convex/server";
 import { ConvexError, v } from "convex/values";
 
 import { authComponent } from "./auth";
+import { canAccessOperationalCorePilot } from "./tickets";
 
 const ROUTING_POLICY_SLUG = "routing-policy";
 const ROUTING_POLICY_TITLE = "Routing policy";
@@ -23,6 +24,10 @@ type SeededTicket = {
 	requesterEmail: string | null;
 	subject: string | null;
 	messageText: string | null;
+	requestType?: string;
+	priority?: "low" | "medium" | "high" | "urgent" | "critical";
+	classificationConfidence?: number;
+	classificationSource?: "provider" | "fallback";
 	assignedWorkerId?: string | null;
 	reviewState?: TicketReviewState;
 	routingReason?: string;
@@ -32,6 +37,18 @@ type SeededTicket = {
 		authorUserId: string;
 		authorLabel: string;
 	};
+};
+
+type OutboundMessageWorkspace = {
+	id: string;
+	deliveryStatus: string | null;
+	providerMessageId: string | null;
+	externalId: string | null;
+	to: string[];
+	from: string | null;
+	subject: string | null;
+	sentAt: number | null;
+	rawBody: string;
 };
 
 async function requireCurrentUser(ctx: any) {
@@ -46,6 +63,20 @@ async function requireCurrentUser(ctx: any) {
 		email?: string | null;
 		name?: string | null;
 	};
+}
+
+async function requireOperationalCoreAccess(ctx: any) {
+	const user = await requireCurrentUser(ctx);
+	const memberships = await ctx.db
+		.query("memberships")
+		.withIndex("by_userId", (q: any) => q.eq("userId", String(user._id)))
+		.collect();
+
+	if (!canAccessOperationalCorePilot(memberships)) {
+		throw new ConvexError("Forbidden");
+	}
+
+	return user;
 }
 
 function buildPolicyBody() {
@@ -67,6 +98,10 @@ function buildWorkspaceSlug(userId: string) {
 
 function buildWorkspaceUserId(userId: string, label: string) {
 	return `${label}-${userId}@fylo.local`;
+}
+
+function buildPersistedDraftSeedTicketKey(seedKey: string) {
+	return `persisted-draft-${seedKey}`;
 }
 
 async function ensureWorkspace(db: any, userId: string, now: number) {
@@ -187,6 +222,7 @@ async function ensureInboundMessage(
 
 async function ensureTicket(
 	db: any,
+	workspaceId: any,
 	userId: string,
 	messageId: any,
 	seed: SeededTicket,
@@ -200,11 +236,21 @@ async function ensureTicket(
 		)
 		.unique();
 	const payload = {
+		workspaceId,
 		source: "resend" as const,
 		externalId,
 		messageId,
 		requesterEmail: seed.requesterEmail,
 		subject: seed.subject,
+		...(seed.requestType !== undefined ? { requestType: seed.requestType } : {}),
+		...(seed.priority !== undefined ? { priority: seed.priority } : {}),
+		...(seed.classificationConfidence !== undefined
+			? { classificationConfidence: seed.classificationConfidence }
+			: {}),
+		...(seed.classificationSource !== undefined
+			? { classificationSource: seed.classificationSource }
+			: {}),
+		language: seed.requesterEmail?.endsWith(".ph") ? "fil" : "en",
 		receivedAt: now,
 		...(seed.assignedWorkerId !== undefined
 			? { assignedWorkerId: seed.assignedWorkerId }
@@ -258,13 +304,26 @@ async function ensureTicketNote(
 	});
 }
 
+async function clearStoredDraft(db: any, ticketId: string) {
+	const existingDraft = await db
+		.query("draftReplies")
+		.withIndex("by_ticketId", (q: any) => q.eq("ticketId", ticketId))
+		.unique();
+
+	if (existingDraft) {
+		await db.delete(existingDraft._id);
+	}
+}
+
 function buildSeededTickets(input: {
 	viewerId: string;
 	viewerLabel: string;
 	busyAgentUserId: string;
 	watchAgentUserId: string;
+	liveSendTo?: string;
+	persistedDraftSeedKey?: string;
 }) {
-	return [
+	const tickets: SeededTicket[] = [
 		{
 			key: "vip-review",
 			from: "vip@northstar.example",
@@ -272,6 +331,10 @@ function buildSeededTickets(input: {
 			subject: "VIP onboarding escalation",
 			messageText:
 				"VIP onboarding needs lead confirmation. Please confirm owner and next step.",
+			requestType: "complaint",
+			priority: "high",
+			classificationConfidence: 0.72,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "manager_verification" as const,
 			routingReason: "Escalated by policy rule for lead confirmation.",
@@ -289,6 +352,10 @@ function buildSeededTickets(input: {
 			subject: "Billing exception needs manual routing",
 			messageText:
 				"The exception still needs a specialist owner, but the queue should keep moving.",
+			requestType: "billing_issue",
+			priority: "high",
+			classificationConfidence: 0.91,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Secondary-skill coverage kept the queue moving.",
@@ -301,6 +368,10 @@ function buildSeededTickets(input: {
 			subject: "Data retention routing question",
 			messageText:
 				"Need a confirmed owner for the retention workflow follow-up before the SLA window closes.",
+			requestType: "general_inquiry",
+			priority: "medium",
+			classificationConfidence: 0.61,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Backlog relief routed to the current specialist.",
@@ -313,6 +384,10 @@ function buildSeededTickets(input: {
 			subject: "Account ownership confirmation",
 			messageText:
 				"Please confirm the current owner and the next update we should send back to the customer.",
+			requestType: "account_access",
+			priority: "medium",
+			classificationConfidence: 0.88,
+			classificationSource: "provider",
 			assignedWorkerId: input.busyAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Existing owner retained after deterministic routing.",
@@ -325,6 +400,10 @@ function buildSeededTickets(input: {
 			subject: "VIP checklist variance",
 			messageText:
 				"The checklist gap is small, but we still need human confirmation before rerouting.",
+			requestType: "feature_request",
+			priority: "medium",
+			classificationConfidence: 0.68,
+			classificationSource: "provider",
 			assignedWorkerId: input.watchAgentUserId,
 			reviewState: "manager_verification" as const,
 			routingReason: "Confidence stayed below the auto-assign threshold.",
@@ -337,6 +416,10 @@ function buildSeededTickets(input: {
 			subject: "Refund policy question",
 			messageText:
 				"The backup coverage lane picked this up, but one more review could crowd the queue.",
+			requestType: "refund_request",
+			priority: "high",
+			classificationConfidence: 0.84,
+			classificationSource: "provider",
 			assignedWorkerId: input.watchAgentUserId,
 			reviewState: "auto_assign_allowed" as const,
 			routingReason: "Matched the backup skill coverage lane.",
@@ -349,16 +432,67 @@ function buildSeededTickets(input: {
 			subject: null,
 			messageText:
 				"Following up on a request that omitted the sender details, but still needs a human handoff.",
+			requestType: "general_inquiry",
+			priority: "medium",
+			classificationConfidence: 0,
+			classificationSource: "fallback",
 			assignedWorkerId: null,
 			reviewState: "manual_triage" as const,
 			status: "new" as const,
 		},
-	] satisfies SeededTicket[];
+	];
+
+	if (input.persistedDraftSeedKey) {
+			tickets.push({
+				key: buildPersistedDraftSeedTicketKey(input.persistedDraftSeedKey),
+				from: "renewals@northstar.example",
+				requesterEmail: "renewals@northstar.example",
+				subject: "Contract renewal timeline",
+				messageText:
+					"Please confirm the current renewal owner and when we should expect the next contract update from your team.",
+				requestType: "general_inquiry",
+				priority: "medium",
+				classificationConfidence: 0.9,
+				classificationSource: "provider",
+				assignedWorkerId: input.watchAgentUserId,
+				reviewState: "auto_assign_allowed" as const,
+				routingReason: "Seeded specifically to verify persisted draft generation.",
+			status: "assigned" as const,
+		});
+	}
+
+	if (input.liveSendTo) {
+			tickets.push({
+				key: "approved-send",
+				from: input.liveSendTo,
+				requesterEmail: input.liveSendTo,
+				subject: "Fylo live send verification",
+				messageText:
+					"Please use this ticket to verify the real approved reply send path through Resend.",
+				requestType: "general_inquiry",
+				priority: "medium",
+				classificationConfidence: 0.89,
+				classificationSource: "provider",
+				assignedWorkerId: input.busyAgentUserId,
+				reviewState: "auto_assign_allowed",
+			routingReason: "Prepared specifically for live approved-reply verification.",
+			status: "assigned",
+			note: {
+				body: "Live-send verification ticket seeded for approved reply testing.",
+				authorUserId: input.viewerId,
+				authorLabel: input.viewerLabel,
+			},
+		});
+	}
+
+	return tickets;
 }
 
 export const seedData = mutation({
 	args: {
 		viewerRole: v.optional(v.union(v.literal("lead"), v.literal("agent"))),
+		liveSendTo: v.optional(v.string()),
+		persistedDraftSeedKey: v.optional(v.string()),
 	},
 	handler: async (ctx, args) => {
 		const user = await requireCurrentUser(ctx);
@@ -387,16 +521,32 @@ export const seedData = mutation({
 			viewerLabel: userName,
 			busyAgentUserId,
 			watchAgentUserId,
+			liveSendTo: args.liveSendTo,
+			persistedDraftSeedKey: args.persistedDraftSeedKey,
 		});
+		const persistedDraftTicketKey = args.persistedDraftSeedKey
+			? buildPersistedDraftSeedTicketKey(args.persistedDraftSeedKey)
+			: null;
 		const ids = new Map<string, string>();
 
 		for (const ticket of tickets) {
 			const messageId = await ensureInboundMessage(ctx.db, userId, ticket, now);
-			const ticketId = await ensureTicket(ctx.db, userId, messageId, ticket, now);
+			const ticketId = await ensureTicket(
+				ctx.db,
+				workspaceId,
+				userId,
+				messageId,
+				ticket,
+				now,
+			);
 			ids.set(ticket.key, String(ticketId));
 
 			if (ticket.note) {
 				await ensureTicketNote(ctx.db, ticketId, ticket.note, now);
+			}
+
+			if (persistedDraftTicketKey && ticket.key === persistedDraftTicketKey) {
+				await clearStoredDraft(ctx.db, String(ticketId));
 			}
 		}
 
@@ -408,6 +558,45 @@ export const seedData = mutation({
 			clearAgentUserId,
 			ticketId: ids.get("vip-review") ?? "",
 			missingInfoTicketId: ids.get("missing-info") ?? "",
+			persistedDraftTicketId: persistedDraftTicketKey
+				? (ids.get(persistedDraftTicketKey) ?? "")
+				: "",
+			approvedSendTicketId: ids.get("approved-send") ?? null,
+		};
+	},
+});
+
+export const getLatestOutboundForTicket = query({
+	args: {
+		ticketId: v.id("tickets"),
+	},
+	handler: async (ctx, args): Promise<OutboundMessageWorkspace | null> => {
+		await requireOperationalCoreAccess(ctx);
+		const outboundMessages = await ctx.db
+			.query("messages")
+			.withIndex("by_ticketId", (q: any) => q.eq("ticketId", args.ticketId))
+			.collect();
+		const latestMessage = outboundMessages
+			.filter((message: any) => message.direction === "outbound")
+			.sort(
+				(a: any, b: any) =>
+					(b.sentAt ?? b.createdAt ?? 0) - (a.sentAt ?? a.createdAt ?? 0),
+			)[0];
+
+		if (!latestMessage) {
+			return null;
+		}
+
+		return {
+			id: String(latestMessage._id),
+			deliveryStatus: latestMessage.deliveryStatus ?? null,
+			providerMessageId: latestMessage.providerMessageId ?? null,
+			externalId: latestMessage.externalId ?? null,
+			to: latestMessage.to,
+			from: latestMessage.from,
+			subject: latestMessage.subject,
+			sentAt: latestMessage.sentAt ?? null,
+			rawBody: latestMessage.rawBody,
 		};
 	},
 });

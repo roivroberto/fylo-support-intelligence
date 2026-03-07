@@ -72,12 +72,54 @@ export default defineSchema({
 		authorLabel: v.string(),
 		createdAt: v.number(),
 	}).index("by_ticketId", ["ticketId"]),
+	draftReplies: defineTable({
+		ticketId: v.id("tickets"),
+		summary: v.string(),
+		recommendedAction: v.string(),
+		draftReply: v.string(),
+		generationStatus: v.optional(
+			v.union(v.literal("pending"), v.literal("ready")),
+		),
+		claimToken: v.optional(v.string()),
+		claimExpiresAt: v.optional(v.number()),
+		generationSource: v.union(v.literal("provider"), v.literal("deterministic")),
+		usedFallback: v.boolean(),
+		fallbackReason: v.union(
+			v.literal("generator_error"),
+			v.literal("invalid_schema"),
+			v.null(),
+		),
+		generatedAt: v.number(),
+	}).index("by_ticketId", ["ticketId"]),
 	tickets: defineTable({
+		workspaceId: v.id("workspaces"),
 		source: v.literal("resend"),
 		externalId: v.string(),
 		messageId: v.id("messages"),
 		requesterEmail: v.union(v.string(), v.null()),
 		subject: v.union(v.string(), v.null()),
+		requestType: v.optional(v.string()),
+		priority: v.optional(
+			v.union(
+				v.literal("low"),
+				v.literal("medium"),
+				v.literal("high"),
+				v.literal("urgent"),
+				v.literal("critical"),
+			),
+		),
+		classificationConfidence: v.optional(v.number()),
+		classificationSource: v.optional(
+			v.union(v.literal("provider"), v.literal("fallback")),
+		),
+		classificationFallbackReason: v.optional(
+			v.union(
+				v.literal("classifier_error"),
+				v.literal("invalid_schema"),
+				v.null(),
+			),
+		),
+		language: v.optional(v.string()),
 		assignedWorkerId: v.optional(v.union(v.string(), v.null())),
 		reviewState: v.optional(ticketReviewState),
 		routingReason: v.optional(v.string()),
@@ -86,6 +128,7 @@ export default defineSchema({
 		reviewedAt: v.optional(v.number()),
 		receivedAt: v.number(),
 	})
+		.index("by_workspaceId", ["workspaceId"])
 		.index("by_source_externalId", ["source", "externalId"])
 		.index("by_messageId", ["messageId"]),
 });

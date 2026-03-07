@@ -12,6 +12,10 @@ describe("buildTicketDetailWorkspace", () => {
 				_id: "ticket_123",
 				subject: "Billing exception needs manual routing",
 				requesterEmail: "ops@northstar.example",
+				requestType: "billing_issue",
+				priority: "high",
+				classificationConfidence: 0.78,
+				classificationSource: "provider",
 				reviewState: "manager_verification",
 				status: "reviewed",
 				routingReason:
@@ -26,16 +30,29 @@ describe("buildTicketDetailWorkspace", () => {
 					createdAt: Date.UTC(2026, 2, 7, 14, 58, 0),
 				},
 			],
+			recommendedAssigneeOptions: [
+				{
+					id: "worker_1",
+					label: "worker_1",
+					skillMatchTier: "primary",
+					capacityRemaining: 4,
+					languageMatch: true,
+				},
+			],
 			now: Date.UTC(2026, 2, 7, 15, 0, 0),
 		});
 
-		expect(detail).toMatchObject({
-			id: "ticket_123",
-			title: "Billing exception needs manual routing",
-			requesterEmail: "ops@northstar.example",
-			reviewState: "manager_verification",
-			status: "reviewed",
-			routingReason:
+			expect(detail).toMatchObject({
+				id: "ticket_123",
+				title: "Billing exception needs manual routing",
+				requesterEmail: "ops@northstar.example",
+				requestType: "billing_issue",
+				priority: "high",
+				classificationConfidence: 0.78,
+				classificationSource: "provider",
+				reviewState: "manager_verification",
+				status: "reviewed",
+				routingReason:
 				"Policy threshold exceeded for billing exception handling.",
 			assignedWorkerLabel: "Unassigned",
 			assignmentContext:
@@ -48,6 +65,15 @@ describe("buildTicketDetailWorkspace", () => {
 				body: "Confirm whether the exception should stay with finance.",
 				authorLabel: "Routing assistant",
 				createdAtLabel: "2m ago",
+			},
+		]);
+		expect(detail.recommendedAssigneeOptions).toEqual([
+			{
+				id: "worker_1",
+				label: "worker_1",
+				skillMatchTier: "primary",
+				capacityRemaining: 4,
+				languageMatch: true,
 			},
 		]);
 	});

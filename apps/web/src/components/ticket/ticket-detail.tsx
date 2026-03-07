@@ -1,7 +1,10 @@
 import React from "react";
 
+import type { TicketDraftWorkspace } from "../../../../../packages/backend/convex/drafts_reference";
+
 import { DraftReplyPanel } from "./draft-reply-panel";
 import { type TicketNote, TicketNotes } from "./ticket-notes";
+import { TicketWorkspaceActions } from "./ticket-workspace-actions";
 
 type TicketWorkspace = {
 	id: string;
@@ -10,19 +13,32 @@ type TicketWorkspace = {
 	reviewState: string;
 	status?: string;
 	routingReason?: string;
+	requestType?: string;
+	priority?: string;
+	classificationConfidence?: number;
+	classificationSource?: "provider" | "fallback";
+	assignedWorkerId?: string | null;
 	assignedWorkerLabel?: string;
 	assignmentContext?: string;
 	notes?: TicketNote[];
-	draft?: {
-		summary: string;
-		recommendedAction: string;
-		draftReply: string;
-		usedFallback: boolean;
-		generatedAtLabel: string;
-	};
+	recommendedAssigneeOptions?: Array<{
+		id: string;
+		label: string;
+		skillMatchTier: string;
+		capacityRemaining: number;
+		languageMatch: boolean;
+	}>;
+	draft?: TicketDraftWorkspace;
 };
 
-export function TicketDetail({ ticket }: { ticket: TicketWorkspace }) {
+type TicketDetailProps = {
+	ticket: TicketWorkspace;
+	draft?: TicketDraftWorkspace;
+};
+
+export function TicketDetail({ ticket, draft }: TicketDetailProps) {
+	const ticketDraft = draft ?? ticket.draft;
+
 	return (
 		<section className="grid gap-4">
 			<div className="border bg-card p-5 text-card-foreground">
@@ -71,6 +87,34 @@ export function TicketDetail({ ticket }: { ticket: TicketWorkspace }) {
 						</div>
 					</div>
 					<div className="mt-4 grid gap-3 text-sm text-muted-foreground">
+						<div className="grid gap-4 sm:grid-cols-3">
+							<div>
+								<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+									Request type
+								</p>
+								<p className="mt-2 text-sm text-foreground">
+									{ticket.requestType ?? "Pending classification"}
+								</p>
+							</div>
+							<div>
+								<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+									Priority
+								</p>
+								<p className="mt-2 text-sm text-foreground">
+									{ticket.priority ?? "Pending classification"}
+								</p>
+							</div>
+							<div>
+								<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+									AI confidence
+								</p>
+								<p className="mt-2 text-sm text-foreground">
+									{typeof ticket.classificationConfidence === "number"
+										? `${Math.round(ticket.classificationConfidence * 100)}% (${ticket.classificationSource ?? "fallback"})`
+										: "Pending classification"}
+								</p>
+							</div>
+						</div>
 						<div>
 							<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
 								Routing reason
@@ -93,13 +137,19 @@ export function TicketDetail({ ticket }: { ticket: TicketWorkspace }) {
 				</div>
 
 				<div className="grid gap-4">
+					<TicketWorkspaceActions
+						ticketId={ticket.id}
+						reviewState={ticket.reviewState}
+						assignedWorkerId={ticket.assignedWorkerId ?? null}
+						recommendedAssigneeOptions={ticket.recommendedAssigneeOptions ?? []}
+					/>
 					<TicketNotes notes={ticket.notes ?? []} />
-					{ticket.draft ? (
+					{ticketDraft ? (
 						<DraftReplyPanel
 							ticketId={ticket.id}
 							to={ticket.requesterEmail ?? null}
 							subject={ticket.title ?? null}
-							draft={ticket.draft}
+							draft={ticketDraft}
 						/>
 					) : null}
 				</div>

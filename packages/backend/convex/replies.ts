@@ -24,6 +24,13 @@ type ApprovedReplyTicket = {
 	status?: string | null;
 };
 
+type SendApprovedDeps = {
+	createResendClientFromEnv?: typeof createResendClientFromEnv;
+	buildApprovedReplyRequest?: typeof buildApprovedReplyRequest;
+	sendApprovedReply?: typeof sendApprovedReply;
+	now?: () => number;
+};
+
 async function requireCurrentUser(ctx: any) {
 	const user = await authComponent.getAuthUser(ctx);
 
@@ -85,60 +92,70 @@ export const getApprovedReplyTicket = query({
 	},
 });
 
-export const sendApproved = action({
+export async function sendApprovedHandler(
+	ctx: any,
 	args: {
-		ticketId: v.id("tickets"),
-		to: v.optional(v.string()),
-		subject: v.optional(v.string()),
-		draftReply: v.string(),
+		ticketId: string;
+		to?: string;
+		subject?: string;
+		draftReply: string;
 	},
-	handler: async (ctx, args) => {
-		const resend = createResendClientFromEnv();
-		const ticket = await ctx.runQuery(getApprovedReplyTicketReference, {
-			ticketId: args.ticketId,
-		});
+	deps: SendApprovedDeps = {},
+) {
+	const createResendClientFromEnvImpl =
+		deps.createResendClientFromEnv ?? createResendClientFromEnv;
+	const buildApprovedReplyRequestImpl =
+		deps.buildApprovedReplyRequest ?? buildApprovedReplyRequest;
+	const sendApprovedReplyImpl = deps.sendApprovedReply ?? sendApprovedReply;
+	const now = deps.now ?? Date.now;
+	const resend = createResendClientFromEnvImpl();
+	const ticket = await ctx.runQuery(getApprovedReplyTicketReference, {
+		ticketId: args.ticketId,
+	});
 
-		if (!ticket) {
-			throw new ConvexError("Ticket not found");
-		}
+	if (!ticket) {
+		throw new ConvexError("Ticket not found");
+	}
 
-		const reply = await buildApprovedReplyRequest({
-			ticket,
-			draftReply: args.draftReply,
-			requestedTo: args.to,
-			requestedSubject: args.subject,
-		});
-		const reservation = await ctx.runMutation(reserveOutboundMessageReference, {
-			source: OUTBOUND_MESSAGE_SOURCE,
-			idempotencyKey: reply.idempotencyKey,
-			ticketId: args.ticketId,
-			from: resend.from,
-			to: [reply.to],
-			subject: reply.subject,
-			text: reply.text,
-			html: reply.html,
-			rawBody: JSON.stringify({ state: "pending" }),
-			createdAt: Date.now(),
-		});
+	const reply = await buildApprovedReplyRequestImpl({
+		ticket,
+		draftReply: args.draftReply,
+		requestedTo: args.to,
+		requestedSubject: args.subject,
+	});
+	const reservation = await ctx.runMutation(reserveOutboundMessageReference, {
+		source: OUTBOUND_MESSAGE_SOURCE,
+		idempotencyKey: reply.idempotencyKey,
+		ticketId: args.ticketId,
+		from: resend.from,
+		to: [reply.to],
+		subject: reply.subject,
+		text: reply.text,
+		html: reply.html,
+		rawBody: JSON.stringify({ state: "pending" }),
+		createdAt: now(),
+	});
 
-		if (
-			reservation.deliveryStatus === OUTBOUND_MESSAGE_SENT &&
-			reservation.providerMessageId
-		) {
-			return {
-				messageId: reservation.messageId,
-				providerMessageId: reservation.providerMessageId,
-			};
-		}
+	if (
+		reservation.deliveryStatus === OUTBOUND_MESSAGE_SENT &&
+		reservation.providerMessageId
+	) {
+		return {
+			messageId: reservation.messageId,
+			providerMessageId: reservation.providerMessageId,
+		};
+	}
 
-		const result = await sendApprovedReply(resend, {
-			to: reply.to,
-			subject: reply.subject,
-			html: reply.html,
-			idempotencyKey: reply.idempotencyKey,
-		});
-		const sentAt = Date.now();
-		const finalized = await ctx.runMutation(finalizeOutboundMessageReference, {
+	const result = await sendApprovedReplyImpl(resend, {
+		to: reply.to,
+		subject: reply.subject,
+		html: reply.html,
+		idempotencyKey: reply.idempotencyKey,
+	});
+	const sentAt = now();
+	let finalized;
+	try {
+		finalized = await ctx.runMutation(finalizeOutboundMessageReference, {
 			messageId: reservation.messageId,
 			providerMessageId: result.providerMessageId,
 			sentAt,
@@ -148,10 +165,26 @@ export const sendApproved = action({
 				sentAt,
 			}),
 		});
+	} catch (error) {
+		const message =
+			error instanceof Error ? error.message : String(error);
+		throw new Error(
+			`Failed to finalize approved reply send for messageId=${reservation.messageId} providerMessageId=${result.providerMessageId}: ${message}`,
+		);
+	}
 
-		return {
-			messageId: finalized.messageId,
-			providerMessageId: finalized.providerMessageId,
-		};
+	return {
+		messageId: finalized.messageId,
+		providerMessageId: finalized.providerMessageId,
+	};
+}
+
+export const sendApproved = action({
+	args: {
+		ticketId: v.id("tickets"),
+		to: v.optional(v.string()),
+		subject: v.optional(v.string()),
+		draftReply: v.string(),
 	},
+	handler: async (ctx, args) => sendApprovedHandler(ctx, args),
 });

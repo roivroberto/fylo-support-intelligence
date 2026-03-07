@@ -41,7 +41,7 @@ export type OutboundMessageRecord<MessageId, TicketId> = {
 	text: string | null;
 	html: string | null;
 	createdAt: number;
-	sentAt: number | null;
+	sentAt?: number;
 	rawBody: string;
 	deliveryStatus: OutboundDeliveryStatus;
 };
@@ -117,7 +117,6 @@ export async function reserveOutboundMessage<MessageId, TicketId>(
 		...seed,
 		externalId: null,
 		providerMessageId: null,
-		sentAt: null,
 		deliveryStatus: OUTBOUND_MESSAGE_PENDING,
 	});
 

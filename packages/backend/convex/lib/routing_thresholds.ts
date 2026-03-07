@@ -6,12 +6,23 @@ export type ReviewState =
 	| "manager_verification"
 	| "manual_triage";
 
-export function computeReviewState(confidence: number): ReviewState {
-	if (confidence < MANUAL_TRIAGE_THRESHOLD) {
+export function computeReviewState(
+	confidence: number,
+	thresholds?: {
+		autoAssignThreshold?: number;
+		manualTriageThreshold?: number;
+	},
+): ReviewState {
+	const manualTriageThreshold =
+		thresholds?.manualTriageThreshold ?? MANUAL_TRIAGE_THRESHOLD;
+	const autoAssignThreshold =
+		thresholds?.autoAssignThreshold ?? AUTO_ASSIGN_THRESHOLD;
+
+	if (confidence < manualTriageThreshold) {
 		return "manual_triage";
 	}
 
-	if (confidence <= AUTO_ASSIGN_THRESHOLD) {
+	if (confidence <= autoAssignThreshold) {
 		return "manager_verification";
 	}
 

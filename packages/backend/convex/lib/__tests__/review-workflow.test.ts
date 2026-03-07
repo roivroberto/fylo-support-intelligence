@@ -56,6 +56,21 @@ describe("buildTicketRoutingPatch", () => {
 		expect(patch.reviewState).toBe("manager_verification");
 		expect(patch.routedAt).toBe(100);
 	});
+
+	it("marks auto-assign routing decisions as assigned", () => {
+		const patch = buildTicketRoutingPatch(
+			{
+				assignedWorkerId: "worker_1",
+				reviewState: "auto_assign_allowed",
+				routingReason: "Recommended worker_1.",
+				scoredCandidates: [],
+			},
+			101,
+		);
+
+		expect(patch.status).toBe("assigned");
+		expect(patch.assignedWorkerId).toBe("worker_1");
+	});
 });
 
 describe("buildLeadReviewPatch", () => {

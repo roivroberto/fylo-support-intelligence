@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this runbook to verify the operational core pilot is up, the expanded local E2E suite still passes, and inbound webhook failures leave a small breadcrumb for follow-up.
+Use this runbook to verify the operational core pilot is up, the expanded local E2E suite still covers the live MVP flows, and inbound webhook failures leave a small breadcrumb for follow-up.
 
 ## Before a pilot session
 
@@ -18,7 +18,21 @@ Run the full pilot E2E suite when your local env files and Convex dev setup are 
 bunx playwright test apps/web/tests/e2e/pilot-app.spec.ts
 ```
 
-Expected result: authenticated bootstrap, visibility, policy, and ticket workflows all pass without sending a real email.
+Expected result: authenticated bootstrap, live queue/review views, visibility, policy, ticket workspace actions, and draft workflows all pass without sending a real email.
+
+Known limitation: the broader Playwright suite still has the existing sign-out-related failure outside the MVP scope for this pass. Treat sign-out assertions as a separate follow-up item.
+
+## Live outbound email verification
+
+Run the guarded live outbound check only when local env files include working Resend credentials and you intend to send a real message:
+
+```bash
+E2E_RESEND_LIVE=1 bunx playwright test apps/web/tests/e2e/resend-live.spec.ts
+```
+
+Expected result: the app sends one approved reply through Resend and verifies that the outbound message record was persisted.
+
+This spec is intentionally opt-in and is not part of the default local or CI Playwright run.
 
 ## CI-safe smoke verification
 
@@ -40,12 +54,19 @@ The Resend inbound webhook now records a lightweight failure payload when truste
 
 Each failure includes a short `payloadDigest` so the team can correlate repeated failures without storing the full raw payload in the failure record.
 
+## True inbound webhook verification
+
+The default local and CI checks cover the inbound webhook code paths through unit, integration, and handler-level tests.
+
+A true provider-to-app inbound verification still requires a public callback target that Resend can reach, such as a deployed environment or a local tunnel. Treat that as a manual verification path rather than a default local CI step.
+
 ## If the local E2E suite or smoke test fails
 
 1. Re-run `bunx playwright test apps/web/tests/e2e/pilot-app.spec.ts` if local env/bootstrap coverage failed, or `bunx playwright test apps/web/tests/e2e/pilot-smoke.spec.ts` for the CI-safe smoke path.
 2. Open the generated Playwright trace or `test-results/` error context.
-3. Manually load `/queue`, `/visibility`, and `/settings/policy` and confirm the pilot shell renders.
+3. Manually load `/queue`, `/review`, `/visibility`, `/settings/policy`, and one seeded `/tickets/<ticketId>` route to confirm the pilot shell renders live data.
 4. If the failure started after inbound email changes, inspect webhook logs for `ingest_failure` records and compare the `reason` plus `payloadDigest`.
+5. If the only failing assertion is around `Sign out`, treat it as the known out-of-scope issue for this MVP pass.
 
 ## CI expectation
 

@@ -147,4 +147,31 @@ describe("routeTicket", () => {
 		expect(decision.routingReason).toContain("beat w2");
 		expect(decision.routingReason).toContain("worker_id");
 	});
+
+	it("respects policy options for secondary skills and required lead review", () => {
+		const decision = routeTicket({
+			ticket: {
+				request_type: "refund_request",
+				language: "en",
+				classification_confidence: 0.95,
+			},
+			workers: [
+				{
+					id: "lead_1",
+					primary: ["billing_issue"],
+					secondary: ["refund_request"],
+					load: 1,
+					capacity: 10,
+					languages: ["en"],
+				},
+			],
+			policy: {
+				allowSecondarySkills: true,
+				requireLeadReview: true,
+			},
+		});
+
+		expect(decision.assignedWorkerId).toBeNull();
+		expect(decision.reviewState).toBe("manager_verification");
+	});
 });
