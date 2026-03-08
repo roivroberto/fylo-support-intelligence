@@ -2,6 +2,7 @@
 
 import type { Route } from "next";
 import { useRouter } from "next/navigation";
+import { humanizeSnakeCase } from "../../lib/utils";
 
 type TicketRow = {
 	id: string;
@@ -68,11 +69,11 @@ function TicketTableRow({
 			onKeyDown={
 				href
 					? (e) => {
-							if (e.key === "Enter" || e.key === " ") {
-								e.preventDefault();
-								onSelect?.();
-							}
+						if (e.key === "Enter" || e.key === " ") {
+							e.preventDefault();
+							onSelect?.();
 						}
+					}
 					: undefined
 			}
 		>
@@ -80,7 +81,7 @@ function TicketTableRow({
 			<td>
 				<span className="cell-primary">{row.title ?? row.id}</span>
 				{row.requester && <div className="cell-sub">{row.requester}</div>}
-				{row.requestType && <div className="cell-sub">{row.requestType}</div>}
+				{row.requestType && <div className="cell-sub">{humanizeSnakeCase(row.requestType)}</div>}
 			</td>
 
 			{/* Confidence */}

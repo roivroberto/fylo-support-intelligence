@@ -71,7 +71,7 @@ describe("SignUpPage", () => {
 				assign,
 			},
 		});
-		getSearchParam.mockReturnValue("/visibility");
+		getSearchParam.mockReturnValue("/queue");
 		signUpWithEmail.mockResolvedValue({ data: {} });
 		joinWithPodCode.mockResolvedValue({ isMember: true });
 		ensureOnboardingWorkspace.mockResolvedValue({ isMember: true });
@@ -143,7 +143,7 @@ describe("SignUpPage", () => {
 				ownerSessionKey: "pilot@fylo.local",
 				type: "join",
 				podCode: "POD-ADMIN01",
-				redirectTo: "/visibility",
+				redirectTo: "/queue",
 			});
 			expect(joinWithPodCode).not.toHaveBeenCalled();
 			expect(ensureOnboardingWorkspace).not.toHaveBeenCalled();
@@ -176,7 +176,7 @@ describe("SignUpPage", () => {
 				ownerSessionKey: "pilot@fylo.local",
 				type: "join",
 				podCode: "POD-ADMIN01",
-				redirectTo: "/visibility",
+				redirectTo: "/queue",
 			});
 			expect(assign).toHaveBeenCalledWith("/");
 		});

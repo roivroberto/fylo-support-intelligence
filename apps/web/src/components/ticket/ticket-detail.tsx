@@ -1,4 +1,5 @@
 import type { TicketDraftWorkspace } from "../../../../../packages/backend/convex/drafts_reference";
+import { humanizeSnakeCase } from "../../lib/utils";
 
 import { DraftReplyPanel } from "./draft-reply-panel";
 import { type TicketNote, TicketNotes } from "./ticket-notes";
@@ -39,8 +40,8 @@ type TicketDetailProps = {
 function reviewStateBadge(state: string): string {
 	const s = state.toLowerCase();
 	if (s.includes("approved") || s.includes("routed")) return "app-badge app-badge--routed";
-	if (s.includes("manual") || s.includes("triage"))   return "app-badge app-badge--urgent";
-	if (s.includes("review") || s.includes("verif"))    return "app-badge app-badge--review";
+	if (s.includes("manual") || s.includes("triage")) return "app-badge app-badge--urgent";
+	if (s.includes("review") || s.includes("verif")) return "app-badge app-badge--review";
 	return "app-badge app-badge--pending";
 }
 
@@ -54,7 +55,7 @@ function reviewStateLabel(state: string): string {
 
 function priorityColor(priority: string | undefined): string {
 	if (!priority) return "rgba(240,240,240,0.5)";
-	if (priority === "high")   return "#f87171";
+	if (priority === "high") return "#f87171";
 	if (priority === "medium") return "#f0f0f0";
 	return "rgba(240,240,240,0.4)";
 }
@@ -72,10 +73,10 @@ export function TicketDetail({ ticket, draft }: TicketDetailProps) {
 			: null;
 
 	const metaFields = [
-		{ label: "Status",       value: ticket.status ?? "Ready for review" },
-		{ label: "Owner",        value: ticket.assignedWorkerLabel ?? "Unassigned" },
-		{ label: "Request type", value: ticket.requestType ?? "Pending" },
-		{ label: "Priority",     value: ticket.priority ?? "Pending", color: priorityColor(ticket.priority) },
+		{ label: "Status", value: ticket.status ?? "Ready for review" },
+		{ label: "Owner", value: ticket.assignedWorkerLabel ?? "Unassigned" },
+		{ label: "Request type", value: ticket.requestType ? humanizeSnakeCase(ticket.requestType) : "Pending" },
+		{ label: "Priority", value: ticket.priority ?? "Pending", color: priorityColor(ticket.priority) },
 	];
 
 	return (

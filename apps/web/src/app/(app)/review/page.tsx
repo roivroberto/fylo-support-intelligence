@@ -4,9 +4,11 @@ import { useQuery } from "convex/react";
 
 import { ReviewList } from "../../../components/review/review-list";
 import { getReviewSnapshotReference } from "../../../../../../packages/backend/convex/tickets_reference";
+import { authClient } from "../../../lib/auth-client";
 
 export default function ReviewPage() {
-	const review = useQuery(getReviewSnapshotReference, {});
+	const { data: session } = authClient.useSession();
+	const review = useQuery(getReviewSnapshotReference, session ? {} : "skip");
 	const items = review?.items ?? [];
 	const count = review?.count ?? 0;
 

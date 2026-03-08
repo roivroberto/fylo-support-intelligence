@@ -6,9 +6,11 @@ import { getTeamProfileDirectoryReference } from "@Fylo/backend/convex/agent_pro
 import { getCurrentWorkspaceReference } from "@Fylo/backend/convex/workspaces_reference";
 
 import { TeamProfilesDirectory } from "../../../../components/settings/team-profiles-directory";
+import { authClient } from "../../../../lib/auth-client";
 
 export default function TeamProfilesSettingsPage() {
-	const workspace = useQuery(getCurrentWorkspaceReference, {});
+	const { data: session } = authClient.useSession();
+	const workspace = useQuery(getCurrentWorkspaceReference, session ? {} : "skip");
 	const isLead = workspace?.workspace?.role === "lead";
 	const directory = useQuery(
 		getTeamProfileDirectoryReference,

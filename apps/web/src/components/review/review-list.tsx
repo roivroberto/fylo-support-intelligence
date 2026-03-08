@@ -1,5 +1,6 @@
 import type { Route } from "next";
 import Link from "next/link";
+import { humanizeSnakeCase } from "../../lib/utils";
 
 type ReviewItem = {
 	id: string;
@@ -17,7 +18,7 @@ function reviewStateBadge(state: string | undefined): string {
 	if (!state) return "app-badge app-badge--pending";
 	const s = state.toLowerCase();
 	if (s.includes("approved") || s.includes("complete")) return "app-badge app-badge--routed";
-	if (s.includes("manual") || s.includes("triage"))     return "app-badge app-badge--urgent";
+	if (s.includes("manual") || s.includes("triage")) return "app-badge app-badge--urgent";
 	return "app-badge app-badge--review";
 }
 
@@ -62,7 +63,7 @@ export function ReviewList({ items }: { items: ReviewItem[] }) {
 
 							{(item.requestType ?? item.priority) && (
 								<p className="app-field-label" style={{ marginTop: "0.1rem" }}>
-									{[item.requestType, item.priority].filter(Boolean).join(" · ")}
+									{[item.requestType ? humanizeSnakeCase(item.requestType) : null, item.priority].filter(Boolean).join(" · ")}
 								</p>
 							)}
 

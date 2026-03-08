@@ -39,7 +39,7 @@ describe("SignInPage", () => {
 	beforeEach(() => {
 		cleanup();
 		vi.clearAllMocks();
-		getSearchParam.mockReturnValue("/visibility");
+		getSearchParam.mockReturnValue("/queue");
 		signInWithEmail.mockResolvedValue({ data: {} });
 	});
 
@@ -60,7 +60,7 @@ describe("SignInPage", () => {
 				email: "pilot@fylo.local",
 				password: "Fylo-E2E-password-123!",
 			});
-			expect(push).toHaveBeenCalledWith("/visibility");
+			expect(push).toHaveBeenCalledWith("/queue");
 		});
 	});
 
@@ -79,7 +79,7 @@ describe("SignInPage", () => {
 		fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
 		await waitFor(() => {
-			expect(push).toHaveBeenCalledWith("/visibility");
+			expect(push).toHaveBeenCalledWith("/queue");
 		});
 	});
 });

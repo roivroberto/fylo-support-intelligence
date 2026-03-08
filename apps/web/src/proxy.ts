@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 import { AUTH_SESSION_HEADER, hasAuthSessionCookie } from "./lib/auth-session";
 
-const PROTECTED_ROUTE_PREFIXES = ["/visibility", "/settings", "/tickets"];
+const PROTECTED_ROUTE_PREFIXES = ["/queue", "/visibility", "/settings", "/tickets"];
 
 function isProtectedRoute(pathname: string) {
 	return PROTECTED_ROUTE_PREFIXES.some(

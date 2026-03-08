@@ -15,12 +15,22 @@ vi.mock(
 	}),
 );
 
+vi.mock("../../../lib/auth-client", () => ({
+	authClient: {
+		useSession: vi.fn(),
+	},
+}));
+
 describe("ReviewPage", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 	});
 
 	it("renders live review items from the backend query", async () => {
+		const { authClient } = await import("../../../lib/auth-client");
+		(authClient.useSession as ReturnType<typeof vi.fn>).mockReturnValue({
+			data: { user: { id: "test-user-id" } },
+		});
 		useQuery.mockReturnValue({
 			count: 1,
 			items: [

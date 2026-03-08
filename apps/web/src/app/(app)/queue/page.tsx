@@ -10,10 +10,12 @@ import {
 	createTicketFromFormReference,
 	getQueueSnapshotReference,
 } from "../../../../../../packages/backend/convex/tickets_reference";
+import { authClient } from "../../../lib/auth-client";
 
 export default function QueuePage() {
 	const router = useRouter();
-	const queue = useQuery(getQueueSnapshotReference, {});
+	const { data: session } = authClient.useSession();
+	const queue = useQuery(getQueueSnapshotReference, session ? {} : "skip");
 	const createTicketFromForm = useAction(createTicketFromFormReference);
 	const rows = queue?.rows ?? [];
 	const summary = queue ?? { totalCount: 0, urgentCount: 0, fallbackCount: 0 };
