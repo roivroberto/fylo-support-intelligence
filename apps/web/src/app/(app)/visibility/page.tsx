@@ -49,6 +49,7 @@ export default function VisibilityPage() {
 				status: card.capacityState,
 				reviewQueue: card.reviewCount,
 			}),
+			profile: card.profile,
 		}),
 	);
 

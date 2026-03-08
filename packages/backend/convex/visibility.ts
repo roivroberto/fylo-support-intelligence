@@ -11,6 +11,12 @@ export type VisibilityCard = {
 	assignedCount: number;
 	reviewCount: number;
 	capacityState: "clear" | "watch" | "busy";
+	profile?: {
+		primarySkills: string[];
+		secondarySkills: string[];
+		languages: string[];
+		summary?: string;
+	} | null;
 };
 
 export type TeamVisibilityWorkspace = {
@@ -62,6 +68,7 @@ function toTeamCard(input: {
 	role: string;
 	assignedCount: number;
 	reviewCount: number;
+	profile?: VisibilityCard["profile"];
 }): VisibilityCard {
 	return {
 		...input,
@@ -82,6 +89,7 @@ export function buildTeamVisibilitySnapshot(input: {
 	}>;
 	/** Optional map of userId -> display name (e.g. from auth). Falls back to userId if missing. */
 	userLabels?: Record<string, string>;
+	agentProfiles?: Record<string, VisibilityCard["profile"]>;
 }): TeamVisibilityWorkspace {
 	const memberIds = new Set(
 		input.memberships.map((membership) => membership.userId),
@@ -117,6 +125,7 @@ export function buildTeamVisibilitySnapshot(input: {
 				role: workspaceMembership.role,
 				assignedCount,
 				reviewCount,
+				profile: input.agentProfiles?.[workspaceMembership.userId] ?? null,
 			});
 		}),
 	};
@@ -141,6 +150,24 @@ export const getTeamVisibility = query({
 			)
 			.collect();
 		const tickets = await ctx.db.query("tickets").collect();
+		const agentProfilesInfo = await ctx.db
+			.query("agentProfiles")
+			.withIndex("by_workspaceId", (q: any) =>
+				q.eq("workspaceId", membership.workspaceId),
+			)
+			.collect();
+
+		const agentProfiles = agentProfilesInfo.reduce((acc: any, p: any) => {
+			if (p.parseStatus === "ready") {
+				acc[p.userId] = {
+					primarySkills: p.primarySkills,
+					secondarySkills: p.secondarySkills,
+					languages: p.languages,
+					summary: p.summary,
+				};
+			}
+			return acc;
+		}, {});
 
 		const userLabels: Record<string, string> = {};
 		for (const m of workspaceMemberships) {
@@ -164,6 +191,7 @@ export const getTeamVisibility = query({
 				reviewState: ticket.reviewState,
 			})),
 			userLabels,
+			agentProfiles,
 		});
 	},
 });

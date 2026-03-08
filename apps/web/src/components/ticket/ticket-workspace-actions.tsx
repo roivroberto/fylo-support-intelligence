@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { createNoteReference } from "../../../../../packages/backend/convex/notes_reference";
 import { applyLeadReviewReference } from "../../../../../packages/backend/convex/review_reference";
 import { classifyAndRouteActionReference } from "../../../../../packages/backend/convex/tickets_reference";
+import { humanizeSnakeCase } from "../../lib/utils";
 
 type AssigneeOption = {
 	id: string;
@@ -56,6 +57,7 @@ export function TicketWorkspaceActions({
 	const [isSavingNote, setIsSavingNote] = useState(false);
 	const [isApplyingReview, setIsApplyingReview] = useState(false);
 	const [isClassifying, setIsClassifying] = useState(false);
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 	const needsReview =
 		reviewState === "manager_verification" || reviewState === "manual_triage";
@@ -64,7 +66,8 @@ export function TicketWorkspaceActions({
 	const recommendationSummary = useMemo(() => {
 		const top = assigneeOptions[0];
 		if (!top) return "No recommended assignee available yet.";
-		return `${top.label} — ${top.skillMatchTier}, ${top.capacityRemaining} open slots`;
+		const tierLabel = top.skillMatchTier !== "none" ? `${humanizeSnakeCase(top.skillMatchTier)}, ` : "";
+		return `${top.label} — ${tierLabel}${top.capacityRemaining} open slots`;
 	}, [assigneeOptions]);
 
 	async function handleAddNote() {
@@ -162,19 +165,81 @@ export function TicketWorkspaceActions({
 						</p>
 					</div>
 
-					<select
-						aria-label="Select assignee"
-						value={selectedAssigneeId}
-						onChange={(e) => setSelectedAssigneeId(e.currentTarget.value)}
-						className="app-select"
-					>
-						<option value="">Select assignee</option>
-						{assigneeOptions.map((opt) => (
-							<option key={opt.id} value={opt.id}>
-								{opt.label} — {opt.skillMatchTier} — {opt.capacityRemaining} open
-							</option>
-						))}
-					</select>
+					<div style={{ position: "relative" }}>
+						<button
+							aria-label="Select assignee"
+							onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+							className="app-select flex justify-between items-center w-full"
+							style={{ textAlign: "left" }}
+						>
+							<span>
+								{selectedAssigneeId
+									? assigneeOptions.find((o) => o.id === selectedAssigneeId)?.label || "Select assignee"
+									: "Select assignee"}
+							</span>
+							<span style={{ fontSize: "0.8rem", opacity: 0.5 }}>▼</span>
+						</button>
+
+						{isDropdownOpen && (
+							<div
+								className="app-card"
+								style={{
+									position: "absolute",
+									top: "100%",
+									left: 0,
+									right: 0,
+									marginTop: "0.5rem",
+									zIndex: 10,
+									maxHeight: "200px",
+									overflowY: "auto",
+									padding: "0.25rem",
+									display: "flex",
+									flexDirection: "column",
+									gap: "0.25rem",
+								}}
+							>
+								{assigneeOptions.map((opt) => (
+									<button
+										key={opt.id}
+										onClick={() => {
+											setSelectedAssigneeId(opt.id);
+											setIsDropdownOpen(false);
+										}}
+										className="flex items-center justify-between p-2 rounded hover:bg-white/10 transition-colors"
+										style={{
+											textAlign: "left",
+											width: "100%",
+											background: opt.id === selectedAssigneeId ? "rgba(255,255,255,0.05)" : "transparent",
+											border: "none",
+											cursor: "pointer",
+										}}
+									>
+										<span className="app-body" style={{ color: "#f0f0f0" }}>{opt.label}</span>
+										<div className="flex items-center gap-2">
+											{opt.skillMatchTier !== "none" && (
+												<span
+													className="app-badge"
+													style={{
+														padding: "2px 6px",
+														fontSize: "0.65rem",
+														textTransform: "none",
+														color: opt.skillMatchTier === "primary" ? "#8b5cf6" : "#9ca3af",
+														borderColor: opt.skillMatchTier === "primary" ? "rgba(139,92,246,0.3)" : "rgba(156,163,175,0.3)",
+														background: opt.skillMatchTier === "primary" ? "rgba(139,92,246,0.05)" : "rgba(156,163,175,0.05)"
+													}}
+												>
+													{humanizeSnakeCase(opt.skillMatchTier)}
+												</span>
+											)}
+											<span className="app-body" style={{ fontSize: "0.75rem", color: "rgba(240,240,240,0.5)" }}>
+												{opt.capacityRemaining} open
+											</span>
+										</div>
+									</button>
+								))}
+							</div>
+						)}
+					</div>
 
 					{needsReview ? (
 						<div className="flex flex-wrap gap-2">
