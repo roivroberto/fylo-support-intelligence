@@ -20,6 +20,9 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
 	title: "Fylo",
 	description: "Workspace and pod management for dynamic teams",
+	icons: {
+		icon: "/white_fylo.svg",
+	},
 };
 
 export default async function RootLayout({

@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -29,6 +30,7 @@ export function EmailPasswordAuthForm({
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
@@ -94,18 +96,35 @@ export function EmailPasswordAuthForm({
 			</div>
 			<div className="grid gap-2">
 				<Label htmlFor="auth-password">Password</Label>
-				<Input
-					id="auth-password"
-					type="password"
-					autoComplete={mode === "sign-up" ? "new-password" : "current-password"}
-					disabled={isPending}
-					name="password"
-					required
-					value={password}
-					onChange={(event) => {
-						setPassword(event.currentTarget.value);
-					}}
-				/>
+				<div className="relative">
+					<Input
+						id="auth-password"
+						type={showPassword ? "text" : "password"}
+						autoComplete={mode === "sign-up" ? "new-password" : "current-password"}
+						disabled={isPending}
+						name="password"
+						required
+						value={password}
+						onChange={(event) => {
+							setPassword(event.currentTarget.value);
+						}}
+						className="pr-9"
+					/>
+					<button
+						type="button"
+						tabIndex={-1}
+						aria-label={showPassword ? "Hide password" : "Show password"}
+						className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+						onClick={() => setShowPassword((v) => !v)}
+						disabled={isPending}
+					>
+						{showPassword ? (
+							<EyeOff className="size-4" aria-hidden />
+						) : (
+							<Eye className="size-4" aria-hidden />
+						)}
+					</button>
+				</div>
 			</div>
 			{error ? (
 				<p aria-live="polite" className="text-xs text-destructive">

@@ -519,7 +519,83 @@
 	background: #fbbf24;
 }
 
+.app-table .conf-pct {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.7rem;
+	color: rgba(240, 240, 240, 0.6);
+}
+
+.app-table .conf-pct--low {
+	color: #fbbf24;
+}
+
+.app-table .cell-reason {
+	color: rgba(240, 240, 240, 0.65);
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8rem;
+	line-height: 1.45;
+	max-width: 20rem;
+	display: block;
+}
+
+.app-table .priority-tag {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+}
+
+.app-table .cell-assignment {
+	margin-top: 0.35rem;
+}
+
+.app-table .cell-fallback {
+	color: #fbbf24;
+}
+
+.app-table-row-clickable {
+	cursor: pointer;
+}
+
+.app-table-row-clickable:hover {
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.app-table .cell-status-block {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	align-items: flex-start;
+}
+
 /* ═══════════════ FORM ELEMENTS ═══════════════ */
+
+.app-input {
+	width: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 4px;
+	padding: 0.6rem 0.75rem;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8125rem;
+	color: #f0f0f0;
+	outline: none;
+	transition: border-color 0.2s ease;
+}
+
+.app-input::placeholder {
+	color: rgba(240, 240, 240, 0.22);
+}
+
+.app-input:focus {
+	border-color: rgba(167, 139, 250, 0.45);
+	box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.1);
+}
+
+.app-input:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
 
 .app-textarea {
 	width: 100%;

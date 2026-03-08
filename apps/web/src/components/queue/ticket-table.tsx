@@ -18,16 +18,16 @@ type TicketRow = {
 };
 
 const priorityClass: Record<NonNullable<TicketRow["priority"]>, string> = {
-	low:    "priority-low",
+	low: "priority-low",
 	medium: "priority-medium",
-	high:   "priority-high",
+	high: "priority-high",
 };
 
 function statusBadgeClass(status: string | undefined): string {
 	const s = (status ?? "").toLowerCase();
 	if (s.includes("routed") || s.includes("assigned")) return "app-badge app-badge--routed";
-	if (s.includes("review") || s.includes("triage"))   return "app-badge app-badge--review";
-	if (s.includes("urgent"))                            return "app-badge app-badge--urgent";
+	if (s.includes("review") || s.includes("triage")) return "app-badge app-badge--review";
+	if (s.includes("urgent")) return "app-badge app-badge--urgent";
 	return "app-badge app-badge--pending";
 }
 
@@ -46,8 +46,109 @@ function priorityLabel(priority: string | undefined): string {
 	return "Medium";
 }
 
-export function TicketTable({ rows }: { rows: TicketRow[] }) {
+function TicketTableRow({
+	row,
+	onSelect,
+}: {
+	row: TicketRow;
+	onSelect: (() => void) | undefined;
+}) {
+	const conf =
+		typeof row.classificationConfidence === "number"
+			? Math.round(row.classificationConfidence * 100)
+			: null;
+	const confLow = conf !== null && conf < 75;
+	const href = row.decisionHref as Route | undefined;
+
+	return (
+		<tr
+			onClick={onSelect}
+			className={href ? "app-table-row-clickable" : undefined}
+			tabIndex={href ? 0 : undefined}
+			onKeyDown={
+				href
+					? (e) => {
+							if (e.key === "Enter" || e.key === " ") {
+								e.preventDefault();
+								onSelect?.();
+							}
+						}
+					: undefined
+			}
+		>
+			{/* Ticket */}
+			<td>
+				<span className="cell-primary">{row.title ?? row.id}</span>
+				{row.requester && <div className="cell-sub">{row.requester}</div>}
+				{row.requestType && <div className="cell-sub">{row.requestType}</div>}
+			</td>
+
+			{/* Confidence */}
+			<td>
+				{conf !== null ? (
+					<div className="conf-bar-wrap">
+						<div className="conf-bar-bg">
+							<div
+								className={`conf-bar-fill${confLow ? " conf-bar-fill--low" : ""}`}
+								style={{ width: `${conf}%` }}
+							/>
+						</div>
+						<span className={`conf-pct${confLow ? " conf-pct--low" : ""}`}>
+							{conf}%
+						</span>
+					</div>
+				) : (
+					<span className="cell-sub">—</span>
+				)}
+				{row.classificationSource === "fallback" && (
+					<div className="cell-sub cell-fallback">Fallback</div>
+				)}
+			</td>
+
+			{/* Routing reason */}
+			<td>
+				<span className="cell-reason">{row.reason}</span>
+			</td>
+
+			{/* Priority */}
+			<td>
+				<span className={`priority-tag ${priorityClass[row.priority ?? "medium"]}`}>
+					{priorityLabel(row.priority)}
+				</span>
+			</td>
+
+			{/* Status */}
+			<td>
+				<div className="cell-status-block">
+					<span className={statusBadgeClass(row.status)}>
+						{statusLabel(row.status)}
+					</span>
+					{row.assignedWorkerLabel != null && (
+						<span className="cell-sub cell-assignment">
+							→ {row.assignedWorkerLabel}
+						</span>
+					)}
+				</div>
+			</td>
+		</tr>
+	);
+}
+
+export type TicketTableProps = {
+	rows: TicketRow[];
+	loading?: boolean;
+};
+
+export function TicketTable({ rows, loading = false }: TicketTableProps) {
 	const router = useRouter();
+
+	if (loading) {
+		return (
+			<div className="app-card">
+				<p className="app-loading">Loading live queue…</p>
+			</div>
+		);
+	}
 
 	if (rows.length === 0) {
 		return (
@@ -70,95 +171,17 @@ export function TicketTable({ rows }: { rows: TicketRow[] }) {
 					</tr>
 				</thead>
 				<tbody>
-					{rows.map((row) => {
-						const conf =
-							typeof row.classificationConfidence === "number"
-								? Math.round(row.classificationConfidence * 100)
-								: null;
-						const confLow = conf !== null && conf < 75;
-
-						const href = row.decisionHref as Route | undefined;
-						return (
-							<tr
-								key={row.id}
-								onClick={href ? () => router.push(href) : undefined}
-								style={href ? { cursor: "pointer" } : undefined}
-								className={href ? "app-table-row-clickable" : undefined}
-							>
-								{/* Ticket */}
-								<td>
-									<span className="cell-primary">{row.title ?? row.id}</span>
-									{row.requester && (
-										<div className="cell-sub">{row.requester}</div>
-									)}
-									{row.requestType && (
-										<div className="cell-sub">{row.requestType}</div>
-									)}
-								</td>
-
-								{/* Confidence */}
-								<td>
-									{conf !== null ? (
-										<div className="conf-bar-wrap">
-											<div className="conf-bar-bg">
-												<div
-													className={`conf-bar-fill${confLow ? " conf-bar-fill--low" : ""}`}
-													style={{ width: `${conf}%` }}
-												/>
-											</div>
-											<span
-												style={{
-													fontFamily: "var(--font-jetbrains-mono)",
-													fontSize: "0.7rem",
-													color: confLow
-														? "#fbbf24"
-														: "rgba(240,240,240,0.6)",
-												}}
-											>
-												{conf}%
-											</span>
-										</div>
-									) : (
-										<span className="cell-sub">—</span>
-									)}
-									{row.classificationSource === "fallback" && (
-										<div className="cell-sub" style={{ color: "#fbbf24" }}>
-											Fallback
-										</div>
-									)}
-								</td>
-
-								{/* Routing reason */}
-								<td>
-									<span style={{ color: "rgba(240,240,240,0.65)", fontFamily: "var(--font-dm-sans)", fontSize: "0.8rem" }}>
-										{row.reason}
-									</span>
-								</td>
-
-								{/* Priority */}
-								<td>
-									<span
-										className={`${priorityClass[row.priority ?? "medium"]}`}
-										style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.04em" }}
-									>
-										{priorityLabel(row.priority)}
-									</span>
-								</td>
-
-								{/* Status */}
-								<td>
-									<span className={statusBadgeClass(row.status)}>
-										{statusLabel(row.status)}
-									</span>
-									{row.assignedWorkerLabel && (
-										<div className="cell-sub" style={{ marginTop: "0.35rem" }}>
-											→ {row.assignedWorkerLabel}
-										</div>
-									)}
-								</td>
-							</tr>
-						);
-					})}
+					{rows.map((row, index) => (
+						<TicketTableRow
+							key={String(row.id || `row-${index}`)}
+							row={row}
+							onSelect={
+								row.decisionHref
+									? () => router.push(row.decisionHref as Route)
+									: undefined
+							}
+						/>
+					))}
 				</tbody>
 			</table>
 		</div>

@@ -455,8 +455,8 @@ export default function LandingPage() {
                 sizes="100vw"
                 style={{ width: 'auto', height: '28px' }} // Change 20px to your desired height
                 priority
-              />
-						<nav className="hidden md:flex items-center gap-6">
+              /> <p className="text-white text-2xl font-bold">Fylo</p>
+						{/* <nav className="hidden md:flex items-center gap-6">
 							{["Product", "Pricing", "Resources"].map((item) => (
 								<a
 									key={item}
@@ -466,7 +466,7 @@ export default function LandingPage() {
 									{item}
 								</a>
 							))}
-						</nav>
+						</nav> */}
 					</div>
 					<div className="flex items-center gap-3">
 						<Link href="/sign-in" className="nav-link hidden sm:block">

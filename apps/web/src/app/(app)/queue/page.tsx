@@ -4,6 +4,7 @@ import { useAction, useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { QueueTableErrorBoundary } from "../../../components/queue/queue-table-error-boundary";
 import { TicketTable } from "../../../components/queue/ticket-table";
 import {
 	createTicketFromFormReference,
@@ -89,73 +90,106 @@ export default function QueuePage() {
 
 			{/* Create ticket form */}
 			{showCreateForm && (
-				<div className="app-card p-5">
-					<p className="app-eyebrow mb-2">Manual ingest</p>
-					<h2 className="app-h3 mb-4">Create ticket</h2>
-					<form onSubmit={handleCreateTicket} className="flex flex-col gap-4 max-w-xl">
-						<div>
-							<label htmlFor="create-requester" className="app-field-label block mb-1">
+				<div className="app-card p-5 border-l-[3px] border-l-[#a78bfa]/50">
+					<p className="app-eyebrow mb-1">Manual ingest</p>
+					<h2 className="app-h3 mb-1">Create ticket</h2>
+					<p className="app-body text-[rgba(240,240,240,0.5)] text-sm mb-5 max-w-xl">
+						Add a ticket manually. It will be classified and routed like incoming messages.
+					</p>
+					<form
+						onSubmit={handleCreateTicket}
+						className="flex flex-col gap-5 max-w-xl"
+						aria-describedby={createError ? "create-ticket-error" : undefined}
+					>
+						<div className="grid gap-1">
+							<label htmlFor="create-requester" className="app-field-label block">
 								Requester email
 							</label>
 							<input
 								id="create-requester"
 								type="email"
 								value={requesterEmail}
-								onChange={(e) => setRequesterEmail(e.target.value)}
+								onChange={(e) => {
+									setRequesterEmail(e.target.value);
+									if (createError) setCreateError(null);
+								}}
 								className="app-input w-full"
 								placeholder="customer@example.com"
+								autoComplete="email"
+								aria-invalid={createError ? "true" : undefined}
 							/>
 						</div>
-						<div>
-							<label htmlFor="create-subject" className="app-field-label block mb-1">
+						<div className="grid gap-1">
+							<label htmlFor="create-subject" className="app-field-label block">
 								Subject
 							</label>
 							<input
 								id="create-subject"
 								type="text"
 								value={subject}
-								onChange={(e) => setSubject(e.target.value)}
+								onChange={(e) => {
+									setSubject(e.target.value);
+									if (createError) setCreateError(null);
+								}}
 								className="app-input w-full"
 								placeholder="Brief subject"
+								aria-invalid={createError ? "true" : undefined}
 							/>
 						</div>
-						<div>
-							<label htmlFor="create-body" className="app-field-label block mb-1">
-								Body (optional)
+						<div className="grid gap-1">
+							<label htmlFor="create-body" className="app-field-label block">
+								Body <span className="font-normal text-[rgba(240,240,240,0.35)]">(optional)</span>
 							</label>
 							<textarea
 								id="create-body"
 								value={body}
 								onChange={(e) => setBody(e.target.value)}
-								className="app-textarea w-full"
+								className="app-textarea w-full resize-y min-h-[6rem]"
 								rows={4}
 								placeholder="Message or context…"
 							/>
 						</div>
 						{createError && (
-							<p className="app-feedback" style={{ color: "#f87171" }}>
+							<p
+								id="create-ticket-error"
+								role="alert"
+								className="text-sm font-medium text-[#f87171] bg-[rgba(248,113,113,0.08)] border border-[rgba(248,113,113,0.2)] rounded px-3 py-2"
+							>
 								{createError}
 							</p>
 						)}
-						<button
-							type="submit"
-							disabled={isSubmitting}
-							className="app-btn app-btn--primary w-fit"
-						>
-							{isSubmitting ? "Creating…" : "Create and classify"}
-						</button>
+						<div className="flex flex-wrap items-center gap-3 pt-1">
+							<button
+								type="submit"
+								disabled={isSubmitting}
+								className="app-btn app-btn--primary"
+								aria-busy={isSubmitting ? "true" : undefined}
+							>
+								{isSubmitting ? "Creating…" : "Create and classify"}
+							</button>
+							<button
+								type="button"
+								onClick={() => {
+									setShowCreateForm(false);
+									setCreateError(null);
+									setRequesterEmail("");
+									setSubject("");
+									setBody("");
+								}}
+								className="app-btn"
+								disabled={isSubmitting}
+							>
+								Cancel
+							</button>
+						</div>
 					</form>
 				</div>
 			)}
 
-			{/* Table */}
-			{queue ? (
-				<TicketTable rows={rows} />
-			) : (
-				<div className="app-card">
-					<p className="app-loading">Loading live queue…</p>
-				</div>
-			)}
+			{/* Table: single mount to avoid removeChild on unmount when queue reconnects */}
+			<QueueTableErrorBoundary>
+				<TicketTable rows={rows} loading={queue === undefined} />
+			</QueueTableErrorBoundary>
 		</section>
 	);
 }
