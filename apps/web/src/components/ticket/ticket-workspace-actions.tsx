@@ -196,6 +196,9 @@ export function TicketWorkspaceActions({
 									display: "flex",
 									flexDirection: "column",
 									gap: "0.25rem",
+									background: "#141414",
+									boxShadow: "0 10px 25px rgba(0,0,0,0.8)",
+									border: "1px solid rgba(255,255,255,0.1)",
 								}}
 							>
 								{assigneeOptions.map((opt) => (
