@@ -2,40 +2,30 @@ import { PolicyForm } from "../../../../components/settings/policy-form";
 
 export default function PolicySettingsPage() {
 	return (
-		<section className="grid gap-4">
-			<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-				<div className="border bg-card p-5 text-card-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						Routing policy
-					</p>
-					<h2 className="mt-2 text-xl font-semibold tracking-tight">
-						Tune assignment confidence without leaving the pilot shell
-					</h2>
-					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-						Task 12 keeps the same settings surface, now backed by the current
-						workspace policy query and save mutation.
+		<section className="flex flex-col gap-5">
+			<div className="grid gap-4 lg:grid-cols-[1fr_280px]">
+				<div className="app-card p-5">
+					<p className="app-eyebrow app-eyebrow--violet mb-2">Routing policy</p>
+					<h1 className="app-h2 mb-2">Tune routing thresholds</h1>
+					<p className="app-body">
+						Control when tickets are auto-assigned vs. escalated to human review.
+						Only leads can save changes.
 					</p>
 				</div>
-				<div className="border bg-card p-5 text-sm text-muted-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em]">
-						Current baseline
-					</p>
-					<div className="mt-3 space-y-2">
-						<p>
-							<span className="font-medium text-foreground">Live policy</span>{" "}
-							loads for the current workspace
-						</p>
-						<p>
-							<span className="font-medium text-foreground">Lead access</span>{" "}
-							controls whether edits can be saved
-						</p>
-						<p>
-							<span className="font-medium text-foreground">
-								Single workspace
-							</span>
-							keeps the policy view intentionally narrow in v1
-						</p>
-					</div>
+				<div className="app-card p-5 flex flex-col gap-3">
+					<p className="app-eyebrow">Current baseline</p>
+					<ul className="flex flex-col gap-2" style={{ marginTop: "0.25rem" }}>
+						{[
+							["Live policy", "loads for current workspace"],
+							["Lead access", "controls whether edits save"],
+							["Single workspace", "policy view is narrow in v1"],
+						].map(([label, desc]) => (
+							<li key={label} className="app-body" style={{ fontSize: "0.8rem" }}>
+								<span style={{ color: "#f0f0f0", fontWeight: 600 }}>{label}</span>{" "}
+								{desc}
+							</li>
+						))}
+					</ul>
 				</div>
 			</div>
 			<PolicyForm />

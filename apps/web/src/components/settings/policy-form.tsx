@@ -37,15 +37,14 @@ export function PolicyForm() {
 	]);
 
 	const summary = useMemo(() => {
-		const autoAssignPercent = Math.round(policy.autoAssignThreshold * 100);
-
-		return `${autoAssignPercent}% confidence unlocks direct assignment. ${policy.maxAssignmentsPerWorker} active tickets per worker keeps load visible.`;
+		const pct = Math.round(policy.autoAssignThreshold * 100);
+		return `${pct}% confidence unlocks direct assignment. ${policy.maxAssignmentsPerWorker} active tickets per worker keeps load visible.`;
 	}, [policy.autoAssignThreshold, policy.maxAssignmentsPerWorker]);
 
 	if (!policySnapshot) {
 		return (
-			<div className="border bg-card p-5 text-sm text-muted-foreground">
-				Loading current routing policy...
+			<div className="app-card">
+				<p className="app-loading">Loading routing policy…</p>
 			</div>
 		);
 	}
@@ -55,20 +54,20 @@ export function PolicyForm() {
 	async function handleSave() {
 		setIsSaving(true);
 		setSaveLabel(null);
-
 		try {
 			await savePolicy(policy);
-			setSaveLabel("Saved to routing policy");
+			setSaveLabel("Policy saved");
 		} finally {
 			setIsSaving(false);
 		}
 	}
 
 	return (
-		<form className="border bg-card text-card-foreground">
-			<div className="grid gap-5 p-5 lg:grid-cols-[minmax(0,1fr)_280px]">
+		<div className="app-card">
+			<div className="grid gap-6 p-5 lg:grid-cols-[1fr_280px]">
+				{/* Fields */}
 				<div className="grid gap-4 sm:grid-cols-2">
-					<div className="space-y-2">
+					<div className="flex flex-col gap-2">
 						<Label htmlFor="auto-assign-threshold">Auto-assign threshold</Label>
 						<Input
 							id="auto-assign-threshold"
@@ -78,23 +77,20 @@ export function PolicyForm() {
 							step={0.05}
 							value={policy.autoAssignThreshold}
 							disabled={!canManage || isSaving}
-							onChange={(event) => {
-								const autoAssignThreshold = Number(event.currentTarget.value);
-
-								setPolicy((current) => ({
-									...current,
-									autoAssignThreshold,
-								}));
-							}}
+							onChange={(e) =>
+								setPolicy((p) => ({
+									...p,
+									autoAssignThreshold: Number(e.currentTarget.value),
+								}))
+							}
 						/>
-						<p className="text-xs text-muted-foreground">
-							Higher thresholds keep more edge cases in human review.
+						<p className="app-body" style={{ fontSize: "0.75rem" }}>
+							Higher = more edge cases go to review.
 						</p>
 					</div>
-					<div className="space-y-2">
-						<Label htmlFor="max-assignments">
-							Max active tickets per worker
-						</Label>
+
+					<div className="flex flex-col gap-2">
+						<Label htmlFor="max-assignments">Max tickets per worker</Label>
 						<Input
 							id="max-assignments"
 							type="number"
@@ -103,96 +99,99 @@ export function PolicyForm() {
 							step={1}
 							value={policy.maxAssignmentsPerWorker}
 							disabled={!canManage || isSaving}
-							onChange={(event) => {
-								const maxAssignmentsPerWorker = Number(
-									event.currentTarget.value,
-								);
-
-								setPolicy((current) => ({
-									...current,
-									maxAssignmentsPerWorker,
-								}));
-							}}
+							onChange={(e) =>
+								setPolicy((p) => ({
+									...p,
+									maxAssignmentsPerWorker: Number(e.currentTarget.value),
+								}))
+							}
 						/>
-						<p className="text-xs text-muted-foreground">
-							A visible cap helps the pilot avoid quiet overload.
+						<p className="app-body" style={{ fontSize: "0.75rem" }}>
+							Visible cap prevents quiet overload.
 						</p>
 					</div>
-					<label className="flex items-start gap-3 border p-3 text-sm">
+
+					<label className="app-checkbox-label sm:col-span-2 lg:col-span-1">
 						<input
 							type="checkbox"
 							checked={policy.requireLeadReview}
 							disabled={!canManage || isSaving}
-							onChange={(event) => {
-								const requireLeadReview = event.currentTarget.checked;
-
-								setPolicy((current) => ({
-									...current,
-									requireLeadReview,
-								}));
-							}}
+							onChange={(e) =>
+								setPolicy((p) => ({
+									...p,
+									requireLeadReview: e.currentTarget.checked,
+								}))
+							}
 						/>
 						<span>
-							<span className="block font-medium text-foreground">
-								Require lead review for policy exceptions
+							<span className="app-h3" style={{ display: "block", marginBottom: "0.25rem" }}>
+								Require lead review for exceptions
 							</span>
-							<span className="mt-1 block text-xs text-muted-foreground">
-								Keeps sensitive routing changes visible while the pilot is still
-								learning.
+							<span className="app-body" style={{ fontSize: "0.75rem" }}>
+								Keeps sensitive routing changes visible while the pilot is learning.
 							</span>
 						</span>
 					</label>
-					<label className="flex items-start gap-3 border p-3 text-sm">
+
+					<label className="app-checkbox-label sm:col-span-2 lg:col-span-1">
 						<input
 							type="checkbox"
 							checked={policy.allowSecondarySkills}
 							disabled={!canManage || isSaving}
-							onChange={(event) => {
-								const allowSecondarySkills = event.currentTarget.checked;
-
-								setPolicy((current) => ({
-									...current,
-									allowSecondarySkills,
-								}));
-							}}
+							onChange={(e) =>
+								setPolicy((p) => ({
+									...p,
+									allowSecondarySkills: e.currentTarget.checked,
+								}))
+							}
 						/>
 						<span>
-							<span className="block font-medium text-foreground">
+							<span className="app-h3" style={{ display: "block", marginBottom: "0.25rem" }}>
 								Allow secondary-skill coverage
 							</span>
-							<span className="mt-1 block text-xs text-muted-foreground">
-								Useful for backlog relief when the primary owner pool is full.
+							<span className="app-body" style={{ fontSize: "0.75rem" }}>
+								Useful for backlog relief when primary owners are full.
 							</span>
 						</span>
 					</label>
 				</div>
-				<div className="space-y-4 border p-4 text-sm">
+
+				{/* Side panel */}
+				<div
+					className="flex flex-col gap-4 p-4"
+					style={{
+						background: "rgba(255,255,255,0.02)",
+						border: "1px solid rgba(255,255,255,0.06)",
+						borderRadius: "4px",
+					}}
+				>
 					<div>
-						<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-							Pilot impact
+						<p className="app-eyebrow mb-2">Pilot impact</p>
+						<p className="app-body" style={{ fontSize: "0.8rem", color: "#f0f0f0" }}>
+							{summary}
 						</p>
-						<p className="mt-2 text-sm text-foreground">{summary}</p>
 					</div>
-					<div className="space-y-2 text-muted-foreground">
-						<p>
-							These controls now read and write the current workspace policy.
+					<p className="app-body" style={{ fontSize: "0.8rem" }}>
+						Controls read and write the current workspace policy.
+					</p>
+					{saveLabel && (
+						<p className="app-feedback app-feedback--success">{saveLabel}</p>
+					)}
+					{!canManage && (
+						<p className="app-feedback app-feedback--error" style={{ color: "#fbbf24" }}>
+							Read-only — lead access required to save.
 						</p>
-						<p>
-							Single-workspace v1 keeps this surface focused on one team view.
-						</p>
-						{saveLabel ? <p className="text-foreground">{saveLabel}</p> : null}
-					</div>
+					)}
 					<Button
 						type="button"
-						variant="outline"
-						className="w-full"
 						disabled={!canManage || isSaving}
 						onClick={() => void handleSave()}
+						className="w-full mt-auto"
 					>
-						{isSaving ? "Saving..." : "Save policy"}
+						{isSaving ? "Saving…" : "Save policy"}
 					</Button>
 				</div>
 			</div>
-		</form>
+		</div>
 	);
 }

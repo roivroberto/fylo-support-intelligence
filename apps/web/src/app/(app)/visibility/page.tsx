@@ -16,18 +16,15 @@ function buildWorkloadNote(card: {
 	reviewQueue: number;
 }) {
 	if (card.status === "busy") {
-		return "Exception routing is stacking up here, so this lane is the current bottleneck.";
+		return "Exception routing is stacking up here—current bottleneck.";
 	}
-
 	if (card.status === "watch") {
-		return "Healthy overall, but one more manual-review handoff will start to crowd the queue.";
+		return "One more manual-review handoff will crowd this queue.";
 	}
-
 	if (card.reviewQueue > 0) {
-		return "Capacity is open, but a few items still need human confirmation.";
+		return "Capacity open, but items still need human confirmation.";
 	}
-
-	return "Plenty of room for overflow if policy rules allow a secondary-skill handoff.";
+	return "Room for overflow if policy allows secondary-skill handoff.";
 }
 
 export default function VisibilityPage() {
@@ -57,17 +54,12 @@ export default function VisibilityPage() {
 
 	if (!isSessionPending && workspaceState && !workspaceState.isMember) {
 		return (
-			<section className="grid gap-4">
-				<div className="border bg-card p-5 text-card-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						Team visibility
-					</p>
-					<h2 className="mt-2 text-xl font-semibold tracking-tight">
-						Join a workspace to see team visibility
-					</h2>
-					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-						Create a workspace or join one with a pod code to view workload
-						capacity and review pressure.
+			<section className="flex flex-col gap-5">
+				<div className="app-card p-5">
+					<p className="app-eyebrow app-eyebrow--violet mb-2">Team visibility</p>
+					<h1 className="app-h2 mb-2">Join a workspace first</h1>
+					<p className="app-body">
+						Create or join a workspace to see team workload and review pressure.
 					</p>
 				</div>
 				<WorkspaceAccessPanel />
@@ -76,49 +68,49 @@ export default function VisibilityPage() {
 	}
 
 	return (
-		<section className="grid gap-4">
-			<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-				<div className="border bg-card p-5 text-card-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						Team visibility
-					</p>
-					<h2 className="mt-2 text-xl font-semibold tracking-tight">
-						Make workload hotspots obvious before routing drifts
-					</h2>
-					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-						This pilot view keeps capacity and review pressure in one place
-						using the current workspace visibility query.
+		<section className="flex flex-col gap-5">
+			<div className="grid gap-4 lg:grid-cols-[1fr_auto]">
+				<div className="app-card p-5">
+					<p className="app-eyebrow app-eyebrow--violet mb-2">Team visibility</p>
+					<h1 className="app-h2 mb-2">Workload at a glance</h1>
+					<p className="app-body">
+						Capacity and review pressure in one view. Spot hotspots before
+						routing drifts.
 					</p>
 				</div>
-				<div className="border bg-card p-5 text-sm text-muted-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em]">Today</p>
-					<div className="mt-3 space-y-2">
-						<p>
-							<span className="font-medium text-foreground">
-								{visibility?.cards.length ?? 0} lanes
-							</span>{" "}
-							visible in the current workspace
-						</p>
-						<p>
-							<span className="font-medium text-foreground">
-								{visibility?.reviewQueueCount ?? 0} review items
-							</span>{" "}
-							need follow-through
-						</p>
-						<p>
-							<span className="font-medium text-foreground">
-								{visibility?.unassignedCount ?? 0} ticket
-								{visibility?.unassignedCount === 1 ? "" : "s"} still unassigned
-							</span>
-						</p>
+
+				{/* Summary stats */}
+				<div className="grid grid-cols-3 gap-3 lg:grid-cols-1 lg:w-44">
+					<div className="app-stat-card">
+						<div className="app-stat-val">{visibility?.cards.length ?? 0}</div>
+						<div className="app-stat-label">Active lanes</div>
+					</div>
+					<div className="app-stat-card">
+						<div
+							className="app-stat-val"
+							style={{ color: (visibility?.reviewQueueCount ?? 0) > 0 ? "#fbbf24" : undefined }}
+						>
+							{visibility?.reviewQueueCount ?? 0}
+						</div>
+						<div className="app-stat-label">In review</div>
+					</div>
+					<div className="app-stat-card">
+						<div
+							className="app-stat-val"
+							style={{ color: (visibility?.unassignedCount ?? 0) > 0 ? "#f87171" : undefined }}
+						>
+							{visibility?.unassignedCount ?? 0}
+						</div>
+						<div className="app-stat-label">Unassigned</div>
 					</div>
 				</div>
 			</div>
+
 			{visibility ? (
 				<WorkloadCards cards={workloadCards} />
 			) : (
-				<div className="border bg-card p-5 text-sm text-muted-foreground">
-					Loading current team visibility...
+				<div className="app-card">
+					<p className="app-loading">Loading team visibility…</p>
 				</div>
 			)}
 		</section>

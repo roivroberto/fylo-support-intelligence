@@ -13,39 +13,28 @@ import {
 import { Button } from "../ui/button";
 
 function formatStatusLabel(status: string) {
-	if (status === "ready") {
-		return "Parsed and ready for routing";
-	}
-
-	if (status === "processing") {
-		return "Parsing resume now";
-	}
-
-	if (status === "failed") {
-		return "Parsing failed";
-	}
-
+	if (status === "ready")      return "Parsed — ready for routing";
+	if (status === "processing") return "Parsing resume…";
+	if (status === "failed")     return "Parsing failed";
 	return "No resume uploaded yet";
+}
+
+function statusColor(status: string): string {
+	if (status === "ready")      return "#34d399";
+	if (status === "processing") return "#a78bfa";
+	if (status === "failed")     return "#f87171";
+	return "rgba(240,240,240,0.35)";
 }
 
 async function uploadFileToConvex(uploadUrl: string, file: File) {
 	const response = await fetch(uploadUrl, {
 		method: "POST",
-		headers: {
-			"Content-Type": file.type,
-		},
+		headers: { "Content-Type": file.type },
 		body: file,
 	});
-
-	if (!response.ok) {
-		throw new Error("Resume upload failed");
-	}
-
+	if (!response.ok) throw new Error("Resume upload failed");
 	const body = (await response.json()) as { storageId?: string };
-	if (!body.storageId) {
-		throw new Error("Resume upload did not return a storage id");
-	}
-
+	if (!body.storageId) throw new Error("Resume upload did not return a storage id");
 	return body.storageId;
 }
 
@@ -60,38 +49,31 @@ export function AgentProfileForm() {
 	const profile = snapshot?.profile ?? null;
 	const summary = useMemo(() => {
 		if (!profile?.summary) {
-			return "Upload a PDF resume to replace the current role-based routing defaults with your parsed skills.";
+			return "Upload a PDF resume to replace role-based routing defaults with your parsed skills.";
 		}
-
 		return profile.summary;
 	}, [profile?.summary]);
 
 	if (!snapshot) {
 		return (
-			<div className="border bg-card p-5 text-sm text-muted-foreground">
-				Loading agent profile...
+			<div className="app-card">
+				<p className="app-loading">Loading agent profile…</p>
 			</div>
 		);
 	}
 
 	async function handleFileChange(file: File | null) {
-		if (!file || isUploading) {
-			return;
-		}
-
+		if (!file || isUploading) return;
 		if (file.type !== "application/pdf") {
 			setStatus("Please upload a PDF resume.");
 			return;
 		}
-
 		if (file.size > 5_000_000) {
 			setStatus("Resume must be 5 MB or smaller.");
 			return;
 		}
-
 		setIsUploading(true);
 		setStatus(null);
-
 		try {
 			const uploadUrl = await generateUploadUrl({});
 			const storageId = await uploadFileToConvex(uploadUrl, file);
@@ -101,97 +83,124 @@ export function AgentProfileForm() {
 				resumeMimeType: file.type,
 			});
 			const parsed = await parseCurrentResume({});
-
 			setStatus(
 				parsed.parseStatus === "ready"
 					? "Resume uploaded and parsed. Routing will use your extracted skills."
 					: parsed.parseError ?? "Resume uploaded but parsing failed.",
 			);
 		} catch (error) {
-			setStatus(
-				error instanceof Error ? error.message : "Unable to upload resume",
-			);
+			setStatus(error instanceof Error ? error.message : "Unable to upload resume");
 		} finally {
 			setIsUploading(false);
 		}
 	}
 
+	const parseStatus = profile?.parseStatus ?? "idle";
+	const skillRows = [
+		{ label: "Primary skills",   value: profile?.primarySkills.join(", ")   || null },
+		{ label: "Secondary skills", value: profile?.secondarySkills.join(", ") || null },
+		{ label: "Languages",        value: profile?.languages.join(", ")        || null },
+	];
+
 	return (
-		<section className="border bg-card text-card-foreground">
-			<div className="grid gap-5 p-5 lg:grid-cols-[minmax(0,1fr)_280px]">
-				<div className="grid gap-4">
+		<div className="app-card">
+			<div className="grid gap-6 p-5 lg:grid-cols-[1fr_280px]">
+				{/* Left */}
+				<div className="flex flex-col gap-5">
 					<div>
-						<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-							Routing profile
-						</p>
-						<h2 className="mt-2 text-xl font-semibold tracking-tight">
-							Upload your resume for assignment matching
-						</h2>
-						<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-							A parsed profile replaces the role-based defaults used in ticket assignment
-							whenever your resume is ready.
-						</p>
-					</div>
-					<label className="grid gap-2 text-sm">
-						<span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-							Resume PDF
-						</span>
+						<p className="app-eyebrow mb-3">Resume PDF</p>
 						<input
 							type="file"
 							accept="application/pdf"
 							disabled={isUploading}
-							onChange={(event) =>
-								void handleFileChange(event.currentTarget.files?.[0] ?? null)
-							}
-							className="border px-3 py-3 text-xs text-foreground file:mr-3 file:border-0 file:bg-transparent file:text-xs file:font-medium"
+							onChange={(e) => void handleFileChange(e.currentTarget.files?.[0] ?? null)}
+							className="app-file-input"
 						/>
-					</label>
-					<div className="grid gap-3 border p-4 text-sm">
+					</div>
+
+					{/* Status block */}
+					<div
+						className="flex flex-col gap-3 p-4"
+						style={{
+							background: "rgba(255,255,255,0.02)",
+							border: "1px solid rgba(255,255,255,0.06)",
+							borderRadius: "4px",
+						}}
+					>
 						<div>
-							<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-								Current status
-							</p>
-							<p className="mt-2 font-medium text-foreground">
-								{formatStatusLabel(profile?.parseStatus ?? "idle")}
+							<p className="app-field-label mb-2">Current status</p>
+							<p
+								style={{
+									fontFamily: "var(--font-jetbrains-mono)",
+									fontSize: "0.75rem",
+									fontWeight: 600,
+									color: statusColor(parseStatus),
+								}}
+							>
+								{formatStatusLabel(parseStatus)}
 							</p>
 						</div>
-						{profile?.resumeFileName ? (
-							<p className="text-muted-foreground">Latest file: {profile.resumeFileName}</p>
-						) : null}
-						{status ? <p className="text-foreground">{status}</p> : null}
-						{profile?.parseError ? (
-							<p className="text-destructive">{profile.parseError}</p>
-						) : null}
+						{profile?.resumeFileName && (
+							<p className="app-body" style={{ fontSize: "0.75rem" }}>
+								File: {profile.resumeFileName}
+							</p>
+						)}
+						{status && (
+							<p
+								className="app-body"
+								style={{
+									fontSize: "0.75rem",
+									color: status.includes("parsed") ? "#34d399" : status.includes("failed") ? "#f87171" : "rgba(240,240,240,0.6)",
+								}}
+							>
+								{status}
+							</p>
+						)}
+						{profile?.parseError && (
+							<p className="app-feedback app-feedback--error" style={{ fontSize: "0.75rem" }}>
+								{profile.parseError}
+							</p>
+						)}
 					</div>
 				</div>
-				<div className="space-y-4 border p-4 text-sm">
+
+				{/* Right: parsed skills */}
+				<div
+					className="flex flex-col gap-4 p-4"
+					style={{
+						background: "rgba(255,255,255,0.02)",
+						border: "1px solid rgba(255,255,255,0.06)",
+						borderRadius: "4px",
+					}}
+				>
 					<div>
-						<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-							Parsed summary
-						</p>
-						<p className="mt-2 text-foreground">{summary}</p>
-					</div>
-					<div className="grid gap-3 text-muted-foreground">
-						<p>
-							Primary skills: {profile?.primarySkills.join(", ") || "Not parsed yet"}
-						</p>
-						<p>
-							Secondary skills: {profile?.secondarySkills.join(", ") || "Not parsed yet"}
-						</p>
-						<p>
-							Languages: {profile?.languages.join(", ") || "Not parsed yet"}
+						<p className="app-eyebrow mb-2">Parsed summary</p>
+						<p className="app-body" style={{ fontSize: "0.8rem", color: "#f0f0f0" }}>
+							{summary}
 						</p>
 					</div>
+
+					<div className="flex flex-col gap-3" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "1rem" }}>
+						{skillRows.map(({ label, value }) => (
+							<div key={label}>
+								<p className="app-field-label mb-1">{label}</p>
+								<p className="app-body" style={{ fontSize: "0.8rem", color: value ? "#f0f0f0" : "rgba(240,240,240,0.25)" }}>
+									{value ?? "Not parsed yet"}
+								</p>
+							</div>
+						))}
+					</div>
+
 					<Button
 						type="button"
 						variant="outline"
 						disabled={isUploading}
-						className="w-full"
+						className="w-full mt-auto"
 					>
-						{isUploading ? "Uploading and parsing..." : "Upload new resume"}
+						{isUploading ? "Uploading and parsing…" : "Upload new resume"}
 					</Button>
 				</div>
 			</div>
-		</section>
+		</div>
 	);
 }

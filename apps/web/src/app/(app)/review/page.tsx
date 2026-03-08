@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import React from "react";
 
 import { ReviewList } from "../../../components/review/review-list";
 import { getReviewSnapshotReference } from "../../../../../../packages/backend/convex/tickets_reference";
@@ -12,28 +11,32 @@ export default function ReviewPage() {
 	const count = review?.count ?? 0;
 
 	return (
-		<section className="grid gap-4">
-			<div className="border bg-card p-5 text-card-foreground">
-				<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-					Review
-				</p>
-					<h2 className="mt-2 text-xl font-semibold tracking-tight">
-						Human decisions still in flight
-					</h2>
-					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-						This live review queue shows tickets that still require lead
-						confirmation or manual triage.
-					</p>
-					<p className="mt-3 text-sm text-muted-foreground">
-						<span className="font-medium text-foreground">{count}</span> open
-						review item{count === 1 ? "" : "s"}
+		<section className="flex flex-col gap-5">
+			<div className="grid gap-4 lg:grid-cols-[1fr_auto]">
+				<div className="app-card p-5">
+					<p className="app-eyebrow app-eyebrow--violet mb-2">Review queue</p>
+					<h1 className="app-h2 mb-2">Human decisions in flight</h1>
+					<p className="app-body">
+						Tickets that need lead confirmation or manual triage before routing
+						can proceed.
 					</p>
 				</div>
+				<div className="app-stat-card" style={{ minWidth: "9rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+					<div
+						className="app-stat-val"
+						style={{ color: count > 0 ? "#fbbf24" : undefined }}
+					>
+						{count}
+					</div>
+					<div className="app-stat-label">Open items</div>
+				</div>
+			</div>
+
 			{review ? (
 				<ReviewList items={items} />
 			) : (
-				<div className="border bg-card p-5 text-sm text-muted-foreground">
-					Loading review decisions...
+				<div className="app-card">
+					<p className="app-loading">Loading review queue…</p>
 				</div>
 			)}
 		</section>

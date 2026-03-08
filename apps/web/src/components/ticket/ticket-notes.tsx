@@ -1,5 +1,3 @@
-import React from "react";
-
 type TicketNote = {
 	id: string;
 	body: string;
@@ -9,27 +7,44 @@ type TicketNote = {
 
 export function TicketNotes({ notes }: { notes: TicketNote[] }) {
 	return (
-		<div className="border bg-card p-5 text-card-foreground">
-			<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-				Notes
-			</p>
-			<div className="mt-4 grid gap-3">
-				{notes.length === 0 ? (
-					<p className="text-sm text-muted-foreground">
-						No notes yet. Capture reviewer context and handoff details here.
-					</p>
-				) : (
-					notes.map((note) => (
-						<article key={note.id} className="border p-4">
-							<div className="flex flex-wrap items-center justify-between gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-								<span>{note.authorLabel}</span>
-								<span>{note.createdAtLabel}</span>
+		<div className="app-card p-5 flex flex-col gap-4">
+			<p className="app-eyebrow">Notes</p>
+
+			{notes.length === 0 ? (
+				<p className="app-empty" style={{ padding: "0.75rem 0" }}>
+					No notes yet.
+				</p>
+			) : (
+				<div className="flex flex-col gap-3">
+					{notes.map((note) => (
+						<article
+							key={note.id}
+							style={{
+								background: "rgba(255,255,255,0.02)",
+								border: "1px solid rgba(255,255,255,0.06)",
+								borderRadius: "4px",
+								padding: "0.85rem 1rem",
+							}}
+						>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "space-between",
+									alignItems: "center",
+									gap: "0.5rem",
+									marginBottom: "0.6rem",
+								}}
+							>
+								<span className="app-field-label">{note.authorLabel}</span>
+								<span className="app-field-label">{note.createdAtLabel}</span>
 							</div>
-							<p className="mt-3 text-sm text-foreground">{note.body}</p>
+							<p className="app-body" style={{ fontSize: "0.8125rem", color: "rgba(240,240,240,0.8)" }}>
+								{note.body}
+							</p>
 						</article>
-					))
-				)}
-			</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

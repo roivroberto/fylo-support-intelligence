@@ -1,5 +1,3 @@
-import { cn } from "../../lib/utils";
-
 type WorkloadCard = {
 	id: string;
 	name: string;
@@ -10,52 +8,105 @@ type WorkloadCard = {
 	note: string;
 };
 
-const statusTone: Record<WorkloadCard["status"], string> = {
-	clear: "text-foreground",
-	watch: "text-amber-700",
-	busy: "text-destructive",
-};
+const STATUS_MAX_PIPS = 6;
+
+function statusBadgeClass(status: WorkloadCard["status"]): string {
+	if (status === "busy")  return "app-badge app-badge--busy";
+	if (status === "watch") return "app-badge app-badge--watch";
+	return "app-badge app-badge--routed";
+}
+
+function statusDotClass(status: WorkloadCard["status"]): string {
+	if (status === "busy")  return "status-dot status-dot--busy";
+	if (status === "watch") return "status-dot status-dot--watch";
+	return "status-dot status-dot--clear";
+}
+
+function pipClass(index: number, status: WorkloadCard["status"], active: number): string {
+	if (index >= active) return "pip pip--empty";
+	if (status === "busy") return "pip pip--full";
+	return "pip pip--on";
+}
 
 export function WorkloadCards({ cards }: { cards: WorkloadCard[] }) {
+	if (cards.length === 0) {
+		return (
+			<div className="app-card">
+				<p className="app-empty">No team members in this workspace yet.</p>
+			</div>
+		);
+	}
+
 	return (
-		<div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+		<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 			{cards.map((card) => (
-				<article key={card.id} className="border bg-card text-card-foreground">
-					<div className="space-y-4 p-4">
-						<div className="flex items-start justify-between gap-3">
-							<div>
-								<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-									{card.role}
-								</p>
-								<h2 className="mt-2 text-sm font-medium">{card.name}</h2>
-							</div>
-							<p
-								className={cn(
-									"text-xs font-medium uppercase tracking-[0.18em]",
-									statusTone[card.status],
-								)}
-							>
+				<article key={card.id} className="app-card p-5 flex flex-col gap-4">
+					{/* Header */}
+					<div className="flex items-start justify-between gap-3">
+						<div>
+							<p className="app-eyebrow mb-1">{card.role}</p>
+							<h2 className="app-h3">{card.name}</h2>
+						</div>
+						<div className="flex items-center gap-2">
+							<span className={statusDotClass(card.status)} />
+							<span className={statusBadgeClass(card.status)}>
 								{card.status}
+							</span>
+						</div>
+					</div>
+
+					{/* Load pip bar */}
+					<div>
+						<p className="app-field-label mb-2">Active load</p>
+						<div className="pip-bar">
+							{Array.from({ length: STATUS_MAX_PIPS }).map((_, i) => (
+								<div
+									key={i}
+									className={pipClass(i, card.status, card.activeTickets)}
+								/>
+							))}
+						</div>
+					</div>
+
+					{/* Stats */}
+					<div
+						className="grid grid-cols-2 gap-3 pt-3"
+						style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+					>
+						<div>
+							<p className="app-field-label mb-1">Active</p>
+							<p
+								style={{
+									fontFamily: "var(--font-jetbrains-mono)",
+									fontSize: "1.375rem",
+									fontWeight: 800,
+									letterSpacing: "-0.04em",
+									color: card.status === "busy" ? "#f87171" : "#f0f0f0",
+								}}
+							>
+								{card.activeTickets}
 							</p>
 						</div>
-						<div className="grid grid-cols-2 gap-3 border-y py-3 text-sm">
-							<div>
-								<p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-									Active
-								</p>
-								<p className="mt-1 text-lg font-semibold">
-									{card.activeTickets}
-								</p>
-							</div>
-							<div>
-								<p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-									Needs review
-								</p>
-								<p className="mt-1 text-lg font-semibold">{card.reviewQueue}</p>
-							</div>
+						<div>
+							<p className="app-field-label mb-1">In review</p>
+							<p
+								style={{
+									fontFamily: "var(--font-jetbrains-mono)",
+									fontSize: "1.375rem",
+									fontWeight: 800,
+									letterSpacing: "-0.04em",
+									color: card.reviewQueue > 0 ? "#fbbf24" : "rgba(240,240,240,0.4)",
+								}}
+							>
+								{card.reviewQueue}
+							</p>
 						</div>
-						<p className="text-sm text-muted-foreground">{card.note}</p>
 					</div>
+
+					{/* Note */}
+					<p className="app-body" style={{ fontSize: "0.8rem", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "0.75rem" }}>
+						{card.note}
+					</p>
 				</article>
 			))}
 		</div>

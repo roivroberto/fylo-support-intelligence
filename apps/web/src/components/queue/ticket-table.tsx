@@ -1,5 +1,4 @@
 import type { Route } from "next";
-import React from "react";
 import Link from "next/link";
 
 type TicketRow = {
@@ -16,75 +15,134 @@ type TicketRow = {
 	requestType?: string;
 };
 
-const priorityTone: Record<NonNullable<TicketRow["priority"]>, string> = {
-	low: "text-muted-foreground",
-	medium: "text-foreground",
-	high: "text-destructive",
+const priorityClass: Record<NonNullable<TicketRow["priority"]>, string> = {
+	low:    "priority-low",
+	medium: "priority-medium",
+	high:   "priority-high",
 };
 
+function statusBadgeClass(status: string | undefined): string {
+	const s = (status ?? "").toLowerCase();
+	if (s.includes("routed") || s.includes("assigned")) return "app-badge app-badge--routed";
+	if (s.includes("review") || s.includes("triage"))   return "app-badge app-badge--review";
+	if (s.includes("urgent"))                            return "app-badge app-badge--urgent";
+	return "app-badge app-badge--pending";
+}
+
 export function TicketTable({ rows }: { rows: TicketRow[] }) {
+	if (rows.length === 0) {
+		return (
+			<div className="app-card">
+				<p className="app-empty">No tickets in the queue right now.</p>
+			</div>
+		);
+	}
+
 	return (
-		<div className="overflow-x-auto border bg-card text-card-foreground">
-			<table className="min-w-[640px] w-full border-collapse text-left text-sm">
-				<thead className="bg-muted/40 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						<tr>
-							<th className="px-4 py-3 font-medium">Ticket</th>
-							<th className="px-4 py-3 font-medium">AI</th>
-							<th className="px-4 py-3 font-medium">Routing reason</th>
-							<th className="px-4 py-3 font-medium">Priority</th>
-							<th className="px-4 py-3 font-medium">Status</th>
+		<div className="app-table-wrap">
+			<table className="app-table">
+				<thead>
+					<tr>
+						<th>Ticket</th>
+						<th>Confidence</th>
+						<th>Routing reason</th>
+						<th>Priority</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
-					{rows.map((row) => (
-						<tr key={row.id} className="border-t align-top">
-							<td className="px-4 py-3">
-								{row.decisionHref ? (
-									<Link href={row.decisionHref as Route} className="font-medium text-foreground underline-offset-4 hover:underline">
-										{row.title ?? row.id}
-									</Link>
-								) : (
-									<div className="font-medium text-foreground">
-										{row.title ?? row.id}
-									</div>
-								)}
-								{row.requester ? (
-									<div className="text-xs text-muted-foreground">
-										{row.requester}
-									</div>
-								) : null}
-								{row.requestType ? (
-									<div className="text-xs text-muted-foreground">
-										{row.requestType}
-									</div>
-								) : null}
-							</td>
-							<td className="px-4 py-3 text-sm text-foreground">
-								<div>
-									{typeof row.classificationConfidence === "number"
-										? `${Math.round(row.classificationConfidence * 100)}%`
-										: "-"}
-								</div>
-								<div className="text-xs text-muted-foreground">
-									{row.classificationSource ?? "fallback"}
-								</div>
-							</td>
-							<td className="px-4 py-3 text-sm text-foreground">
-								{row.reason}
-							</td>
-							<td className="px-4 py-3">
-								<span className={priorityTone[row.priority ?? "medium"]}>
-									{row.priority ?? "medium"}
-								</span>
-							</td>
-							<td className="px-4 py-3 text-muted-foreground">
-								<div>{row.status ?? "Ready for review"}</div>
-								{row.assignedWorkerLabel ? (
-									<div className="text-xs">{row.assignedWorkerLabel}</div>
-								) : null}
-							</td>
-						</tr>
-					))}
+					{rows.map((row) => {
+						const conf =
+							typeof row.classificationConfidence === "number"
+								? Math.round(row.classificationConfidence * 100)
+								: null;
+						const confLow = conf !== null && conf < 75;
+
+						return (
+							<tr key={row.id}>
+								{/* Ticket */}
+								<td>
+									{row.decisionHref ? (
+										<Link
+											href={row.decisionHref as Route}
+											className="app-table cell-link cell-primary"
+										>
+											{row.title ?? row.id}
+										</Link>
+									) : (
+										<span className="cell-primary">{row.title ?? row.id}</span>
+									)}
+									{row.requester && (
+										<div className="cell-sub">{row.requester}</div>
+									)}
+									{row.requestType && (
+										<div className="cell-sub">{row.requestType}</div>
+									)}
+								</td>
+
+								{/* Confidence */}
+								<td>
+									{conf !== null ? (
+										<div className="conf-bar-wrap">
+											<div className="conf-bar-bg">
+												<div
+													className={`conf-bar-fill${confLow ? " conf-bar-fill--low" : ""}`}
+													style={{ width: `${conf}%` }}
+												/>
+											</div>
+											<span
+												style={{
+													fontFamily: "var(--font-jetbrains-mono)",
+													fontSize: "0.7rem",
+													color: confLow
+														? "#fbbf24"
+														: "rgba(240,240,240,0.6)",
+												}}
+											>
+												{conf}%
+											</span>
+										</div>
+									) : (
+										<span className="cell-sub">—</span>
+									)}
+									{row.classificationSource === "fallback" && (
+										<div className="cell-sub" style={{ color: "#fbbf24" }}>
+											fallback
+										</div>
+									)}
+								</td>
+
+								{/* Routing reason */}
+								<td>
+									<span style={{ color: "rgba(240,240,240,0.65)", fontFamily: "var(--font-dm-sans)", fontSize: "0.8rem" }}>
+										{row.reason}
+									</span>
+								</td>
+
+								{/* Priority */}
+								<td>
+									<span
+										className={`${priorityClass[row.priority ?? "medium"]}`}
+										style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: "0.7rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}
+									>
+										{row.priority ?? "medium"}
+									</span>
+								</td>
+
+								{/* Status */}
+								<td>
+									<span className={statusBadgeClass(row.status)}>
+										{row.status ?? "ready"}
+									</span>
+									{row.assignedWorkerLabel && (
+										<div className="cell-sub" style={{ marginTop: "0.35rem" }}>
+											→ {row.assignedWorkerLabel}
+										</div>
+									)}
+								</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</div>

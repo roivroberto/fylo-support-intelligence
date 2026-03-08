@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import React from "react";
 
 import { TicketTable } from "../../../components/queue/ticket-table";
 import { getQueueSnapshotReference } from "../../../../../../packages/backend/convex/tickets_reference";
@@ -12,49 +11,45 @@ export default function QueuePage() {
 	const summary = queue ?? { totalCount: 0, urgentCount: 0, fallbackCount: 0 };
 
 	return (
-		<section className="grid gap-4">
-			<div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
-				<div className="border bg-card p-5 text-card-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						Shared queue
-					</p>
-					<h2 className="mt-2 text-xl font-semibold tracking-tight">
-						Shared Queue
-					</h2>
-					<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-						Live queue coverage shows AI classification, routing status, and
-						who needs follow-through right now.
+		<section className="flex flex-col gap-5">
+			{/* Page header */}
+			<div className="grid gap-4 lg:grid-cols-[1fr_auto]">
+				<div className="app-card p-5">
+					<p className="app-eyebrow app-eyebrow--violet mb-2">Shared queue</p>
+					<h1 className="app-h2 mb-2">Ticket queue</h1>
+					<p className="app-body">
+						Live routing status, AI classification confidence, and assignment for
+						every open ticket.
 					</p>
 				</div>
-				<div className="border bg-card p-5 text-sm text-muted-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em]">Queue health</p>
-					<div className="mt-3 space-y-2">
-						<p>
-							<span className="font-medium text-foreground">
-								{summary.totalCount} tickets
-							</span>{" "}
-							visible in the current queue
-						</p>
-						<p>
-							<span className="font-medium text-foreground">
-								{summary.urgentCount} urgent
-							</span>{" "}
-							item{summary.urgentCount === 1 ? "" : "s"} need immediate review
-						</p>
-						<p>
-							<span className="font-medium text-foreground">
-								{summary.fallbackCount} fallback
-							</span>{" "}
-							classification result{summary.fallbackCount === 1 ? "" : "s"}
-						</p>
+
+				{/* Queue health stats */}
+				<div className="grid grid-cols-3 gap-3 lg:grid-cols-1 lg:w-56">
+					<div className="app-stat-card">
+						<div className="app-stat-val">{summary.totalCount}</div>
+						<div className="app-stat-label">Total tickets</div>
+					</div>
+					<div className="app-stat-card">
+						<div className="app-stat-val" style={{ color: summary.urgentCount > 0 ? "#f87171" : undefined }}>
+							{summary.urgentCount}
+						</div>
+						<div className="app-stat-label">Urgent</div>
+					</div>
+					<div className="app-stat-card">
+						<div className="app-stat-val" style={{ color: summary.fallbackCount > 0 ? "#fbbf24" : undefined }}>
+							{summary.fallbackCount}
+						</div>
+						<div className="app-stat-label">Fallback</div>
 					</div>
 				</div>
 			</div>
+
+			{/* Table */}
 			{queue ? (
 				<TicketTable rows={rows} />
 			) : (
-				<div className="border bg-card p-5 text-sm text-muted-foreground">
-					Loading live queue...
+				<div className="app-card">
+					<p className="app-loading">Loading live queue…</p>
 				</div>
 			)}
 		</section>

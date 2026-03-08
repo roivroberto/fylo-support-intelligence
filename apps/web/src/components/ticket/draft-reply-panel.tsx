@@ -1,7 +1,7 @@
 "use client";
 
 import { useAction } from "convex/react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
 	regenerateTicketDraftReference,
@@ -22,14 +22,7 @@ function createDraftReplyPanelViewState(
 	ticketId: string,
 	draft: TicketDraftWorkspace,
 ): DraftReplyPanelViewState {
-	return {
-		ticketId,
-		draftState: draft,
-		status: null,
-		isSending: false,
-		isRegenerating: false,
-		hasSent: false,
-	};
+	return { ticketId, draftState: draft, status: null, isSending: false, isRegenerating: false, hasSent: false };
 }
 
 export function getDraftReplyPanelViewState({
@@ -41,22 +34,11 @@ export function getDraftReplyPanelViewState({
 	isSending,
 	isRegenerating,
 	hasSent,
-	}: DraftReplyPanelViewState & {
-	currentTicketId: string;
-	nextDraft: TicketDraftWorkspace;
-}) {
+}: DraftReplyPanelViewState & { currentTicketId: string; nextDraft: TicketDraftWorkspace }) {
 	if (ticketId !== currentTicketId) {
 		return createDraftReplyPanelViewState(currentTicketId, nextDraft);
 	}
-
-	return {
-		ticketId,
-		draftState,
-		status,
-		isSending,
-		isRegenerating,
-		hasSent,
-	};
+	return { ticketId, draftState, status, isSending, isRegenerating, hasSent };
 }
 
 type DraftReplyPanelProps = {
@@ -66,12 +48,7 @@ type DraftReplyPanelProps = {
 	draft: TicketDraftWorkspace;
 };
 
-export function DraftReplyPanel({
-	ticketId,
-	to,
-	subject,
-	draft,
-}: DraftReplyPanelProps) {
+export function DraftReplyPanel({ ticketId, to, subject, draft }: DraftReplyPanelProps) {
 	const sendApproved = useAction(sendApprovedReplyReference);
 	const regenerateDraft = useAction(regenerateTicketDraftReference);
 	const [viewState, setViewState] = useState(() =>
@@ -80,253 +57,166 @@ export function DraftReplyPanel({
 	const latestRegenerationRequestRef = useRef(0);
 	const currentTicketIdRef = useRef(ticketId);
 	currentTicketIdRef.current = ticketId;
-	const {
-		draftState,
-		status,
-		isSending,
-		isRegenerating,
-		hasSent,
-	} = getDraftReplyPanelViewState({
-		...viewState,
-		currentTicketId: ticketId,
-		nextDraft: draft,
-	});
+
+	const { draftState, status, isSending, isRegenerating, hasSent } =
+		getDraftReplyPanelViewState({ ...viewState, currentTicketId: ticketId, nextDraft: draft });
 	const canSend = Boolean(to && subject) && !hasSent && !isRegenerating;
 
 	useEffect(() => {
-		setViewState((current) =>
-			current.ticketId === ticketId
-				? { ...current, draftState: draft }
+		setViewState((cur) =>
+			cur.ticketId === ticketId
+				? { ...cur, draftState: draft }
 				: createDraftReplyPanelViewState(ticketId, draft),
 		);
 	}, [ticketId, draft]);
 
 	async function handleSend() {
-		if (!to || !subject || isSending || hasSent) {
-			return;
-		}
-
-		const requestedTicketId = ticketId;
-
-		setViewState((current) => ({
-			...getDraftReplyPanelViewState({
-				...current,
-				currentTicketId: requestedTicketId,
-				nextDraft: draft,
-			}),
-			isSending: true,
-			status: null,
-		}));
-
+		if (!to || !subject || isSending || hasSent) return;
+		const reqTicketId = ticketId;
+		setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), isSending: true, status: null }));
 		try {
-			const result = await sendApproved({
-				ticketId: requestedTicketId,
-				draftReply: draftState.draftReply,
-			});
-
-			if (currentTicketIdRef.current !== requestedTicketId) {
-				return;
-			}
-
-			setViewState((current) => ({
-				...getDraftReplyPanelViewState({
-					...current,
-					currentTicketId: requestedTicketId,
-					nextDraft: draft,
-				}),
-				hasSent: true,
-				status: `Reply sent via Resend (${result.providerMessageId})`,
-			}));
+			const result = await sendApproved({ ticketId: reqTicketId, draftReply: draftState.draftReply });
+			if (currentTicketIdRef.current !== reqTicketId) return;
+			setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), hasSent: true, status: `Reply sent (${result.providerMessageId})` }));
 		} catch (error) {
-			if (currentTicketIdRef.current !== requestedTicketId) {
-				return;
-			}
-
-			setViewState((current) => ({
-				...getDraftReplyPanelViewState({
-					...current,
-					currentTicketId: requestedTicketId,
-					nextDraft: draft,
-				}),
-				status:
-					error instanceof Error
-						? error.message
-						: "Failed to send approved reply",
-			}));
+			if (currentTicketIdRef.current !== reqTicketId) return;
+			setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), status: error instanceof Error ? error.message : "Failed to send reply" }));
 		} finally {
-			if (currentTicketIdRef.current !== requestedTicketId) {
-				return;
+			if (currentTicketIdRef.current === reqTicketId) {
+				setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), isSending: false }));
 			}
-
-			setViewState((current) => ({
-				...getDraftReplyPanelViewState({
-					...current,
-					currentTicketId: requestedTicketId,
-					nextDraft: draft,
-				}),
-				isSending: false,
-			}));
 		}
 	}
 
 	async function handleRegenerate() {
-		if (isRegenerating) {
-			return;
-		}
-
-		setViewState((current) => ({
-			...getDraftReplyPanelViewState({
-				...current,
-				currentTicketId: ticketId,
-				nextDraft: draft,
-			}),
-			isRegenerating: true,
-			status: null,
-		}));
-		const requestId = latestRegenerationRequestRef.current + 1;
-		latestRegenerationRequestRef.current = requestId;
-		const requestedTicketId = ticketId;
-
+		if (isRegenerating) return;
+		setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: ticketId, nextDraft: draft }), isRegenerating: true, status: null }));
+		const reqId = latestRegenerationRequestRef.current + 1;
+		latestRegenerationRequestRef.current = reqId;
+		const reqTicketId = ticketId;
 		try {
-			const regeneratedDraft = await regenerateDraft({
-				ticketId,
-			});
-
-			if (
-				latestRegenerationRequestRef.current !== requestId ||
-				currentTicketIdRef.current !== requestedTicketId
-			) {
-				return;
-			}
-
-			setViewState((current) => ({
-				...getDraftReplyPanelViewState({
-					...current,
-					currentTicketId: requestedTicketId,
-					nextDraft: draft,
-				}),
-				draftState: regeneratedDraft,
-			}));
+			const regenerated = await regenerateDraft({ ticketId });
+			if (latestRegenerationRequestRef.current !== reqId || currentTicketIdRef.current !== reqTicketId) return;
+			setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), draftState: regenerated }));
 		} catch (error) {
-			if (
-				latestRegenerationRequestRef.current !== requestId ||
-				currentTicketIdRef.current !== requestedTicketId
-			) {
-				return;
-			}
-
-			setViewState((current) => ({
-				...getDraftReplyPanelViewState({
-					...current,
-					currentTicketId: requestedTicketId,
-					nextDraft: draft,
-				}),
-				status:
-					error instanceof Error ? error.message : "Failed to regenerate draft",
-			}));
+			if (latestRegenerationRequestRef.current !== reqId || currentTicketIdRef.current !== reqTicketId) return;
+			setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), status: error instanceof Error ? error.message : "Failed to regenerate draft" }));
 		} finally {
-			if (
-				latestRegenerationRequestRef.current === requestId &&
-				currentTicketIdRef.current === requestedTicketId
-			) {
-				setViewState((current) => ({
-					...getDraftReplyPanelViewState({
-						...current,
-						currentTicketId: requestedTicketId,
-						nextDraft: draft,
-					}),
-					isRegenerating: false,
-				}));
+			if (latestRegenerationRequestRef.current === reqId && currentTicketIdRef.current === reqTicketId) {
+				setViewState((c) => ({ ...getDraftReplyPanelViewState({ ...c, currentTicketId: reqTicketId, nextDraft: draft }), isRegenerating: false }));
 			}
 		}
 	}
 
+	const draftSections = [
+		{ label: "Conversation summary",  value: draftState.summary },
+		{ label: "Recommended action",    value: draftState.recommendedAction },
+		{ label: "Draft reply",           value: draftState.draftReply, pre: true },
+	];
+
 	return (
-		<section className="border bg-card p-5 text-card-foreground">
-			<div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-				<div>
-					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						AI reply workspace
-					</p>
-					<h3 className="mt-3 text-base font-semibold tracking-tight">
-						Summary and draft reply
-					</h3>
+		<div className="app-card p-5 flex flex-col gap-5">
+			{/* Header row */}
+			<div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+				<div className="flex flex-col gap-2">
+					<p className="app-eyebrow app-eyebrow--violet">AI reply workspace</p>
+					<h3 className="app-h3">Summary & draft reply</h3>
 					<button
 						type="button"
 						onClick={() => void handleRegenerate()}
 						disabled={isRegenerating || isSending}
-						className="mt-3 inline-flex w-fit items-center justify-center border px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-foreground disabled:cursor-not-allowed disabled:opacity-50"
+						className="app-btn app-btn--sm w-fit"
 					>
-						{isRegenerating ? "Regenerating..." : "Regenerate draft"}
+						{isRegenerating ? "Regenerating…" : "Regenerate draft"}
 					</button>
 				</div>
-				<span className="inline-flex w-fit border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-foreground">
+				<span className="app-badge app-badge--pending" style={{ flexShrink: 0 }}>
 					{draftState.generatedAtLabel}
 				</span>
 			</div>
-			<p className="mt-2 text-xs text-muted-foreground">
-				Generated {new Date(draftState.generatedAt).toISOString()}
-			</p>
 
-			<div className="mt-4 grid gap-4 text-sm">
-				<div className="flex flex-col gap-3 border border-dashed px-3 py-3 sm:flex-row sm:items-center sm:justify-between">
+			{/* Send area */}
+			<div
+				style={{
+					background: hasSent ? "rgba(52,211,153,0.05)" : "rgba(167,139,250,0.04)",
+					border: `1px solid ${hasSent ? "rgba(52,211,153,0.2)" : "rgba(167,139,250,0.15)"}`,
+					borderRadius: "4px",
+					padding: "0.85rem 1rem",
+					display: "flex",
+					flexDirection: "column",
+					gap: "0.6rem",
+				}}
+			>
+				<div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
 					<div>
-						<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-							Approved send
-						</p>
-						<p className="mt-2 text-sm text-foreground">
+						<p className="app-field-label mb-1">Approved send</p>
+						<p className="app-body" style={{ fontSize: "0.8rem", color: hasSent ? "#34d399" : "#f0f0f0" }}>
 							{hasSent
 								? "Reply sent"
 								: isRegenerating
-									? "Refreshing draft before send..."
-								: canSend
-									? `Ready to send to ${to}`
-									: "Requester email and subject are required before sending."}
+									? "Refreshing draft before send…"
+									: canSend
+										? `Ready to send to ${to}`
+										: "Requester email and subject required before sending."}
 						</p>
-						{status ? (
-							<p className="mt-2 text-xs text-muted-foreground">{status}</p>
-						) : null}
 					</div>
 					<button
 						type="button"
 						onClick={() => void handleSend()}
 						disabled={!canSend || isSending}
-						className="inline-flex w-fit items-center justify-center border px-3 py-2 text-xs font-medium uppercase tracking-[0.18em] text-foreground disabled:cursor-not-allowed disabled:opacity-50"
+						className={`app-btn app-btn--sm${hasSent ? "" : " app-btn--primary"}`}
+						style={{ flexShrink: 0 }}
 					>
-						{isSending
-							? "Sending..."
-							: hasSent
-								? "Reply sent"
-								: "Send approved reply"}
+						{isSending ? "Sending…" : hasSent ? "Sent ✓" : "Send approved reply"}
 					</button>
 				</div>
-				<div>
-					<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-						Conversation summary
+				{status && (
+					<p className="app-feedback" style={{ color: status.includes("Failed") || status.includes("failed") ? "#f87171" : "#34d399", fontSize: "0.7rem" }}>
+						{status}
 					</p>
-					<p className="mt-2 text-foreground">{draftState.summary}</p>
-				</div>
-				<div>
-					<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-						Recommended action
-					</p>
-					<p className="mt-2 text-foreground">{draftState.recommendedAction}</p>
-				</div>
-				<div>
-					<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-						Draft reply
-					</p>
-					<pre className="mt-2 whitespace-pre-wrap font-sans text-foreground">
-						{draftState.draftReply}
-					</pre>
-				</div>
-				{draftState.usedFallback ? (
-					<p className="border border-dashed px-3 py-2 text-xs text-muted-foreground">
-						Using the deterministic fallback draft because the latest AI
-						generation did not return a usable reply.
-					</p>
-				) : null}
+				)}
 			</div>
-		</section>
+
+			{/* Content sections */}
+			<div className="flex flex-col gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "1rem" }}>
+				{draftSections.map(({ label, value, pre }) => (
+					<div key={label}>
+						<p className="app-field-label mb-2">{label}</p>
+						{pre ? (
+							<pre
+								style={{
+									fontFamily: "var(--font-dm-sans), sans-serif",
+									fontSize: "0.8rem",
+									lineHeight: 1.65,
+									color: "rgba(240,240,240,0.8)",
+									whiteSpace: "pre-wrap",
+									margin: 0,
+								}}
+							>
+								{value}
+							</pre>
+						) : (
+							<p className="app-body" style={{ fontSize: "0.8rem" }}>{value}</p>
+						)}
+					</div>
+				))}
+			</div>
+
+			{draftState.usedFallback && (
+				<p
+					className="app-body"
+					style={{
+						fontSize: "0.75rem",
+						padding: "0.6rem 0.75rem",
+						background: "rgba(251,191,36,0.05)",
+						border: "1px solid rgba(251,191,36,0.15)",
+						borderRadius: "4px",
+						color: "#fbbf24",
+					}}
+				>
+					Using deterministic fallback — latest AI generation did not return a usable reply.
+				</p>
+			)}
+		</div>
 	);
 }

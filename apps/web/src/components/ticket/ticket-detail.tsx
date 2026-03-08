@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { TicketDraftWorkspace } from "../../../../../packages/backend/convex/drafts_reference";
 
 import { DraftReplyPanel } from "./draft-reply-panel";
@@ -36,107 +34,131 @@ type TicketDetailProps = {
 	draft?: TicketDraftWorkspace;
 };
 
+function reviewStateBadge(state: string): string {
+	const s = state.toLowerCase();
+	if (s.includes("approved") || s.includes("routed")) return "app-badge app-badge--routed";
+	if (s.includes("manual") || s.includes("triage"))   return "app-badge app-badge--urgent";
+	if (s.includes("review") || s.includes("verif"))    return "app-badge app-badge--review";
+	return "app-badge app-badge--pending";
+}
+
+function priorityColor(priority: string | undefined): string {
+	if (!priority) return "rgba(240,240,240,0.5)";
+	if (priority === "high")   return "#f87171";
+	if (priority === "medium") return "#f0f0f0";
+	return "rgba(240,240,240,0.4)";
+}
+
 export function TicketDetail({ ticket, draft }: TicketDetailProps) {
 	const ticketDraft = draft ?? ticket.draft;
+	const conf =
+		typeof ticket.classificationConfidence === "number"
+			? Math.round(ticket.classificationConfidence * 100)
+			: null;
+
+	const metaFields = [
+		{ label: "Status",       value: ticket.status ?? "Ready for review" },
+		{ label: "Owner",        value: ticket.assignedWorkerLabel ?? "Unassigned" },
+		{ label: "Request type", value: ticket.requestType ?? "Pending" },
+		{ label: "Priority",     value: ticket.priority ?? "Pending", color: priorityColor(ticket.priority) },
+	];
 
 	return (
-		<section className="grid gap-4">
-			<div className="border bg-card p-5 text-card-foreground">
-				<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-					Ticket workspace
-				</p>
-				<div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-					<div>
-						<h2 className="text-xl font-semibold tracking-tight">
-							{ticket.title ?? ticket.id}
-						</h2>
-						<p className="mt-1 text-sm text-muted-foreground">{ticket.id}</p>
-						{ticket.requesterEmail ? (
-							<p className="mt-2 text-sm text-muted-foreground">
+		<section className="flex flex-col gap-4">
+			{/* Ticket header */}
+			<div className="app-card p-5">
+				<div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+					<div className="flex flex-col gap-1">
+						<p className="app-eyebrow">{ticket.id}</p>
+						<h1 className="app-h2">{ticket.title ?? ticket.id}</h1>
+						{ticket.requesterEmail && (
+							<p className="app-body" style={{ fontSize: "0.8rem", marginTop: "0.25rem" }}>
 								{ticket.requesterEmail}
 							</p>
-						) : null}
+						)}
 					</div>
-					<span className="inline-flex w-fit border px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-foreground">
+					<span className={reviewStateBadge(ticket.reviewState)}>
 						{ticket.reviewState}
 					</span>
 				</div>
 			</div>
 
-			<div className="grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-				<div className="border bg-card p-5 text-card-foreground">
-					<p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-						Assignment context
-					</p>
-					<div className="mt-4 grid gap-4 sm:grid-cols-2">
-						<div>
-							<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-								Status
-							</p>
-							<p className="mt-2 text-sm font-medium text-foreground">
-								{ticket.status ?? "Ready for review"}
-							</p>
-						</div>
-						<div>
-							<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-								Owner
-							</p>
-							<p className="mt-2 text-sm font-medium text-foreground">
-								{ticket.assignedWorkerLabel ?? "Unassigned"}
-							</p>
-						</div>
+			{/* Two-column grid */}
+			<div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+				{/* Left: assignment context */}
+				<div className="app-card p-5 flex flex-col gap-5">
+					<p className="app-eyebrow app-eyebrow--violet">Assignment context</p>
+
+					{/* Meta grid */}
+					<div className="grid grid-cols-2 gap-4">
+						{metaFields.map(({ label, value, color }) => (
+							<div key={label}>
+								<p className="app-field-label mb-1">{label}</p>
+								<p
+									style={{
+										fontFamily: "var(--font-dm-sans)",
+										fontSize: "0.8125rem",
+										fontWeight: 500,
+										color: color ?? "#f0f0f0",
+									}}
+								>
+									{value}
+								</p>
+							</div>
+						))}
 					</div>
-					<div className="mt-4 grid gap-3 text-sm text-muted-foreground">
-						<div className="grid gap-4 sm:grid-cols-3">
-							<div>
-								<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-									Request type
-								</p>
-								<p className="mt-2 text-sm text-foreground">
-									{ticket.requestType ?? "Pending classification"}
-								</p>
-							</div>
-							<div>
-								<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-									Priority
-								</p>
-								<p className="mt-2 text-sm text-foreground">
-									{ticket.priority ?? "Pending classification"}
-								</p>
-							</div>
-							<div>
-								<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-									AI confidence
-								</p>
-								<p className="mt-2 text-sm text-foreground">
-									{typeof ticket.classificationConfidence === "number"
-										? `${Math.round(ticket.classificationConfidence * 100)}% (${ticket.classificationSource ?? "fallback"})`
-										: "Pending classification"}
-								</p>
-							</div>
-						</div>
+
+					{/* Confidence */}
+					{conf !== null && (
 						<div>
-							<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-								Routing reason
-							</p>
-							<p className="mt-2 text-sm text-foreground">
-								{ticket.routingReason ??
-									"Routing detail will appear here once the live query is wired."}
-							</p>
+							<p className="app-field-label mb-2">AI confidence</p>
+							<div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+								<div style={{ flex: 1, height: "4px", background: "rgba(255,255,255,0.08)", borderRadius: "2px", overflow: "hidden" }}>
+									<div
+										style={{
+											width: `${conf}%`,
+											height: "100%",
+											borderRadius: "2px",
+											background: conf >= 75 ? "#a78bfa" : "#fbbf24",
+										}}
+									/>
+								</div>
+								<span
+									style={{
+										fontFamily: "var(--font-jetbrains-mono)",
+										fontSize: "0.75rem",
+										fontWeight: 600,
+										color: conf >= 75 ? "#a78bfa" : "#fbbf24",
+									}}
+								>
+									{conf}%
+								</span>
+								<span className="app-body" style={{ fontSize: "0.7rem" }}>
+									({ticket.classificationSource ?? "fallback"})
+								</span>
+							</div>
 						</div>
-						<div>
-							<p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-								Workspace note
-							</p>
-							<p className="mt-2">
-								{ticket.assignmentContext ??
-									"Use this panel to capture the final routing context, reviewer nudges, and assignment handoff details."}
-							</p>
-						</div>
+					)}
+
+					{/* Routing reason */}
+					<div>
+						<p className="app-field-label mb-2">Routing reason</p>
+						<p className="app-body" style={{ fontSize: "0.8rem" }}>
+							{ticket.routingReason ?? "Routing detail will appear once the live query is wired."}
+						</p>
+					</div>
+
+					{/* Workspace note */}
+					<div>
+						<p className="app-field-label mb-2">Workspace note</p>
+						<p className="app-body" style={{ fontSize: "0.8rem" }}>
+							{ticket.assignmentContext ?? "Use this panel to capture routing context, reviewer nudges, and assignment handoff details."}
+						</p>
 					</div>
 				</div>
 
-				<div className="grid gap-4">
+				{/* Right: actions + notes + draft */}
+				<div className="flex flex-col gap-4">
 					<TicketWorkspaceActions
 						ticketId={ticket.id}
 						reviewState={ticket.reviewState}
@@ -144,14 +166,14 @@ export function TicketDetail({ ticket, draft }: TicketDetailProps) {
 						recommendedAssigneeOptions={ticket.recommendedAssigneeOptions ?? []}
 					/>
 					<TicketNotes notes={ticket.notes ?? []} />
-					{ticketDraft ? (
+					{ticketDraft && (
 						<DraftReplyPanel
 							ticketId={ticket.id}
 							to={ticket.requesterEmail ?? null}
 							subject={ticket.title ?? null}
 							draft={ticketDraft}
 						/>
-					) : null}
+					)}
 				</div>
 			</div>
 		</section>
