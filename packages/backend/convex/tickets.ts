@@ -367,23 +367,23 @@ function buildWorkerProfile(
 		primary: usesParsedProfile
 			? profile.primarySkills
 			: isLead
-			? [
-				"billing_issue",
-				"complaint",
-				"account_access",
-				"general_inquiry",
-			]
-			: [
-				"technical_problem",
-				"refund_request",
-				"feature_request",
-				"general_inquiry",
-			],
+				? [
+					"billing_issue",
+					"complaint",
+					"account_access",
+					"general_inquiry",
+				]
+				: [
+					"technical_problem",
+					"refund_request",
+					"feature_request",
+					"general_inquiry",
+				],
 		secondary: usesParsedProfile
 			? profile.secondarySkills
 			: isLead
-			? ["refund_request", "feature_request", "technical_problem"]
-			: ["billing_issue", "account_access", "complaint"],
+				? ["refund_request", "feature_request", "technical_problem"]
+				: ["billing_issue", "account_access", "complaint"],
 		load,
 		capacity,
 		languages:
@@ -847,8 +847,8 @@ export const getQueueSnapshot = query({
 		const visibleTickets = isLead
 			? tickets
 			: tickets.filter(
-					(ticket: any) => ticket.assignedWorkerId === viewerUserId,
-				);
+				(ticket: any) => ticket.assignedWorkerId === viewerUserId,
+			);
 		const userLabels = await getUserLabelsForWorkspace(ctx, workspaceId);
 		const rows = [...visibleTickets]
 			.sort(
@@ -1087,7 +1087,7 @@ export const classifyAndRouteAction = action({
 			messageText: data.messageText,
 			fallbackClassification: FALLBACK_TICKET_CLASSIFICATION,
 		})) as ClassifyTicketResult;
-		await ctx.runMutation(applyClassificationAndRoutingReference, {
+		const routingPatchDecision = await ctx.runMutation(applyClassificationAndRoutingReference, {
 			ticketId: args.ticketId,
 			classification: classificationResult.classification,
 			classificationSource:
@@ -1095,10 +1095,46 @@ export const classifyAndRouteAction = action({
 					? "provider"
 					: "fallback",
 			fallbackReason: classificationResult.fallbackReason,
-		});
+		}) as { routingDecision: RoutingDecision };
+
+		const assignedOrRecommendedWorkerId = routingPatchDecision.routingDecision.assignedWorkerId
+			|| routingPatchDecision.routingDecision.scoredCandidates?.find(c => c.isAvailable)?.workerId;
+
+		if (assignedOrRecommendedWorkerId) {
+			const reasonResult = (await ctx.runAction(generateRoutingReasonReference, {
+				ticketId: args.ticketId,
+				deterministicReason: routingPatchDecision.routingDecision.routingReason,
+				workerId: assignedOrRecommendedWorkerId,
+			})) as { aiReason: string };
+
+			await ctx.runMutation(updateRoutingReasonReference, {
+				ticketId: args.ticketId,
+				routingReason: reasonResult.aiReason,
+			});
+		}
+
 		return { ok: true };
 	},
 });
+
+const generateRoutingReasonReference = makeFunctionReference<
+	"action",
+	{ ticketId: string; deterministicReason: string; workerId?: string },
+	{ aiReason: string }
+>("ai/generate_routing_reason:generateRoutingReason");
+
+export const updateRoutingReason = mutation({
+	args: { ticketId: v.id("tickets"), routingReason: v.string() },
+	handler: async (ctx, args) => {
+		await ctx.db.patch(args.ticketId, { routingReason: args.routingReason });
+	},
+});
+
+const updateRoutingReasonReference = makeFunctionReference<
+	"mutation",
+	{ ticketId: string; routingReason: string },
+	null
+>("tickets:updateRoutingReason");
 
 const classifyAndRouteActionReference = makeFunctionReference<
 	"action",
