@@ -25,6 +25,7 @@ function buildReasoningPrompt(input: GeminiReasoningInput) {
         "Create a single, dynamic, concise sentence explaining the reasoning.",
         "Incorporate the agent's specific skills into the explanation to make it sound personalized and intelligent.",
         "The explanation must be human-readable and should not mention internal scores, thresholds, or tie-breakers.",
+        "DO NOT use first-person or second-person pronouns (like 'I', 'me', 'you', 'your'). Always refer to the agent by their name or in the third person.",
         `Ticket Request Type: ${input.ticket.requestType ?? "Unknown"}`,
         `Ticket Subject: ${input.ticket.subject ?? "Unknown"}`,
         `Ticket Priority: ${input.ticket.priority ?? "Unknown"}`,

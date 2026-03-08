@@ -2,6 +2,7 @@ import { actionGeneric as action, queryGeneric as query, makeFunctionReference }
 import { v } from "convex/values";
 import { createGeminiReasoningProviderFromEnv } from "../lib/gemini_reasoning_provider";
 import type { AgentProfileSnapshot } from "../agent_profiles_reference";
+import { authComponent } from "../auth";
 
 export type GenerateRoutingReasonInput = {
     ticketId: string;
@@ -74,6 +75,17 @@ export const getReasoningContext = query({
         const primarySkills = profile?.parseStatus === "ready" ? profile.primarySkills : [];
         const secondarySkills = profile?.parseStatus === "ready" ? profile.secondarySkills : [];
 
+        let targetWorkerName = targetWorkerId;
+        try {
+            const user = await authComponent.getAnyUserById(ctx, targetWorkerId);
+            if (user) {
+                targetWorkerName = (user.name && user.name.trim()) || user.email || targetWorkerId;
+            }
+        } catch {
+            // Ignore if user isn't found
+            targetWorkerName = targetWorkerId;
+        }
+
         return {
             ticket: {
                 id: String(ticket._id),
@@ -82,7 +94,7 @@ export const getReasoningContext = query({
                 priority: ticket.priority ?? null,
             },
             agent: {
-                id: targetWorkerId,
+                id: targetWorkerName,
                 primarySkills: primarySkills as string[],
                 secondarySkills: secondarySkills as string[],
             },

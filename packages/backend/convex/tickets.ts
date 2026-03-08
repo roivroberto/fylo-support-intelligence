@@ -478,19 +478,21 @@ async function buildRoutingWorkers(
 		]),
 	);
 
-	return memberships.map((membership: any) => {
-		const load = tickets.filter(
-			(ticket: any) => ticket.assignedWorkerId === membership.userId,
-		).length;
+	return memberships
+		.filter((membership: any) => membership.role !== "lead")
+		.map((membership: any) => {
+			const load = tickets.filter(
+				(ticket: any) => ticket.assignedWorkerId === membership.userId,
+			).length;
 
-		return buildWorkerProfile(
-			membership.userId,
-			membership.role,
-			load,
-			policy.maxAssignmentsPerWorker,
-			profileByUserId.get(membership.userId) ?? null,
-		);
-	});
+			return buildWorkerProfile(
+				membership.userId,
+				membership.role,
+				load,
+				policy.maxAssignmentsPerWorker,
+				profileByUserId.get(membership.userId) ?? null,
+			);
+		});
 }
 
 function buildRecommendedAssigneeOptions(input: {
