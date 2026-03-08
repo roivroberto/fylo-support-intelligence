@@ -8,6 +8,12 @@ export const getCurrentWorkspaceReference = makeFunctionReference<
 	WorkspaceAccessState
 >("workspaces:getCurrentWorkspace");
 
+export const getWebhookWorkspaceReference = makeFunctionReference<
+	"query",
+	Record<string, never>,
+	{ workspaceId: string } | null
+>("workspaces:getWebhookWorkspace");
+
 export const ensureOnboardingWorkspaceReference = makeFunctionReference<
 	"mutation",
 	Record<string, never>,

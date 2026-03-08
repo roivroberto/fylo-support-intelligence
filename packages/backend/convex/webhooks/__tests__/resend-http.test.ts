@@ -9,30 +9,8 @@ vi.mock("../../auth", () => ({
 	},
 }));
 
-function createMembershipDb(workspaceId = "ws_1") {
-	return {
-		query(table: string) {
-			if (table !== "memberships") {
-				throw new Error(`Unexpected table query: ${table}`);
-			}
-
-			return {
-				withIndex(_indexName: string, builder: (q: any) => any) {
-					builder({
-						eq() {
-							return this;
-						},
-					});
-
-					return {
-						async collect() {
-							return [{ workspaceId, userId: "user_1", role: "lead" }];
-						},
-					};
-				},
-			};
-		},
-	};
+function createRunQuery(workspaceId = "ws_1") {
+	return vi.fn(async () => ({ workspaceId }));
 }
 
 function createRequest(body: string) {
@@ -144,7 +122,6 @@ describe("handleResendInboundWebhook", () => {
 	});
 
 	it("ingests valid inbound emails", async () => {
-		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_1" } as any);
 		const rawBody = JSON.stringify({
 			type: "email.received",
 			data: {
@@ -159,26 +136,26 @@ describe("handleResendInboundWebhook", () => {
 		const runMutation = vi
 			.fn()
 			.mockResolvedValueOnce({ messageId: "message_1", created: true })
-			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false })
-			.mockResolvedValueOnce({
-				classification: {
-					request_type: "billing_issue",
-					priority: "high",
-					classification_confidence: 0.82,
-				},
-				classificationSource: "provider",
-				fallbackReason: null,
-				routingDecision: {
-					assignedWorkerId: "worker_1",
-					reviewState: "auto_assign_allowed",
-					routingReason: "Recommended worker_1.",
-					scoredCandidates: [],
-				},
-			});
+			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false });
+		const runAction = vi.fn().mockResolvedValue({
+			classification: {
+				request_type: "billing_issue",
+				priority: "high",
+				classification_confidence: 0.82,
+			},
+			classificationSource: "provider",
+			fallbackReason: null,
+			routingDecision: {
+				assignedWorkerId: "worker_1",
+				reviewState: "auto_assign_allowed",
+				routingReason: "Recommended worker_1.",
+				scoredCandidates: [],
+			},
+		});
 		const verifyResendSignature = vi.fn().mockResolvedValue(true);
 
 		const response = await handleResendInboundWebhook(
-			{ runMutation, db: createMembershipDb("ws_1") } as never,
+			{ runMutation, runAction, runQuery: createRunQuery("ws_1") } as never,
 			createRequest(rawBody),
 			{
 				secret: "whsec_test",
@@ -198,7 +175,7 @@ describe("handleResendInboundWebhook", () => {
 			rawBody,
 			"whsec_test",
 		);
-		expect(runMutation).toHaveBeenCalledTimes(3);
+		expect(runMutation).toHaveBeenCalledTimes(2);
 		expect(runMutation).toHaveBeenNthCalledWith(1, expect.anything(), {
 			source: "resend",
 			externalId: "email_123",
@@ -220,8 +197,9 @@ describe("handleResendInboundWebhook", () => {
 			subject: "Hello",
 			receivedAt: 1234,
 		});
-		expect(runMutation).toHaveBeenNthCalledWith(3, expect.anything(), {
+		expect(runAction).toHaveBeenNthCalledWith(1, expect.anything(), {
 			ticketId: "ticket_1",
+			workspaceId: "ws_1",
 		});
 		expect(response.status).toBe(200);
 		await expect(response.json()).resolves.toEqual({
@@ -235,14 +213,13 @@ describe("handleResendInboundWebhook", () => {
 	});
 
 	it("accepts duplicate webhook deliveries through idempotent mutations", async () => {
-		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_1" } as any);
 		const response = await handleResendInboundWebhook(
 			{
 				runMutation: vi
 					.fn()
 					.mockResolvedValueOnce({ messageId: "message_1", created: false })
 					.mockResolvedValueOnce({ ticketId: "ticket_1", created: false }),
-				db: createMembershipDb("ws_1"),
+				runQuery: createRunQuery("ws_1"),
 			} as never,
 			createRequest(
 				JSON.stringify({
@@ -277,14 +254,13 @@ describe("handleResendInboundWebhook", () => {
 	});
 
 	it("does not reclassify duplicate webhook deliveries", async () => {
-		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_1" } as any);
 		const runMutation = vi
 			.fn()
 			.mockResolvedValueOnce({ messageId: "message_1", created: false })
 			.mockResolvedValueOnce({ ticketId: "ticket_1", created: false });
 
 		await handleResendInboundWebhook(
-			{ runMutation, db: createMembershipDb("ws_1") } as never,
+			{ runMutation, runQuery: createRunQuery("ws_1") } as never,
 			createRequest(
 				JSON.stringify({
 					type: "email.received",
@@ -343,6 +319,53 @@ describe("handleResendInboundWebhook", () => {
 				reason: "ingest_mutation_failed",
 				payloadDigest: "digest_123",
 			},
+		});
+	});
+
+	it("uses the first workspace from a query when the webhook is unauthenticated", async () => {
+		const rawBody = JSON.stringify({
+			type: "email.received",
+			data: {
+				email_id: "email_123",
+				from: "sender@example.com",
+				subject: "Hello",
+			},
+		});
+		const runMutation = vi
+			.fn()
+			.mockResolvedValueOnce({ messageId: "message_1", created: true })
+			.mockResolvedValueOnce({ ticketId: "ticket_1", created: true })
+		const runAction = vi.fn().mockResolvedValue({ ok: true });
+
+		const response = await handleResendInboundWebhook(
+			{
+				runMutation,
+				runAction,
+				runQuery: createRunQuery("ws_1"),
+			} as never,
+			createRequest(rawBody),
+			{
+				secret: "whsec_test",
+				verifyResendSignature: vi.fn().mockResolvedValue(true),
+				createPayloadDigest: vi.fn().mockResolvedValue("digest_123"),
+				createResendIdempotencyKey: vi.fn().mockResolvedValue("idem_123"),
+				now: vi.fn().mockReturnValue(1234),
+			},
+		);
+
+		expect(response.status).toBe(200);
+		expect(runMutation).toHaveBeenNthCalledWith(2, expect.anything(), {
+			workspaceId: "ws_1",
+			source: "resend",
+			externalId: "email_123",
+			messageId: "message_1",
+			requesterEmail: "sender@example.com",
+			subject: "Hello",
+			receivedAt: 1234,
+		});
+		expect(runAction).toHaveBeenNthCalledWith(1, expect.anything(), {
+			ticketId: "ticket_1",
+			workspaceId: "ws_1",
 		});
 	});
 });

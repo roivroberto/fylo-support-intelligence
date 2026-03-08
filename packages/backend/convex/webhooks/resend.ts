@@ -7,7 +7,8 @@ import {
 } from "../lib/resend_signature";
 import { INBOUND_MESSAGE_SOURCE, type InboundMessageSeed } from "../messages";
 import { INBOUND_TICKET_SOURCE } from "../tickets";
-import { classifyAndRouteTicketReference } from "../tickets_reference";
+import { classifyAndRouteForWorkspaceActionReference } from "../tickets_reference";
+import { getWebhookWorkspaceReference } from "../workspaces_reference";
 import { authComponent } from "../auth";
 
 type ResendInboundPayload = {
@@ -33,6 +34,7 @@ const ingestInboundMessageReference = makeFunctionReference<
 const ingestInboundTicketReference = makeFunctionReference<
 	"mutation",
 	{
+		workspaceId: string;
 		source: typeof INBOUND_TICKET_SOURCE;
 		externalId: string;
 		messageId: string;
@@ -42,7 +44,6 @@ const ingestInboundTicketReference = makeFunctionReference<
 	},
 	{ ticketId: string; created: boolean }
 >("tickets:ingestInbound");
-
 function json(body: unknown, status: number) {
 	return new Response(JSON.stringify(body), {
 		status,
@@ -205,14 +206,8 @@ export async function handleResendInboundWebhook(
 			ingestInboundMessageReference,
 			message,
 		)) as { messageId: string; created: boolean };
-		const viewer = await authComponent.getAuthUser(ctx);
-		const memberships = viewer
-			? await ctx.db
-					.query("memberships")
-					.withIndex("by_userId", (q: any) => q.eq("userId", String(viewer._id)))
-					.collect()
-			: [];
-		const workspaceId = memberships[0]?.workspaceId;
+		const workspace = await ctx.runQuery(getWebhookWorkspaceReference, {});
+		const workspaceId = workspace?.workspaceId;
 
 		if (!workspaceId) {
 			return json(
@@ -234,8 +229,9 @@ export async function handleResendInboundWebhook(
 			receivedAt,
 		})) as { ticketId: string; created: boolean };
 		if (messageResult.created || ticketResult.created) {
-			await ctx.runMutation(classifyAndRouteTicketReference, {
+			await ctx.runAction(classifyAndRouteForWorkspaceActionReference, {
 				ticketId: ticketResult.ticketId,
+				workspaceId,
 			});
 		}
 

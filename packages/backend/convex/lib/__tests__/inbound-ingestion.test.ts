@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
 	INBOUND_MESSAGE_SOURCE,
 	type InboundMessageSeed,
@@ -6,6 +6,9 @@ import {
 	type MessageStore,
 } from "../../messages";
 import {
+	backfillLegacyTicketWorkspaceIds,
+	classifyAndRouteForWorkspaceAction,
+	classifyAndRouteForWorkspaceInternal,
 	INBOUND_TICKET_SOURCE,
 	type InboundTicketSeed,
 	ingestInboundTicket,
@@ -104,5 +107,161 @@ describe("ingestInboundTicket", () => {
 		expect(first.created).toBe(true);
 		expect(second.created).toBe(false);
 		expect(second.ticketId).toBe(first.ticketId);
+	});
+});
+
+describe("classifyAndRouteForWorkspaceInternal", () => {
+	it("routes a ticket with the provided workspace without requiring auth", async () => {
+		const ctx = {
+			db: {
+				get: vi
+					.fn()
+					.mockResolvedValueOnce({
+						_id: "ticket_1",
+						workspaceId: "workspace_1",
+						messageId: "message_1",
+						requesterEmail: "customer@example.com",
+						subject: "Need billing help",
+					})
+					.mockResolvedValueOnce({
+						_id: "message_1",
+						text: "Please help with billing.",
+					}),
+				query: vi.fn((table: string) => {
+					if (table === "policies") {
+						return {
+							withIndex: () => ({
+								unique: async () => null,
+							}),
+						};
+					}
+
+					if (table === "memberships" || table === "agentProfiles" || table === "tickets") {
+						return {
+							withIndex: () => ({
+								collect: async () => [],
+							}),
+							collect: async () => [],
+						};
+					}
+
+					throw new Error(`Unexpected table query: ${table}`);
+				}),
+				patch: vi.fn(),
+			},
+		};
+
+		const handler = (classifyAndRouteForWorkspaceInternal as any)._handler;
+		expect(handler).toBeTypeOf("function");
+
+		const result = await handler(ctx, {
+			ticketId: "ticket_1",
+			workspaceId: "workspace_1",
+			classification: {
+				request_type: "billing_issue",
+				priority: "high",
+				classification_confidence: 0.4,
+			},
+			generationSource: "deterministic",
+			fallbackReason: null,
+		});
+
+		expect(ctx.db.patch).toHaveBeenCalledWith(
+			"ticket_1",
+			expect.objectContaining({
+				requestType: "billing_issue",
+				priority: "high",
+				reviewState: "manual_triage",
+				status: "reviewed",
+			}),
+		);
+		expect(result.routingDecision.reviewState).toBe("manual_triage");
+	});
+
+	it("supports routing from an action context that lacks runAction on mutations", async () => {
+		const ctx = {
+			runQuery: vi.fn().mockResolvedValue({
+				subject: "Need billing help",
+				requesterEmail: "customer@example.com",
+				messageText: "Please help with billing.",
+			}),
+			runAction: vi.fn().mockResolvedValue({
+				classification: {
+					request_type: "billing_issue",
+					priority: "high",
+					classification_confidence: 0.4,
+				},
+				generationSource: "deterministic",
+				usedFallback: true,
+				fallbackReason: null,
+			}),
+			runMutation: vi.fn().mockResolvedValue({
+				classification: {
+					request_type: "billing_issue",
+					priority: "high",
+					classification_confidence: 0.4,
+				},
+				classificationSource: "fallback",
+				fallbackReason: null,
+				routingDecision: {
+					assignedWorkerId: null,
+					reviewState: "manual_triage",
+					routingReason: "Review required (manual_triage). No workers available for deterministic routing.",
+					scoredCandidates: [],
+				},
+			}),
+		};
+
+		const handler = (classifyAndRouteForWorkspaceAction as any)._handler;
+		expect(handler).toBeTypeOf("function");
+
+		const result = await handler(ctx, {
+			ticketId: "ticket_1",
+			workspaceId: "workspace_1",
+		});
+
+		expect(ctx.runMutation).toHaveBeenCalledWith(expect.anything(), {
+			ticketId: "ticket_1",
+			workspaceId: "workspace_1",
+			classification: {
+				request_type: "billing_issue",
+				priority: "high",
+				classification_confidence: 0.4,
+			},
+			generationSource: "deterministic",
+			fallbackReason: null,
+		});
+		expect(result.routingDecision.reviewState).toBe("manual_triage");
+	});
+});
+
+describe("backfillLegacyTicketWorkspaceIds", () => {
+	it("patches only tickets missing a workspace id", async () => {
+		const ctx = {
+			db: {
+				query: vi.fn(() => ({
+					collect: async () => [
+						{ _id: "ticket_1", workspaceId: null },
+						{ _id: "ticket_2" },
+						{ _id: "ticket_3", workspaceId: "workspace_existing" },
+					],
+				})),
+				patch: vi.fn(),
+			},
+		};
+
+		const handler = (backfillLegacyTicketWorkspaceIds as any)._handler;
+		expect(handler).toBeTypeOf("function");
+
+		const result = await handler(ctx, { workspaceId: "workspace_1" });
+
+		expect(ctx.db.patch).toHaveBeenCalledTimes(2);
+		expect(ctx.db.patch).toHaveBeenNthCalledWith(1, "ticket_1", {
+			workspaceId: "workspace_1",
+		});
+		expect(ctx.db.patch).toHaveBeenNthCalledWith(2, "ticket_2", {
+			workspaceId: "workspace_1",
+		});
+		expect(result).toEqual({ patchedCount: 2 });
 	});
 });

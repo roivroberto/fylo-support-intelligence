@@ -1,4 +1,6 @@
 import {
+	actionGeneric as action,
+	internalMutationGeneric as internalMutation,
 	makeFunctionReference,
 	mutationGeneric as mutation,
 	queryGeneric as query,
@@ -169,6 +171,44 @@ export const classifyAndRouteTicketReference = makeFunctionReference<
 		routingDecision: RoutingDecision;
 	}
 >("tickets:classifyAndRoute");
+
+export const classifyAndRouteForWorkspaceTicketReference = makeFunctionReference<
+	"mutation",
+	{ ticketId: string; workspaceId: string },
+	{
+		classification: ClassifyTicketResult["classification"];
+		classificationSource: "provider" | "fallback";
+		fallbackReason: ClassifyTicketResult["fallbackReason"];
+		routingDecision: RoutingDecision;
+	}
+>("tickets:classifyAndRouteForWorkspace");
+
+export const classifyAndRouteForWorkspaceInternalReference = makeFunctionReference<
+	"mutation",
+	{
+		ticketId: string;
+		workspaceId: string;
+		classification: ClassifyTicketResult["classification"];
+		generationSource: "provider" | "deterministic";
+		fallbackReason: ClassifyTicketResult["fallbackReason"];
+	},
+	{
+		classification: ClassifyTicketResult["classification"];
+		classificationSource: "provider" | "fallback";
+		fallbackReason: ClassifyTicketResult["fallbackReason"];
+		routingDecision: RoutingDecision;
+	}
+>("tickets:classifyAndRouteForWorkspaceInternal");
+
+const getTicketByIdForRoutingReference = makeFunctionReference<
+	"query",
+	{ ticketId: string },
+	{
+		subject: string | null;
+		requesterEmail: string | null;
+		messageText: string | null;
+	} | null
+>("tickets:getByIdForRouting");
 
 export const rerouteTicketReference = makeFunctionReference<
 	"mutation",
@@ -620,6 +660,17 @@ export async function classifyAndRouteTicket(ctx: any, ticketId: string) {
 	}
 
 	const { workspaceId } = await requireOperationalCoreWorkspace(ctx);
+	return classifyAndRouteStoredTicket(ctx, ticket, workspaceId);
+}
+
+async function classifyAndRouteStoredTicket(
+	ctx: any,
+	ticket: any,
+	workspaceId: any,
+) {
+	if (!ticket) {
+		throw new ConvexError("Ticket not found");
+	}
 
 	if (ticket.workspaceId !== workspaceId) {
 		throw new ConvexError("Forbidden");
@@ -633,6 +684,15 @@ export async function classifyAndRouteTicket(ctx: any, ticketId: string) {
 		messageText: message?.text ?? null,
 		fallbackClassification: FALLBACK_TICKET_CLASSIFICATION,
 	})) as ClassifyTicketResult;
+	return applyClassifiedRoutingResult(ctx, ticket, workspaceId, classificationResult);
+}
+
+async function applyClassifiedRoutingResult(
+	ctx: any,
+	ticket: any,
+	workspaceId: any,
+	classificationResult: ClassifyTicketResult,
+) {
 	const policy = await readRoutingPolicyForWorkspace(ctx, workspaceId);
 	const workers = await buildRoutingWorkers(ctx, workspaceId, policy);
 	const routingDecision = routeTicket({
@@ -740,6 +800,123 @@ export const classifyAndRoute = mutation({
 	},
 	handler: async (ctx, args) =>
 		classifyAndRouteTicket(ctx, String(args.ticketId)),
+});
+
+export const getByIdForRouting = query({
+	args: {
+		ticketId: v.id("tickets"),
+	},
+	handler: async (ctx, args) => {
+		const ticket = await ctx.db.get(args.ticketId);
+		if (!ticket) {
+			return null;
+		}
+
+		const message = ticket.messageId ? await ctx.db.get(ticket.messageId) : null;
+
+		return {
+			subject: ticket.subject ?? null,
+			requesterEmail: ticket.requesterEmail ?? null,
+			messageText: message?.text ?? null,
+		};
+	},
+});
+
+export const classifyAndRouteForWorkspace = mutation({
+	args: {
+		ticketId: v.id("tickets"),
+		workspaceId: v.id("workspaces"),
+	},
+	handler: async (_ctx, _args) => {
+		throw new ConvexError(
+			"Use tickets:classifyAndRouteForWorkspaceAction for routing",
+		);
+	},
+});
+
+export const classifyAndRouteForWorkspaceInternal = internalMutation({
+	args: {
+		ticketId: v.id("tickets"),
+		workspaceId: v.id("workspaces"),
+		classification: v.object({
+			request_type: v.string(),
+			priority: v.union(
+				v.literal("low"),
+				v.literal("medium"),
+				v.literal("high"),
+				v.literal("urgent"),
+				v.literal("critical"),
+			),
+			classification_confidence: v.number(),
+		}),
+		generationSource: v.union(v.literal("provider"), v.literal("deterministic")),
+		fallbackReason: v.union(
+			v.literal("classifier_error"),
+			v.literal("invalid_schema"),
+			v.null(),
+		),
+	},
+	handler: async (ctx, args) => {
+		const ticket = await ctx.db.get(args.ticketId);
+		return applyClassifiedRoutingResult(ctx, ticket, args.workspaceId, {
+			classification: args.classification,
+			generationSource: args.generationSource,
+			usedFallback: args.generationSource !== "provider",
+			fallbackReason: args.fallbackReason,
+		});
+	},
+});
+
+export const classifyAndRouteForWorkspaceAction = action({
+	args: {
+		ticketId: v.id("tickets"),
+		workspaceId: v.id("workspaces"),
+	},
+	handler: async (ctx, args) => {
+		const storedTicket = await ctx.runQuery(getTicketByIdForRoutingReference, {
+			ticketId: String(args.ticketId),
+		});
+		const classificationResult = (await ctx.runAction(classifyTicketReference, {
+			ticketId: String(args.ticketId),
+			subject: storedTicket?.subject ?? null,
+			requesterEmail: storedTicket?.requesterEmail ?? null,
+			messageText: storedTicket?.messageText ?? null,
+			fallbackClassification: FALLBACK_TICKET_CLASSIFICATION,
+		})) as ClassifyTicketResult;
+
+		return ctx.runMutation(classifyAndRouteForWorkspaceInternalReference, {
+			...args,
+			classification: classificationResult.classification,
+			generationSource: classificationResult.generationSource,
+			fallbackReason: classificationResult.fallbackReason,
+		});
+	},
+});
+
+export const backfillLegacyTicketWorkspaceIds = mutation({
+	args: {
+		workspaceId: v.id("workspaces"),
+	},
+	handler: async (ctx, args) => {
+		const tickets = (await ctx.db.query("tickets").collect()) as Array<{
+			_id: any;
+			workspaceId?: any;
+		}>;
+		let patchedCount = 0;
+
+		for (const ticket of tickets) {
+			if (ticket.workspaceId != null) {
+				continue;
+			}
+
+			await ctx.db.patch(ticket._id, {
+				workspaceId: args.workspaceId,
+			});
+			patchedCount += 1;
+		}
+
+		return { patchedCount };
+	},
 });
 
 export const reroute = mutation({

@@ -101,6 +101,21 @@ export const getCurrentWorkspace = query({
 	},
 });
 
+export const getWebhookWorkspace = query({
+	args: {},
+	handler: async (ctx) => {
+		const workspace = await ctx.db.query("workspaces").first();
+
+		if (!workspace) {
+			return null;
+		}
+
+		return {
+			workspaceId: String(workspace._id),
+		};
+	},
+});
+
 export const ensureOnboardingWorkspace = mutation({
 	args: {},
 	handler: async (ctx) => {

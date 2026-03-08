@@ -52,6 +52,62 @@ export const classifyAndRouteTicketReference = makeFunctionReference<
 	}
 >("tickets:classifyAndRoute");
 
+export const classifyAndRouteForWorkspaceReference = makeFunctionReference<
+	"mutation",
+	{ ticketId: string; workspaceId: string },
+	{
+		classification: {
+			request_type: string;
+			priority: string;
+			classification_confidence: number;
+		};
+		classificationSource: "provider" | "fallback";
+		fallbackReason: "classifier_error" | "invalid_schema" | null;
+		routingDecision: {
+			assignedWorkerId: string | null;
+			reviewState: string;
+			routingReason: string;
+			scoredCandidates: Array<{
+				workerId: string;
+				score: number;
+				skillMatchTier: string;
+				languageMatch: boolean;
+				isAvailable: boolean;
+				capacityRemaining: number;
+				reasons: string[];
+			}>;
+		};
+	}
+>("tickets:classifyAndRouteForWorkspace");
+
+export const classifyAndRouteForWorkspaceActionReference = makeFunctionReference<
+	"action",
+	{ ticketId: string; workspaceId: string },
+	{
+		classification: {
+			request_type: string;
+			priority: string;
+			classification_confidence: number;
+		};
+		classificationSource: "provider" | "fallback";
+		fallbackReason: "classifier_error" | "invalid_schema" | null;
+		routingDecision: {
+			assignedWorkerId: string | null;
+			reviewState: string;
+			routingReason: string;
+			scoredCandidates: Array<{
+				workerId: string;
+				score: number;
+				skillMatchTier: string;
+				languageMatch: boolean;
+				isAvailable: boolean;
+				capacityRemaining: number;
+				reasons: string[];
+			}>;
+		};
+	}
+>("tickets:classifyAndRouteForWorkspaceAction");
+
 export const rerouteTicketReference = makeFunctionReference<
 	"mutation",
 	{ ticketId: string },

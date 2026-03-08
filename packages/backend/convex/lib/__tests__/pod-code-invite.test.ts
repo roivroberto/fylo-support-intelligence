@@ -284,6 +284,27 @@ describe("pod code invite convex handlers", () => {
 		});
 	});
 
+	it("returns the first workspace for webhook ingestion without auth", async () => {
+		const db = createDb({
+			workspaces: [
+				{
+					_id: "ws_1",
+					name: "Ops Workspace",
+					slug: "pod-admin01",
+					createdAt: 1,
+					createdByUserId: "user_lead",
+				},
+			],
+		});
+
+		const handler = (workspaces as any).getWebhookWorkspace?._handler;
+		expect(handler).toBeTypeOf("function");
+
+		await expect(handler({ db }, {})).resolves.toEqual({
+			workspaceId: "ws_1",
+		});
+	});
+
 	it("rejects an invalid pod code", async () => {
 		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_agent" } as any);
 		const db = createDb();
