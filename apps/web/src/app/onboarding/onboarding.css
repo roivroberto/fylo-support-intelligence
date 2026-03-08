@@ -1,0 +1,430 @@
+/* ═══════════════════════════════════════════════════
+   Fylo Onboarding Page
+   Role selection + lead/agent setup flow.
+   Matches auth-page + app-shell aesthetic.
+═══════════════════════════════════════════════════ */
+
+/* ── Scope: dark/violet CSS vars ── */
+.onboarding-page {
+	--background:         #0a0a0a;
+	--foreground:         #f0f0f0;
+	--card:               #111111;
+	--card-foreground:    #f0f0f0;
+	--border:             rgba(255, 255, 255, 0.08);
+	--input:              rgba(255, 255, 255, 0.06);
+	--muted-foreground:   rgba(240, 240, 240, 0.38);
+	--primary:            #a78bfa;
+	--primary-foreground: #0a0a0a;
+	--ring:               rgba(167, 139, 250, 0.45);
+	--destructive:        oklch(0.704 0.191 22.216);
+}
+
+/* ── Page shell ── */
+.onboarding-page {
+	position: relative;
+	min-height: 100svh;
+	background-color: #0a0a0a;
+	color: #f0f0f0;
+	display: flex;
+	flex-direction: column;
+}
+
+.onboarding-page .grain {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9998;
+	opacity: 0.025;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-size: 200px 200px;
+}
+
+/* ── Brand ── */
+.onboarding-brand {
+	position: absolute;
+	top: 2rem;
+	left: 2rem;
+	z-index: 1;
+	opacity: 0.9;
+}
+
+/* ── Center container ── */
+.onboarding-center {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem 1.5rem;
+}
+
+/* ── Card ── */
+.onboarding-card {
+	width: 100%;
+	max-width: 26rem;
+	background: rgba(255, 255, 255, 0.025);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 6px;
+	padding: 2.5rem;
+	box-shadow:
+		0 32px 64px rgba(0, 0, 0, 0.55),
+		0 8px 24px rgba(0, 0, 0, 0.35),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.onboarding-card--wide {
+	max-width: 38rem;
+}
+
+/* ── Card header ── */
+.onboarding-card-head {
+	margin-bottom: 2rem;
+}
+
+.onboarding-eyebrow {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.625rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: rgba(167, 139, 250, 0.7);
+	margin-bottom: 0.5rem;
+}
+
+.onboarding-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 1.375rem;
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	color: #f0f0f0;
+	margin-bottom: 0.35rem;
+}
+
+.onboarding-sub {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	color: rgba(240, 240, 240, 0.38);
+}
+
+.onboarding-sub strong {
+	color: #f0f0f0;
+	font-weight: 600;
+}
+
+/* ── Loading text ── */
+.onboarding-loading {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6875rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: rgba(240, 240, 240, 0.25);
+	text-align: center;
+	padding: 1.5rem 0;
+}
+
+/* ═══════════════ ROLE SELECTION ═══════════════ */
+
+.onboarding-roles {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+@media (max-width: 520px) {
+	.onboarding-roles {
+		grid-template-columns: 1fr;
+	}
+}
+
+.role-option {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 6px;
+	padding: 1.75rem 1.25rem;
+	cursor: pointer;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+	color: #f0f0f0;
+	transition: all 0.2s ease;
+}
+
+.role-option:hover:not(:disabled) {
+	border-color: rgba(167, 139, 250, 0.4);
+	background: rgba(167, 139, 250, 0.05);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.role-option:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.role-option-icon {
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.role-option-icon--lead {
+	background: rgba(167, 139, 250, 0.1);
+	border: 1px solid rgba(167, 139, 250, 0.25);
+	color: #a78bfa;
+}
+
+.role-option-icon--agent {
+	background: rgba(56, 189, 248, 0.1);
+	border: 1px solid rgba(56, 189, 248, 0.2);
+	color: #38bdf8;
+}
+
+.role-option-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.9375rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: #f0f0f0;
+}
+
+.role-option-desc {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.75rem;
+	line-height: 1.55;
+	color: rgba(240, 240, 240, 0.38);
+	max-width: 14rem;
+}
+
+/* ═══════════════ POD CODE DISPLAY ═══════════════ */
+
+.pod-code-display {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+	background: rgba(167, 139, 250, 0.04);
+	border: 1px solid rgba(167, 139, 250, 0.15);
+	border-radius: 6px;
+}
+
+.pod-code-label {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.5625rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: rgba(167, 139, 250, 0.6);
+}
+
+.pod-code-value {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 1.5rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	color: #a78bfa;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	border-radius: 4px;
+	padding: 0.5rem 1.25rem;
+	user-select: all;
+}
+
+/* ═══════════════ AGENT FORM ═══════════════ */
+
+.onboarding-agent-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+	margin-bottom: 1rem;
+}
+
+.onboarding-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.onboarding-file-zone {
+	width: 100%;
+}
+
+.onboarding-file-input {
+	display: block;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.25);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 4px;
+	padding: 0.6rem 0.75rem;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.75rem;
+	color: rgba(240, 240, 240, 0.6);
+	cursor: pointer;
+	transition: border-color 0.2s ease;
+}
+
+.onboarding-file-input::file-selector-button {
+	background: rgba(167, 139, 250, 0.1);
+	border: 1px solid rgba(167, 139, 250, 0.25);
+	border-radius: 3px;
+	padding: 0.2rem 0.6rem;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.625rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #a78bfa;
+	cursor: pointer;
+	margin-right: 0.65rem;
+	transition: background 0.15s ease;
+}
+
+.onboarding-file-input::file-selector-button:hover {
+	background: rgba(167, 139, 250, 0.18);
+}
+
+.onboarding-file-selected {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	padding: 0.65rem 0.85rem;
+	background: rgba(52, 211, 153, 0.04);
+	border: 1px solid rgba(52, 211, 153, 0.2);
+	border-radius: 4px;
+}
+
+.onboarding-file-name {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8rem;
+	color: #34d399;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+}
+
+.onboarding-file-remove {
+	background: none;
+	border: none;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: rgba(240, 240, 240, 0.35);
+	cursor: pointer;
+	flex-shrink: 0;
+	transition: color 0.15s ease;
+}
+
+.onboarding-file-remove:hover {
+	color: #f87171;
+}
+
+/* ═══════════════ INPUT OVERRIDES ═══════════════ */
+
+.onboarding-page [data-slot="input"] {
+	background: rgba(0, 0, 0, 0.35) !important;
+	border-color: rgba(255, 255, 255, 0.09) !important;
+	color: #f0f0f0;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8125rem;
+	height: 2.25rem;
+	border-radius: 4px;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.onboarding-page [data-slot="input"]::placeholder {
+	color: rgba(240, 240, 240, 0.22);
+}
+
+.onboarding-page [data-slot="input"]:focus-visible {
+	border-color: rgba(167, 139, 250, 0.55) !important;
+	box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.12) !important;
+	outline: none;
+}
+
+.onboarding-page [data-slot="label"] {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	color: rgba(240, 240, 240, 0.55);
+	text-transform: uppercase;
+}
+
+/* ═══════════════ BUTTON OVERRIDES ═══════════════ */
+
+.onboarding-continue {
+	width: 100%;
+	background: #a78bfa !important;
+	color: #0a0a0a !important;
+	font-family: var(--font-jetbrains-mono), monospace !important;
+	font-size: 0.75rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.04em !important;
+	text-transform: uppercase !important;
+	height: 2.35rem !important;
+	border-radius: 4px !important;
+	border-color: transparent !important;
+	transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.onboarding-continue:hover {
+	background: #c4b5fd !important;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 20px rgba(167, 139, 250, 0.28) !important;
+}
+
+.onboarding-continue:active {
+	transform: translateY(0);
+}
+
+/* ═══════════════ BACK LINK ═══════════════ */
+
+.onboarding-back {
+	display: block;
+	width: 100%;
+	text-align: center;
+	background: none;
+	border: none;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8rem;
+	color: rgba(240, 240, 240, 0.3);
+	cursor: pointer;
+	padding: 0.5rem 0;
+	transition: color 0.2s ease;
+}
+
+.onboarding-back:hover {
+	color: rgba(167, 139, 250, 0.8);
+}
+
+/* ═══════════════ FEEDBACK ═══════════════ */
+
+.onboarding-feedback {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.75rem;
+	text-align: center;
+	padding: 0.25rem 0;
+	color: rgba(240, 240, 240, 0.5);
+}
+
+.onboarding-feedback--error {
+	color: #f87171;
+}
+
+.onboarding-feedback--success {
+	color: #34d399;
+}

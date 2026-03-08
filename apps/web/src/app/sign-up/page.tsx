@@ -8,7 +8,6 @@ import { useSearchParams } from "next/navigation";
 import { EmailPasswordAuthForm } from "../../components/auth/email-password-auth-form";
 import { getSafeNextPath } from "../../lib/auth-redirect";
 import { authClient, getAuthErrorMessage } from "../../lib/auth-client";
-import { persistPendingWorkspaceAction } from "../../lib/workspace-access-state";
 import "../auth.css";
 
 function buildSignInHref(nextPath: string): Route {
@@ -163,13 +162,7 @@ export default function SignUpPage() {
 										);
 									}
 
-									persistPendingWorkspaceAction({
-										ownerSessionKey: email,
-										type: "create",
-										redirectTo: "/",
-									});
-
-									navigateTo("/" as Route);
+									navigateTo("/onboarding" as Route);
 								}}
 							/>
 						</div>
