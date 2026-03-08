@@ -1,9 +1,11 @@
 "use client";
 
+import { getCurrentWorkspaceReference } from "@Fylo/backend/convex/workspaces_reference";
+import { useQuery } from "convex/react";
 import { BarChart3, Inbox, LogOut, Settings2, ShieldAlert, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { authClient } from "../lib/auth-client";
 import { normalizeSessionUser } from "../lib/current-user";
@@ -29,9 +31,13 @@ const AGENT_NAV: NavItem[] = [
 export function AppSidebar() {
 	const { data: session, isPending } = authClient.useSession();
 	const user = normalizeSessionUser(session?.user);
+	const workspaceState = useQuery(getCurrentWorkspaceReference, session ? {} : "skip");
 	const pathname = usePathname();
+	const router = useRouter();
 
-	const isLead = user.role === "lead";
+	// Use workspace membership role (source of truth), not session.user.role
+	const role = workspaceState?.workspace?.role ?? user.role;
+	const isLead = role === "lead";
 	const navItems = isLead ? LEAD_NAV : AGENT_NAV;
 	const roleBadgeClass = isLead ? "role-badge role-badge--lead" : "role-badge role-badge--agent";
 	const identity = user.name ?? user.email ?? "—";
@@ -92,7 +98,7 @@ export function AppSidebar() {
 					<div className="app-sidebar-user">
 						<div className="app-sidebar-identity">
 							<div className="flex items-center gap-1.5">
-								<span className={roleBadgeClass}>{user.role ?? "user"}</span>
+								<span className={roleBadgeClass}>{role ?? "user"}</span>
 							</div>
 							<span className="app-sidebar-name">{identity}</span>
 						</div>
@@ -100,7 +106,10 @@ export function AppSidebar() {
 					<button
 						type="button"
 						className="app-sidebar-signout"
-						onClick={() => void authClient.signOut()}
+						onClick={() => {
+							router.replace("/");
+							void authClient.signOut();
+						}}
 					>
 						<LogOut size={11} />
 						Sign out

@@ -5,7 +5,6 @@ import {
 import { ConvexError, v } from "convex/values";
 
 import { authComponent } from "./auth";
-import { assertPilotWorkspaceCanBeCreated } from "./lib/pilot_workspace";
 import {
 	buildPodCode,
 	getSingleWorkspaceMembershipForUser,
@@ -26,6 +25,20 @@ async function requireCurrentUser(ctx: any) {
 	}
 
 	return user;
+}
+
+async function ensureUniqueSlug(ctx: any, baseSlug: string): Promise<string> {
+	let slug = baseSlug;
+	let attempt = 0;
+	while (true) {
+		const existing = await ctx.db
+			.query("workspaces")
+			.withIndex("by_slug", (q: any) => q.eq("slug", slug))
+			.first();
+		if (!existing) return slug;
+		attempt += 1;
+		slug = `${baseSlug}-${attempt}`;
+	}
 }
 
 export const list = query({
@@ -63,17 +76,21 @@ export const create = mutation({
 	},
 	handler: async (ctx, args) => {
 		const user = await requireCurrentUser(ctx);
-		const existingWorkspace = await ctx.db.query("workspaces").first();
-		const slug = normalizePodCode(args.slug);
+		const userId = String(user._id);
+		const existingMembership = await getSingleWorkspaceMembershipForUser(ctx, userId);
 
-		if (!slug) {
+		if (existingMembership) {
+			throw new ConvexError("You already belong to a workspace");
+		}
+
+		const baseSlug = normalizePodCode(args.slug);
+		if (!baseSlug) {
 			throw new ConvexError("Pod code is required");
 		}
 
-		assertPilotWorkspaceCanBeCreated(existingWorkspace ? 1 : 0);
+		const slug = await ensureUniqueSlug(ctx, baseSlug);
 
 		const now = Date.now();
-		const userId = String(user._id);
 		const workspaceId = await ctx.db.insert("workspaces", {
 			name: args.name,
 			slug,
@@ -112,22 +129,13 @@ export const ensureOnboardingWorkspace = mutation({
 			return getWorkspaceAccessStateForMembership(ctx, existingMembership);
 		}
 
-		const existingWorkspace = await ctx.db.query("workspaces").first();
-
-		if (existingWorkspace) {
-			return {
-				isMember: false,
-				canCreateWorkspace: false,
-				workspace: null,
-			};
-		}
-
-		assertPilotWorkspaceCanBeCreated(0);
-
 		const now = Date.now();
+		const baseSlug = buildPodCode(userId);
+		const slug = await ensureUniqueSlug(ctx, baseSlug);
+
 		const workspaceId = await ctx.db.insert("workspaces", {
 			name: "My workspace",
-			slug: buildPodCode(userId),
+			slug,
 			createdAt: now,
 			createdByUserId: userId,
 		});

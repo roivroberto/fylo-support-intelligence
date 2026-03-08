@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { authClient } from "../lib/auth-client";
 import { normalizeSessionUser } from "../lib/current-user";
@@ -9,6 +10,7 @@ export default function Header() {
 	const { data: session, isPending } = authClient.useSession();
 	const user = normalizeSessionUser(session?.user);
 	const identity = user.name ?? user.email ?? "Guest";
+	const router = useRouter();
 
 	return (
 		<header>
@@ -33,6 +35,7 @@ export default function Header() {
 						<button
 							className="cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
 							onClick={() => {
+								router.replace("/");
 								void authClient.signOut();
 							}}
 							type="button"

@@ -13,6 +13,14 @@ vi.mock("next/link", () => ({
 	),
 }));
 
+vi.mock("next/navigation", () => ({
+	useRouter: () => ({
+		replace: vi.fn(),
+		push: vi.fn(),
+		back: vi.fn(),
+	}),
+}));
+
 vi.mock("../lib/auth-client", () => ({
 	authClient: {
 		useSession,

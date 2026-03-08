@@ -71,6 +71,9 @@ function createDb(input?: {
 						async unique() {
 							return matches[0] ?? null;
 						},
+						async first() {
+							return matches[0] ?? null;
+						},
 					};
 				},
 				async collect() {
@@ -235,7 +238,7 @@ describe("pod code invite convex handlers", () => {
 		);
 	});
 
-	it("returns current workspace details for a member and empty state for a non-member", async () => {
+	it("returns current workspace details for a member and create state for a non-member", async () => {
 		const db = createDb({
 			workspaces: [
 				{
@@ -279,7 +282,7 @@ describe("pod code invite convex handlers", () => {
 		} as any);
 		await expect(handler({ db }, {})).resolves.toEqual({
 			isMember: false,
-			canCreateWorkspace: false,
+			canCreateWorkspace: true,
 			workspace: null,
 		});
 	});
@@ -335,7 +338,7 @@ describe("pod code invite convex handlers", () => {
 		expect(db.state.memberships).toHaveLength(1);
 	});
 
-	it("returns a non-member state when onboarding sees an existing pilot workspace", async () => {
+	it("creates a new workspace for a team lead when other workspaces exist", async () => {
 		vi.mocked(authComponent.getAuthUser).mockResolvedValue({ _id: "user_guest" } as any);
 		const db = createDb({
 			workspaces: [
@@ -351,10 +354,18 @@ describe("pod code invite convex handlers", () => {
 
 		const handler = (workspaces as any).ensureOnboardingWorkspace?._handler;
 
-		await expect(handler({ db }, {})).resolves.toEqual({
-			isMember: false,
-			canCreateWorkspace: false,
-			workspace: null,
+		const result = await handler({ db }, {});
+
+		expect(result.isMember).toBe(true);
+		expect(result.workspace).not.toBeNull();
+		expect(result.workspace?.role).toBe("lead");
+		expect(result.workspace?.podCode).toBe("pod-usergues"); // buildPodCode("user_guest") -> "pod-usergues"
+		expect(db.state.workspaces).toHaveLength(2);
+		expect(db.state.memberships).toHaveLength(1);
+		expect(db.state.memberships[0]).toMatchObject({
+			workspaceId: expect.any(String),
+			userId: "user_guest",
+			role: "lead",
 		});
 	});
 

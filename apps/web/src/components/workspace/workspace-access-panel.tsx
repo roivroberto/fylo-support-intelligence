@@ -252,35 +252,28 @@ export function WorkspaceAccessPanel() {
 		);
 	}
 
-	if (resolvedWorkspaceState.canCreateWorkspace) {
-		return (
-			<div className="app-card p-6 flex flex-col gap-5">
-				<div>
-					<p className="app-eyebrow app-eyebrow--violet mb-2">Workspace access</p>
-					<h2 className="app-h2 mb-2">Start your workspace</h2>
-					<p className="app-body">
-						Signed in as <span style={{ color: "#f0f0f0" }}>{title}</span>.
-						Create the first workspace then share the pod code with your team.
-					</p>
-				</div>
-				<Button disabled={isCreating} onClick={() => void handleCreateWorkspace()}>
-					{isCreating ? "Creating…" : "Create workspace"}
-				</Button>
-				<FeedbackMessage feedback={feedback} />
-			</div>
-		);
-	}
-
+	// User has no workspace: show both create (team lead) and join (agent) options
 	return (
 		<div className="app-card p-6 flex flex-col gap-5">
 			<div>
 				<p className="app-eyebrow app-eyebrow--violet mb-2">Workspace access</p>
-				<h2 className="app-h2 mb-2">Join an existing workspace</h2>
+				<h2 className="app-h2 mb-2">
+					{resolvedWorkspaceState.canCreateWorkspace
+						? "Create or join a workspace"
+						: "Join an existing workspace"}
+				</h2>
 				<p className="app-body">
 					Signed in as <span style={{ color: "#f0f0f0" }}>{title}</span>.
-					Enter a pod code to join your team's workspace.
+					{resolvedWorkspaceState.canCreateWorkspace
+						? " Create your workspace or enter a pod code to join your team."
+						: " Enter a pod code to join your team's workspace."}
 				</p>
 			</div>
+			{resolvedWorkspaceState.canCreateWorkspace && (
+				<Button disabled={isCreating} onClick={() => void handleCreateWorkspace()}>
+					{isCreating ? "Creating…" : "Create workspace"}
+				</Button>
+			)}
 			<form className="flex flex-col gap-4" onSubmit={handleJoin}>
 				<div className="flex flex-col gap-2">
 					<Label htmlFor="workspace-pod-code">Pod code</Label>

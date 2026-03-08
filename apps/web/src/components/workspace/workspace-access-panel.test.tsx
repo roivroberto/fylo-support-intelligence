@@ -121,7 +121,6 @@ describe("WorkspaceAccessPanel", () => {
 		render(<WorkspaceAccessPanel />);
 
 		expect(screen.getByText("Ops Workspace")).toBeInTheDocument();
-		expect(screen.getByText(/role/i)).toBeInTheDocument();
 		expect(screen.getByText("lead")).toBeInTheDocument();
 		expect(screen.getByText("pod-admin01")).toBeInTheDocument();
 	});
@@ -157,7 +156,7 @@ describe("WorkspaceAccessPanel", () => {
 	it("joins a workspace with a trimmed pod code and shows success feedback", async () => {
 		useQuery.mockReturnValue({
 			isMember: false,
-			canCreateWorkspace: false,
+			canCreateWorkspace: true,
 			workspace: null,
 		});
 		joinWithPodCode.mockResolvedValue({
@@ -188,7 +187,7 @@ describe("WorkspaceAccessPanel", () => {
 	it("shows inline join errors", async () => {
 		useQuery.mockReturnValue({
 			isMember: false,
-			canCreateWorkspace: false,
+			canCreateWorkspace: true,
 			workspace: null,
 		});
 		joinWithPodCode.mockRejectedValue(new Error("Invalid pod code"));
@@ -209,7 +208,7 @@ describe("WorkspaceAccessPanel", () => {
 	it("clears optimistic workspace state when the session user changes", async () => {
 		useQuery.mockReturnValue({
 			isMember: false,
-			canCreateWorkspace: false,
+			canCreateWorkspace: true,
 			workspace: null,
 		});
 		joinWithPodCode.mockResolvedValue({
@@ -249,7 +248,7 @@ describe("WorkspaceAccessPanel", () => {
 
 		await waitFor(() => {
 			expect(
-				screen.getByRole("heading", { name: /join an existing workspace/i }),
+				screen.getByRole("heading", { name: /create or join a workspace/i }),
 			).toBeInTheDocument();
 		});
 	});

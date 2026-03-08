@@ -79,10 +79,16 @@ export default function OnboardingPage() {
 	const parseResume = useAction(parseCurrentResumeReference);
 
 	useEffect(() => {
-		if (workspaceState?.isMember) {
+		// Only auto-redirect if user is already a member but hasn't just completed onboarding.
+		// When on lead-done or agent-done, let them see the code/success and click "Continue" themselves.
+		if (
+			workspaceState?.isMember &&
+			step !== "lead-done" &&
+			step !== "agent-done"
+		) {
 			router.replace("/queue");
 		}
-	}, [workspaceState, router]);
+	}, [workspaceState, router, step]);
 
 	useEffect(() => {
 		if (!isSessionPending && !session) {
@@ -103,8 +109,7 @@ export default function OnboardingPage() {
 			} else {
 				setFeedback({
 					type: "error",
-					message:
-						"A workspace already exists. Try joining as a Team Agent instead.",
+					message: "Could not create workspace. Try again or join as a Team Agent.",
 				});
 				setStep("role");
 			}

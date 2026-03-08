@@ -102,11 +102,10 @@ export async function getWorkspaceAccessStateForUser(
 		return getWorkspaceAccessStateForMembership(ctx, membership);
 	}
 
-	const existingWorkspace = await ctx.db.query("workspaces").first();
-
+	// User has no workspace membership — they can create their own workspace as team lead
 	return buildWorkspaceAccessState({
 		workspace: null,
 		membership: null,
-		canCreateWorkspace: !existingWorkspace,
+		canCreateWorkspace: true,
 	});
 }
