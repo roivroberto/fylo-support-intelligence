@@ -11,7 +11,7 @@
 
 ## Demo
 
-![Demo](assets/demo.png)
+![Demo](assets/demo-cropped.png)
 
 ## About
 
