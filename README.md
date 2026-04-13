@@ -13,8 +13,6 @@
 
 ![Demo](assets/demo.png)
 
-*Replace with a real screenshot or GIF of the project in action.*
-
 ## About
 
 Fylo is a modern, full-stack support operations platform that leverages artificial intelligence to streamline ticket ingestion, classification, and resolution. Built with a focus on speed and scalability, it automates the heavy lifting of triage so support teams can focus on high-impact customer interactions.
