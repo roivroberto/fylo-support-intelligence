@@ -1,0 +1,853 @@
+/* ═══════════════════════════════════════════════════
+   Fylo Landing Page Styles
+   Primary font:   JetBrains Mono  (--font-sans)
+   Secondary font: DM Sans         (--font-secondary)
+═══════════════════════════════════════════════════ */
+
+/* ── Design tokens ── */
+.landing-page {
+	--carbon: #0a0a0a;
+	--carbon-2: #111111;
+	--carbon-3: #181818;
+	--vellum: rgba(255, 255, 255, 0.03);
+	--vellum-border: rgba(255, 255, 255, 0.07);
+	--accent-fg: #e8e8e8;
+	--accent-dim: rgba(232, 232, 232, 0.45);
+	--accent-dimmer: rgba(232, 232, 232, 0.25);
+	--violet: #a78bfa;
+	--violet-dim: rgba(167, 139, 250, 0.15);
+}
+
+/* ── Page base ── */
+body:has(.landing-page) {
+	background-color: #0a0a0a;
+	color: #e8e8e8;
+	overflow-x: hidden;
+}
+
+/* ── Grain overlay ── */
+.landing-page .grain {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9998;
+	opacity: 0.025;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-size: 200px 200px;
+}
+
+/* ═══════════════ NAVIGATION ═══════════════ */
+
+.landing-page .nav-link {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.8125rem;
+	color: rgba(232, 232, 232, 0.45);
+	transition: color 0.2s ease;
+}
+
+.landing-page .nav-link:hover {
+	color: rgba(232, 232, 232, 0.9);
+}
+
+/* ═══════════════ PRIMARY CTA BUTTON ═══════════════ */
+
+.landing-page .btn-cta {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--violet);
+	color: #0a0a0a;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	padding: 0.55rem 1.25rem;
+	border-radius: 4px;
+	transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+	box-shadow: 0 0 0 0 rgba(167, 139, 250, 0);
+	white-space: nowrap;
+}
+
+.landing-page .btn-cta:hover {
+	background: #c4b5fd;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 20px rgba(167, 139, 250, 0.3);
+}
+
+.landing-page .btn-cta:active {
+	transform: translateY(0);
+}
+
+.landing-page .btn-cta-lg {
+	font-size: 0.8125rem;
+	padding: 0.75rem 1.75rem;
+}
+
+/* ═══════════════ GHOST BUTTON ═══════════════ */
+
+.landing-page .btn-ghost {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	color: rgba(232, 232, 232, 0.55);
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	padding: 0.55rem 1.25rem;
+	border-radius: 4px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	transition: all 0.2s ease;
+	white-space: nowrap;
+}
+
+.landing-page .btn-ghost:hover {
+	background: rgba(255, 255, 255, 0.04);
+	border-color: rgba(255, 255, 255, 0.2);
+	color: rgba(232, 232, 232, 0.9);
+}
+
+.landing-page .btn-ghost-lg {
+	padding: 0.75rem 1.75rem;
+}
+
+/* ═══════════════ BADGE ═══════════════ */
+
+.landing-page .badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	border-radius: 100px;
+	padding: 0.3rem 0.85rem;
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.7rem;
+	font-weight: 500;
+	color: rgba(167, 139, 250, 0.85);
+	letter-spacing: 0.02em;
+}
+
+.landing-page .badge-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--violet);
+	box-shadow: 0 0 6px rgba(167, 139, 250, 0.8);
+	animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+	0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(167, 139, 250, 0.8); }
+	50% { opacity: 0.6; box-shadow: 0 0 12px rgba(167, 139, 250, 0.4); }
+}
+
+/* ═══════════════ HERO ═══════════════ */
+
+.landing-page .hero-bg {
+	background: radial-gradient(
+		ellipse 90% 60% at 80% 40%,
+		rgba(167, 139, 250, 0.06) 0%,
+		transparent 70%
+	);
+}
+
+.landing-page .hero-glow {
+	position: absolute;
+	top: -10%;
+	right: -5%;
+	width: 60%;
+	height: 70%;
+	background: radial-gradient(
+		ellipse at center,
+		rgba(167, 139, 250, 0.07) 0%,
+		transparent 70%
+	);
+	pointer-events: none;
+}
+
+.landing-page .hero-h1 {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: clamp(2rem, 5vw, 3.25rem);
+	font-weight: 800;
+	line-height: 1.15;
+	letter-spacing: -0.03em;
+	color: #f0f0f0;
+}
+
+.landing-page .hero-highlight {
+	color: var(--violet);
+}
+
+.landing-page .hero-sub {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: clamp(0.95rem, 2vw, 1.0625rem);
+	line-height: 1.75;
+	color: rgba(232, 232, 232, 0.5);
+	max-width: 34rem;
+	margin-top: 1.25rem;
+}
+
+/* ═══════════════ DASHBOARD MOCKUP ═══════════════ */
+
+.landing-page .mockup-shell {
+	background: rgba(16, 16, 16, 0.95);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 8px;
+	box-shadow:
+		0 0 0 1px rgba(255, 255, 255, 0.04),
+		0 32px 64px rgba(0, 0, 0, 0.6),
+		0 8px 32px rgba(0, 0, 0, 0.4),
+		inset 0 1px 0 rgba(255, 255, 255, 0.06);
+	overflow: hidden;
+}
+
+.landing-page .mockup-titlebar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.landing-page .mockup-body {
+	padding: 1rem;
+}
+
+.landing-page .ticket-row {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	border-radius: 4px;
+	padding: 0.65rem 0.75rem;
+	transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.landing-page .ticket-row:hover {
+	background: rgba(255, 255, 255, 0.04);
+	border-color: rgba(255, 255, 255, 0.12);
+}
+
+.landing-page .agent-pod {
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	border-radius: 3px;
+	padding: 0.4rem 0.5rem;
+}
+
+/* "Routing…" badge shown on the top ticket while it is being processed */
+.landing-page .ticket-badge-routing {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 10px;
+	font-weight: 600;
+	padding: 0.2rem 0.5rem;
+	border-radius: 4px;
+	border: 1px solid rgba(167, 139, 250, 0.35);
+	background: rgba(167, 139, 250, 0.12);
+	color: rgba(167, 139, 250, 0.9);
+	/* subtle shimmer sweep */
+	background-image: linear-gradient(
+		90deg,
+		transparent 0%,
+		rgba(167, 139, 250, 0.08) 50%,
+		transparent 100%
+	);
+	background-size: 200% 100%;
+	animation: badge-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes badge-shimmer {
+	0%   { background-position: 200% center; }
+	100% { background-position: -200% center; }
+}
+
+/* ═══════════════ SOCIAL PROOF / MARQUEE ═══════════════ */
+
+/* Clip the scrolling track and add edge fades */
+.landing-page .marquee-outer {
+	overflow: hidden;
+	-webkit-mask-image: linear-gradient(
+		to right,
+		transparent 0%,
+		#000 12%,
+		#000 88%,
+		transparent 100%
+	);
+	mask-image: linear-gradient(
+		to right,
+		transparent 0%,
+		#000 12%,
+		#000 88%,
+		transparent 100%
+	);
+}
+
+/* The moving strip: two identical copies side-by-side */
+.landing-page .marquee-track {
+	display: flex;
+	width: max-content;
+	animation: marquee-scroll 22s linear infinite;
+}
+
+.landing-page .marquee-track:hover {
+	animation-play-state: paused;
+}
+
+/* Each copy is a row of logos */
+.landing-page .marquee-content {
+	display: flex;
+	align-items: center;
+	gap: 3.5rem;
+	padding: 0 3.5rem; /* half-gap on each end so the seam is invisible */
+}
+
+@keyframes marquee-scroll {
+	from { transform: translateX(0); }
+	to   { transform: translateX(-50%); } /* exactly one copy width */
+}
+
+.landing-page .logo-pill {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: rgba(232, 232, 232, 0.2);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	white-space: nowrap;
+	transition: color 0.2s ease;
+	cursor: default;
+}
+
+.landing-page .logo-pill:hover {
+	color: rgba(232, 232, 232, 0.5);
+}
+
+/* ═══════════════ METRICS ═══════════════ */
+
+.landing-page .metric-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 1.5rem 1rem;
+	background: var(--vellum);
+	border: 1px solid var(--vellum-border);
+	border-radius: 6px;
+	text-align: center;
+	transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.landing-page .metric-card:hover {
+	background: rgba(255, 255, 255, 0.04);
+	border-color: rgba(255, 255, 255, 0.14);
+}
+
+.landing-page .metric-val {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 1.75rem;
+	font-weight: 800;
+	color: #f0f0f0;
+	letter-spacing: -0.04em;
+}
+
+.landing-page .metric-label {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.75rem;
+	color: rgba(232, 232, 232, 0.35);
+}
+
+/* ═══════════════ SECTION SHARED ═══════════════ */
+
+.landing-page .section-header {
+	text-align: center;
+	max-width: 42rem;
+	margin: 0 auto;
+}
+
+.landing-page .section-eyebrow {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--violet);
+	margin-bottom: 0.75rem;
+}
+
+.landing-page .section-h2 {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1.2;
+	color: #f0f0f0;
+	margin-bottom: 1rem;
+}
+
+.landing-page .section-sub {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 1rem;
+	line-height: 1.7;
+	color: rgba(232, 232, 232, 0.45);
+}
+
+/* ═══════════════ FEATURES ═══════════════ */
+
+.landing-page .feature-card {
+	background: var(--vellum);
+	border: 1px solid var(--vellum-border);
+	border-radius: 6px;
+	padding: 1.5rem;
+	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-page .feature-card:hover {
+	background: rgba(255, 255, 255, 0.04);
+	border-color: rgba(255, 255, 255, 0.14);
+	transform: translateY(-3px);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.landing-page .feature-icon-wrap {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 6px;
+	border: 1px solid;
+	margin-bottom: 1rem;
+}
+
+.landing-page .feature-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: #f0f0f0;
+	margin-bottom: 0.5rem;
+	letter-spacing: -0.02em;
+}
+
+.landing-page .feature-desc {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.8125rem;
+	line-height: 1.65;
+	color: rgba(232, 232, 232, 0.45);
+}
+
+/* ═══════════════ HOW IT WORKS ═══════════════ */
+
+.landing-page .flow-diagram-wrap {
+	background: var(--vellum);
+	border: 1px solid var(--vellum-border);
+	border-radius: 6px;
+	padding: 1.5rem;
+}
+
+.landing-page .flow-step {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+	text-align: center;
+	padding: 0 0.75rem;
+}
+
+.landing-page .flow-step-icon {
+	width: 36px;
+	height: 36px;
+	border-radius: 6px;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0.4rem;
+}
+
+.landing-page .step-card {
+	background: var(--vellum);
+	border: 1px solid var(--vellum-border);
+	border-radius: 6px;
+	padding: 1.75rem;
+	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	position: relative;
+}
+
+.landing-page .step-card:hover {
+	background: rgba(255, 255, 255, 0.04);
+	border-color: rgba(255, 255, 255, 0.14);
+	transform: translateY(-2px);
+}
+
+.landing-page .step-num {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.625rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	color: rgba(167, 139, 250, 0.5);
+	text-transform: uppercase;
+	margin-bottom: 0.75rem;
+}
+
+.landing-page .step-icon-wrap {
+	width: 32px;
+	height: 32px;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.landing-page .step-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.9375rem;
+	font-weight: 700;
+	color: #f0f0f0;
+	letter-spacing: -0.02em;
+}
+
+.landing-page .step-desc {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.7;
+	color: rgba(232, 232, 232, 0.45);
+}
+
+/* ═══════════════ TESTIMONIALS ═══════════════ */
+
+.landing-page .testimonial-card {
+	background: var(--vellum);
+	border: 1px solid var(--vellum-border);
+	border-radius: 6px;
+	padding: 1.75rem;
+	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-page .testimonial-card:hover {
+	background: rgba(255, 255, 255, 0.04);
+	border-color: rgba(255, 255, 255, 0.14);
+	transform: translateY(-2px);
+}
+
+.landing-page .testimonial-quote {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.9375rem;
+	line-height: 1.75;
+	color: rgba(232, 232, 232, 0.75);
+	font-style: italic;
+}
+
+.landing-page .testimonial-avatar {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: rgba(167, 139, 250, 0.15);
+	border: 1px solid rgba(167, 139, 250, 0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.625rem;
+	font-weight: 700;
+	color: var(--violet);
+	flex-shrink: 0;
+}
+
+.landing-page .testimonial-name {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	color: #f0f0f0;
+}
+
+.landing-page .testimonial-role {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.75rem;
+	color: rgba(232, 232, 232, 0.35);
+}
+
+/* ═══════════════ CLOSING CTA ═══════════════ */
+
+.landing-page .cta-h2 {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: clamp(1.6rem, 4vw, 2.5rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1.2;
+	color: #f0f0f0;
+	margin-bottom: 1rem;
+}
+
+.landing-page .cta-sub {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 1.0625rem;
+	line-height: 1.75;
+	color: rgba(232, 232, 232, 0.45);
+	max-width: 36rem;
+	margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════
+   AUTH PAGES  (sign-in / sign-up)
+   Same .landing-page root; these classes are
+   layered on top of the existing design tokens.
+═══════════════════════════════════════════════ */
+
+/* Full-viewport split shell */
+.landing-page .auth-shell {
+	display: grid;
+	grid-template-columns: 1fr;
+	min-height: 100svh;
+	overflow: hidden;
+}
+
+@media (min-width: 900px) {
+	.landing-page .auth-shell {
+		grid-template-columns: 420px 1fr;
+	}
+}
+
+/* ── Left branding panel ── */
+.landing-page .auth-left {
+	display: none;
+	position: relative;
+	background: linear-gradient(
+		160deg,
+		rgba(167, 139, 250, 0.07) 0%,
+		rgba(10, 10, 10, 0) 60%
+	);
+	border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 900px) {
+	.landing-page .auth-left {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.landing-page .auth-left-inner {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 2rem 2.5rem;
+}
+
+.landing-page .auth-left-headline {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1.2;
+	color: #f0f0f0;
+}
+
+.landing-page .auth-left-sub {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.7;
+	color: rgba(232, 232, 232, 0.35);
+	margin-top: 0.75rem;
+	max-width: 28rem;
+}
+
+.landing-page .auth-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.18);
+	border-radius: 100px;
+	padding: 0.28rem 0.8rem;
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.6875rem;
+	font-weight: 500;
+	color: rgba(167, 139, 250, 0.75);
+	width: fit-content;
+}
+
+.landing-page .auth-feature-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 5px;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.18);
+	color: var(--violet);
+	flex-shrink: 0;
+}
+
+/* ── Right form panel ── */
+.landing-page .auth-right {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem 1.5rem;
+	background: radial-gradient(
+		ellipse 80% 50% at 60% 30%,
+		rgba(167, 139, 250, 0.04) 0%,
+		transparent 70%
+	);
+}
+
+/* The form card */
+.landing-page .auth-card {
+	width: 100%;
+	max-width: 22rem;
+	background: rgba(255, 255, 255, 0.025);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 8px;
+	padding: 2rem 1.75rem;
+	box-shadow:
+		0 0 0 1px rgba(255, 255, 255, 0.03),
+		0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+.landing-page .auth-eyebrow {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--violet);
+}
+
+.landing-page .auth-card-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 1.6rem;
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	color: #f0f0f0;
+}
+
+/* ── Form fields ── */
+.landing-page .auth-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.landing-page .auth-label {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.625rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: rgba(232, 232, 232, 0.35);
+}
+
+.landing-page .auth-input {
+	width: 100%;
+	background: rgba(0, 0, 0, 0.35);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 4px;
+	padding: 0.7rem 0.9rem;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.8125rem;
+	color: #e8e8e8;
+	box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	outline: none;
+}
+
+.landing-page .auth-input::placeholder {
+	color: rgba(232, 232, 232, 0.18);
+}
+
+.landing-page .auth-input:focus {
+	border-color: rgba(167, 139, 250, 0.45);
+	box-shadow:
+		inset 0 2px 6px rgba(0, 0, 0, 0.5),
+		0 0 0 3px rgba(167, 139, 250, 0.08);
+}
+
+.landing-page .auth-error {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.75rem;
+	color: rgba(248, 113, 113, 0.9);
+	background: rgba(248, 113, 113, 0.06);
+	border: 1px solid rgba(248, 113, 113, 0.15);
+	border-radius: 4px;
+	padding: 0.5rem 0.75rem;
+}
+
+/* ── Role-select cards ── */
+.landing-page .role-card {
+	width: 100%;
+	background: rgba(255, 255, 255, 0.025);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 6px;
+	padding: 1.5rem;
+	transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	cursor: pointer;
+}
+
+.landing-page .role-card:hover {
+	background: rgba(167, 139, 250, 0.06);
+	border-color: rgba(167, 139, 250, 0.25);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.landing-page .role-card-type {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.5875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: rgba(167, 139, 250, 0.5);
+}
+
+.landing-page .role-card-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 1rem;
+	font-weight: 700;
+	color: #f0f0f0;
+	letter-spacing: -0.02em;
+}
+
+.landing-page .role-card-desc {
+	font-family: var(--font-secondary), sans-serif;
+	font-size: 0.8rem;
+	line-height: 1.6;
+	color: rgba(232, 232, 232, 0.35);
+}
+
+.landing-page .role-card-arrow {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	color: var(--violet);
+	flex-shrink: 0;
+	transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.landing-page .role-card:hover .role-card-arrow {
+	transform: translateX(3px);
+	background: rgba(167, 139, 250, 0.15);
+}
+
+.landing-page .role-card-bar {
+	height: 1px;
+	background: rgba(255, 255, 255, 0.05);
+	margin-top: 1rem;
+	transition: background 0.25s ease;
+}
+
+.landing-page .role-card:hover .role-card-bar {
+	background: rgba(167, 139, 250, 0.2);
+}

@@ -1,0 +1,38 @@
+import { makeFunctionReference } from "convex/server";
+
+import type { TicketDraftWorkspace } from "./drafts";
+
+export const getTicketDraftReference = makeFunctionReference<
+	"query",
+	{ ticketId: string },
+	TicketDraftWorkspace | null
+>("drafts:getForTicket");
+
+export const ensureTicketDraftReference = makeFunctionReference<
+	"action",
+	{ ticketId: string },
+	TicketDraftWorkspace
+>("drafts:ensureForTicket");
+
+export const regenerateTicketDraftReference = makeFunctionReference<
+	"action",
+	{ ticketId: string },
+	TicketDraftWorkspace
+>("drafts:regenerateForTicket");
+
+export const upsertTicketDraftReference = makeFunctionReference<
+	"mutation",
+	{
+		ticketId: string;
+		summary: string;
+		recommendedAction: string;
+		draftReply: string;
+		generationSource: "provider" | "deterministic";
+		usedFallback: boolean;
+		fallbackReason: "generator_error" | "invalid_schema" | null;
+		generatedAt: number;
+	},
+	TicketDraftWorkspace
+>("drafts:upsertForTicket");
+
+export type { TicketDraftWorkspace };

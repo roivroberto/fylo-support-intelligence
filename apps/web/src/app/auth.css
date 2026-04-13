@@ -1,0 +1,519 @@
+/* ═══════════════════════════════════════════════════
+   Fylo Auth Pages  (sign-in / sign-up)
+   Split-screen: persona panel left, form right.
+═══════════════════════════════════════════════════ */
+
+/* ── Scope: override shadcn CSS vars to dark/violet ── */
+.auth-page {
+	--background:         #0a0a0a;
+	--foreground:         #f0f0f0;
+	--card:               #111111;
+	--card-foreground:    #f0f0f0;
+	--border:             rgba(255, 255, 255, 0.08);
+	--input:              rgba(255, 255, 255, 0.06);
+	--muted-foreground:   rgba(240, 240, 240, 0.38);
+	--primary:            #a78bfa;
+	--primary-foreground: #0a0a0a;
+	--ring:               rgba(167, 139, 250, 0.45);
+	--destructive:        oklch(0.704 0.191 22.216);
+}
+
+/* ── Page shell ── */
+.auth-page {
+	position: relative;
+	min-height: 100svh;
+	background-color: #0a0a0a;
+	color: #f0f0f0;
+}
+
+/* Grain overlay (same as landing) */
+.auth-page .grain {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9998;
+	opacity: 0.025;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+	background-size: 200px 200px;
+}
+
+/* ═══════════════ SPLIT LAYOUT ═══════════════ */
+
+.auth-page .auth-split {
+	display: grid;
+	grid-template-columns: 1fr;
+	min-height: 100svh;
+}
+
+@media (min-width: 900px) {
+	.auth-page .auth-split {
+		grid-template-columns: 55% 45%;
+	}
+}
+
+/* ═══════════════ LEFT PANEL ═══════════════ */
+
+.auth-page .auth-left {
+	display: none;
+	position: relative;
+	overflow: hidden;
+	background: #0d0d0d;
+	border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (min-width: 900px) {
+	.auth-page .auth-left {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* Violet glow for left panel */
+.auth-page .auth-left-glow {
+	position: absolute;
+	top: -20%;
+	left: -10%;
+	width: 80%;
+	height: 70%;
+	background: radial-gradient(
+		ellipse at center,
+		rgba(167, 139, 250, 0.08) 0%,
+		transparent 70%
+	);
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* ── Content inside left panel ── */
+.auth-page .left-panel-content {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 2.5rem 3rem;
+	gap: 2.25rem;
+}
+
+/* Brand / logo */
+.auth-page .left-brand {
+	display: inline-flex;
+	align-items: center;
+	opacity: 0.9;
+	transition: opacity 0.2s;
+}
+
+.auth-page .left-brand:hover {
+	opacity: 1;
+}
+
+/* Copy block */
+.auth-page .left-copy {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.auth-page .left-persona-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	background: rgba(167, 139, 250, 0.08);
+	border: 1px solid rgba(167, 139, 250, 0.2);
+	border-radius: 100px;
+	padding: 0.25rem 0.75rem;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	color: rgba(167, 139, 250, 0.85);
+	letter-spacing: 0.02em;
+	width: fit-content;
+}
+
+.auth-page .left-headline {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: clamp(1.6rem, 3vw, 2.1rem);
+	font-weight: 800;
+	letter-spacing: -0.04em;
+	line-height: 1.15;
+	color: #f0f0f0;
+}
+
+.auth-page .left-subline {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.65;
+	color: rgba(240, 240, 240, 0.4);
+	max-width: 28rem;
+}
+
+/* ═══════════════ LEFT MOCKUP ═══════════════ */
+
+.auth-page .left-mockup {
+	background: rgba(255, 255, 255, 0.025);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 6px;
+	padding: 1.1rem 1.2rem;
+	box-shadow:
+		0 16px 40px rgba(0, 0, 0, 0.45),
+		inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.auth-page .lm-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.75rem;
+}
+
+.auth-page .lm-label {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: rgba(255, 255, 255, 0.3);
+}
+
+.auth-page .lm-count {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(255, 255, 255, 0.2);
+}
+
+.auth-page .lm-divider {
+	height: 1px;
+	background: rgba(255, 255, 255, 0.05);
+	margin: 0.9rem 0;
+}
+
+/* ── Agent ticket list (sign-in panel) ── */
+.auth-page .lm-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.auth-page .lm-ticket {
+	background: rgba(255, 255, 255, 0.025);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	border-radius: 4px;
+	padding: 0.55rem 0.65rem;
+}
+
+.auth-page .lm-ticket-top {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-bottom: 0.3rem;
+}
+
+.auth-page .lm-id {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(255, 255, 255, 0.25);
+}
+
+.auth-page .lm-skill {
+	font-size: 0.6rem;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-weight: 600;
+	padding: 0.1rem 0.4rem;
+	border-radius: 3px;
+}
+
+.auth-page .lm-skill-technical {
+	color: #38bdf8;
+	background: rgba(56, 189, 248, 0.1);
+}
+
+.auth-page .lm-skill-billing {
+	color: #a78bfa;
+	background: rgba(167, 139, 250, 0.1);
+}
+
+.auth-page .lm-skill-onboarding {
+	color: #2dd4bf;
+	background: rgba(45, 212, 191, 0.1);
+}
+
+.auth-page .lm-conf {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(255, 255, 255, 0.25);
+	margin-left: auto;
+}
+
+.auth-page .lm-subject {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.72rem;
+	color: rgba(240, 240, 240, 0.75);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 0.2rem;
+}
+
+.auth-page .lm-reason {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(167, 139, 250, 0.55);
+}
+
+/* ── Manager agent load bars (sign-up panel) ── */
+.auth-page .lm-agents {
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+}
+
+.auth-page .lm-agent-row {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.auth-page .lm-agent-name {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.7rem;
+	color: rgba(240, 240, 240, 0.55);
+	width: 4.2rem;
+	flex-shrink: 0;
+}
+
+.auth-page .lm-load-bar {
+	display: flex;
+	gap: 2px;
+	flex: 1;
+}
+
+.auth-page .lm-pip {
+	height: 5px;
+	flex: 1;
+	border-radius: 2px;
+}
+
+.auth-page .lm-pip-violet { background: rgba(167, 139, 250, 0.7); }
+.auth-page .lm-pip-red    { background: rgba(248, 113, 113, 0.7); }
+.auth-page .lm-pip-empty  { background: rgba(255, 255, 255, 0.08); }
+
+.auth-page .lm-load-count {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(255, 255, 255, 0.25);
+	width: 3rem;
+	text-align: right;
+	flex-shrink: 0;
+}
+
+.auth-page .lm-overloaded {
+	color: rgba(248, 113, 113, 0.75);
+}
+
+/* ── Routing activity rows (sign-up panel) ── */
+.auth-page .lm-activity {
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+}
+
+.auth-page .lm-activity-row {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.auth-page .lm-status-dot {
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.auth-page .lm-dot-green { background: #34d399; }
+.auth-page .lm-dot-amber { background: #fbbf24; }
+
+.auth-page .lm-act-id {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(255, 255, 255, 0.25);
+	flex-shrink: 0;
+}
+
+.auth-page .lm-act-dest {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.72rem;
+	color: rgba(240, 240, 240, 0.6);
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.auth-page .lm-act-conf {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	color: rgba(52, 211, 153, 0.7);
+	flex-shrink: 0;
+}
+
+.auth-page .lm-conf-low {
+	color: rgba(251, 191, 36, 0.7);
+}
+
+/* ── Footer note inside mockup ── */
+.auth-page .lm-footer-note {
+	margin-top: 0.85rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid rgba(255, 255, 255, 0.05);
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+}
+
+.auth-page .lm-note-amber  { color: rgba(251, 191, 36, 0.6); }
+.auth-page .lm-note-violet { color: rgba(167, 139, 250, 0.55); }
+
+/* ═══════════════ RIGHT PANEL (form) ═══════════════ */
+
+.auth-page .auth-right {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2.5rem 1.5rem;
+	min-height: 100svh;
+}
+
+/* ── Card ── */
+.auth-page .auth-card {
+	width: 100%;
+	max-width: 22rem;
+	background: rgba(255, 255, 255, 0.025);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: 6px;
+	padding: 2rem;
+	box-shadow:
+		0 32px 64px rgba(0, 0, 0, 0.55),
+		0 8px 24px rgba(0, 0, 0, 0.35),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ── Card header ── */
+.auth-page .auth-card-head {
+	margin-bottom: 1.75rem;
+}
+
+.auth-page .auth-eyebrow {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.625rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: rgba(167, 139, 250, 0.7);
+	margin-bottom: 0.5rem;
+}
+
+.auth-page .auth-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 1.375rem;
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	color: #f0f0f0;
+	margin-bottom: 0.35rem;
+}
+
+.auth-page .auth-sub {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8125rem;
+	color: rgba(240, 240, 240, 0.38);
+}
+
+/* ── Form wrapper ── */
+.auth-page .auth-form-wrap {
+	margin-bottom: 1.25rem;
+}
+
+/* ── Input overrides ── */
+.auth-page [data-slot="input"] {
+	background: rgba(0, 0, 0, 0.35) !important;
+	border-color: rgba(255, 255, 255, 0.09) !important;
+	color: #f0f0f0;
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8125rem;
+	height: 2.25rem;
+	border-radius: 4px;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-page [data-slot="input"]::placeholder {
+	color: rgba(240, 240, 240, 0.22);
+}
+
+.auth-page [data-slot="input"]:focus-visible {
+	border-color: rgba(167, 139, 250, 0.55) !important;
+	box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.12) !important;
+	outline: none;
+}
+
+/* ── Label overrides ── */
+.auth-page [data-slot="label"] {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	color: rgba(240, 240, 240, 0.55);
+	text-transform: uppercase;
+}
+
+/* ── Button overrides ── */
+.auth-page [data-slot="button"][type="submit"] {
+	background: #a78bfa !important;
+	color: #0a0a0a !important;
+	font-family: var(--font-jetbrains-mono), monospace !important;
+	font-size: 0.75rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.04em !important;
+	text-transform: uppercase !important;
+	height: 2.35rem !important;
+	border-radius: 4px !important;
+	border-color: transparent !important;
+	width: 100%;
+	transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.auth-page [data-slot="button"][type="submit"]:hover {
+	background: #c4b5fd !important;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 20px rgba(167, 139, 250, 0.28) !important;
+}
+
+.auth-page [data-slot="button"][type="submit"]:active {
+	transform: translateY(0);
+}
+
+/* ── Error message ── */
+.auth-page .text-destructive {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.75rem;
+}
+
+/* ── Footer switch link ── */
+.auth-page .auth-footer-text {
+	font-family: var(--font-dm-sans), sans-serif;
+	font-size: 0.8rem;
+	color: rgba(240, 240, 240, 0.3);
+	text-align: center;
+}
+
+.auth-page .auth-link {
+	color: rgba(167, 139, 250, 0.8);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.auth-page .auth-link:hover {
+	color: #c4b5fd;
+}

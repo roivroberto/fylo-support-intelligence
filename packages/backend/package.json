@@ -1,0 +1,26 @@
+{
+	"name": "@Fylo/backend",
+	"version": "1.0.0",
+	"description": "",
+	"license": "ISC",
+	"author": "",
+	"scripts": {
+		"dev": "convex dev",
+		"dev:setup": "convex dev --configure --until-success",
+		"test": "vitest run --project backend --config ../../vitest.workspace.ts",
+		"test:classification": "vitest run packages/backend/convex/lib/__tests__/classification-schema.test.ts --config ../../vitest.workspace.ts"
+	},
+	"dependencies": {
+		"@convex-dev/better-auth": "^0.10.13",
+		"better-auth": "1.4.9",
+		"convex": "^1.32.0",
+		"dotenv": "catalog:",
+		"svix": "^1.86.0",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@Fylo/config": "workspace:*",
+		"@types/node": "^24.3.0",
+		"typescript": "catalog:"
+	}
+}

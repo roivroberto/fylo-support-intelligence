@@ -1,7 +1,7 @@
 # 12_TEAM_REVIEW_PACKET
 
 ## Project summary
-**Draft:** SharedShift is an **explainable routing layer for small support teams**. It starts from a seeded support inbox, turns emails into structured tickets, shows classification attributes, routes tickets using readable rules, sends non-high-confidence cases to review, and ends with a **Work Distribution Visibility** view. The point is **not** to claim new AI ticketing. The point is to prove that a small support pod can triage faster and more legibly when repetitive ticket-structuring work is cleared without removing human judgment.
+**Draft:** Fylo is an **explainable routing layer for small support teams**. It starts from a seeded support inbox, turns emails into structured tickets, shows classification attributes, routes tickets using readable rules, sends non-high-confidence cases to review, and ends with a **Work Distribution Visibility** view. The point is **not** to claim new AI ticketing. The point is to prove that a small support pod can triage faster and more legibly when repetitive ticket-structuring work is cleared without removing human judgment.
 
 ## Primary track and why
 **Primary track: Future of Work**
