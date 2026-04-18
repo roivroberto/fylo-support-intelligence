@@ -1,3 +1,7 @@
+"use client";
+
+import { useQuery } from "convex/react";
+import { getTicketDetailReference } from "../../../../../packages/backend/convex/tickets_reference";
 import type { TicketDraftWorkspace } from "../../../../../packages/backend/convex/drafts_reference";
 import { humanizeSnakeCase } from "../../lib/utils";
 
@@ -60,8 +64,11 @@ function priorityColor(priority: string | undefined): string {
 	return "rgba(240,240,240,0.4)";
 }
 
-export function TicketDetail({ ticket, draft }: TicketDetailProps) {
-	const ticketDraft = draft ?? ticket.draft;
+export function TicketDetail({ ticket: initialTicket, draft }: TicketDetailProps) {
+	const liveTicket = useQuery(getTicketDetailReference, { ticketId: initialTicket.id });
+	const ticket = liveTicket !== undefined && liveTicket !== null ? liveTicket : initialTicket;
+
+	const ticketDraft = draft ?? ("draft" in ticket ? ticket.draft : undefined);
 	const isAssignedAgent =
 		ticket.viewerRole === "agent" &&
 		ticket.currentUserId != null &&
@@ -71,6 +78,7 @@ export function TicketDetail({ ticket, draft }: TicketDetailProps) {
 		typeof ticket.classificationConfidence === "number"
 			? Math.round(ticket.classificationConfidence * 100)
 			: null;
+	const isThinking = typeof ticket.classificationConfidence !== "number";
 
 	const metaFields = [
 		{ label: "Status", value: ticket.status ?? "Ready for review" },
@@ -100,7 +108,16 @@ export function TicketDetail({ ticket, draft }: TicketDetailProps) {
 			</div>
 
 			{/* Two-column grid */}
-			<div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+			<div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr] relative">
+				{isThinking && (
+					<div className="absolute inset-[-0.5rem] z-10 flex flex-col items-center justify-center bg-[#0d0d0d]/40 backdrop-blur-[3px] rounded-lg">
+						<div className="flex flex-col items-center gap-3">
+							<div className="w-6 h-6 rounded-full border-2 border-[#a78bfa] border-t-transparent animate-spin" />
+							<p className="app-eyebrow app-eyebrow--violet mt-2 text-[0.65rem]">AI is processing ticket...</p>
+						</div>
+					</div>
+				)}
+
 				{/* Left: assignment context */}
 				<div className="app-card p-5 flex flex-col gap-5">
 					<p className="app-eyebrow app-eyebrow--violet">Assignment context</p>

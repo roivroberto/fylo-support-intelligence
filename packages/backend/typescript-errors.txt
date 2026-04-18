@@ -1,0 +1,1116 @@
+../../apps/web/playwright.config.test.ts(3,23): error TS2306: File 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/playwright.config.ts' is not a module.
+../../apps/web/src/app/(app)/layout.tsx(3,28): error TS6142: Module '../../components/app-sidebar' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/app-sidebar.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/layout.tsx(10,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/layout.tsx(11,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/layout.tsx(12,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/layout.tsx(13,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/layout.tsx(14,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/layout.tsx(15,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.test.tsx(56,47): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/queue/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/queue/page.test.tsx(58,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(7,41): error TS6142: Module '../../../components/queue/queue-table-error-boundary' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/queue/queue-table-error-boundary.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/queue/page.tsx(8,29): error TS6142: Module '../../../components/queue/ticket-table' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/queue/ticket-table.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/queue/page.tsx(53,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(55,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(56,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(57,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(58,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(59,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(63,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(73,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(74,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(75,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(76,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(78,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(79,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(82,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(84,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(85,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(88,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(95,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(96,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(97,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(98,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(101,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(106,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(107,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(110,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(115,37): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/app/(app)/queue/page.tsx(124,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(125,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(128,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(133,30): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/app/(app)/queue/page.tsx(141,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(142,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(143,14): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(145,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(148,43): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLTextAreaElement'.
+../../apps/web/src/app/(app)/queue/page.tsx(155,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(163,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(164,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(172,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(192,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/queue/page.tsx(193,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.test.tsx(51,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/review/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/review/page.test.tsx(53,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(5,28): error TS6142: Module '../../../components/review/review-list' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/review/review-list.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/review/page.tsx(16,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(17,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(18,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(19,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(20,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(21,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(26,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(27,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(33,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(38,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(40,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/review/page.tsx(41,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(1,28): error TS6142: Module '../../../../components/settings/policy-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/policy-form.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(5,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(6,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(7,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(8,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(9,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(10,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(15,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(16,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(17,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(23,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(24,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/policy/page.tsx(31,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(1,34): error TS6142: Module '../../../../components/settings/agent-profile-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/agent-profile-form.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(5,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(6,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(7,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(8,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(9,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(10,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(15,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(16,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(17,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(22,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(23,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/profile/page.tsx(30,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(8,39): error TS6142: Module '../../../../components/settings/team-profiles-directory' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/team-profiles-directory.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(22,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(34,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(35,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(36,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(39,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(42,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(52,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(53,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(54,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(55,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(58,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(61,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(66,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(67,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(68,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(69,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(70,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(75,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(76,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(81,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(82,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(91,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/settings/team-profiles/page.tsx(96,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.test.tsx(60,54): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/tickets/[ticketId]/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.test.tsx(97,54): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/tickets/[ticketId]/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.test.tsx(122,54): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/tickets/[ticketId]/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.test.tsx(141,54): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/tickets/[ticketId]/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.test.tsx(152,54): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/tickets/[ticketId]/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.tsx(8,30): error TS6142: Module '../../../../components/ticket/ticket-detail' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ticket/ticket-detail.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/tickets/[ticketId]/page.tsx(56,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.test.tsx(39,52): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/(app)/visibility/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/visibility/page.test.tsx(41,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(10,8): error TS6142: Module '../../../components/visibility/workload-cards' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/visibility/workload-cards.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/visibility/page.tsx(12,38): error TS6142: Module '../../../components/workspace/workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/app/(app)/visibility/page.tsx(52,18): error TS2339: Property 'profile' does not exist on type 'VisibilityCard'.
+../../apps/web/src/app/(app)/visibility/page.tsx(58,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(59,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(60,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(61,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(62,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(66,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(72,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(73,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(74,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(75,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(76,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(77,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(84,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(85,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(86,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(87,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(89,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(90,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(96,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(98,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(99,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(105,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(111,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(113,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/(app)/visibility/page.tsx(114,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/api/auth/[...all]/route.ts(3,25): error TS2307: Cannot find module '@/lib/auth-server' or its corresponding type declarations.
+../../apps/web/src/app/api/e2e/bootstrap/route.ts(7,51): error TS2307: Cannot find module '@/lib/auth-server' or its corresponding type declarations.
+../../apps/web/src/app/api/e2e/bootstrap/route.ts(8,38): error TS2307: Cannot find module '@/lib/auth-session' or its corresponding type declarations.
+../../apps/web/src/app/landing.tsx(29,2): error TS2322: Type '(i?: number) => { opacity: number; y: number; transition: { duration: number; ease: "easeOut"; delay: number; }; }' is not assignable to type 'Variant'.
+  Type '(i?: number) => { opacity: number; y: number; transition: { duration: number; ease: "easeOut"; delay: number; }; }' is not assignable to type 'TargetResolver'.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: "easeOut"; delay: number; }; }' is not assignable to type 'string | TargetAndTransition'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: "easeOut"; delay: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: "easeOut"; delay: number; }; }' is not assignable to type 'Target'.
+          Type '{ opacity: number; y: number; transition: { duration: number; ease: "easeOut"; delay: number; }; }' is not assignable to type 'StyleKeyframesDefinition'.
+            Property 'transition' is incompatible with index signature.
+              Type '{ duration: number; ease: "easeOut"; delay: number; }' is not assignable to type 'ValueKeyframesDefinition | undefined'.
+../../apps/web/src/app/landing.tsx(46,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(92,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(93,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(95,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(96,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(97,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(98,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(102,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(106,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(107,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(109,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(117,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(121,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(139,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(141,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(147,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(148,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(149,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(150,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(157,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(193,37): error TS2322: Type 'Ticket | undefined' is not assignable to type 'Ticket'.
+  Type 'undefined' is not assignable to type 'Ticket'.
+../../apps/web/src/app/landing.tsx(210,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(212,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(213,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(214,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(215,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(216,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(218,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(219,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(223,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(225,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(226,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(227,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(228,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(232,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(234,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(245,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(260,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(261,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(263,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(268,9): error TS2322: Type '{ opacity: number; x: number; transition: { duration: number; ease: "easeInOut"; }; }' is not assignable to type 'TargetAndTransition | VariantLabels | undefined'.
+  Type '{ opacity: number; x: number; transition: { duration: number; ease: "easeInOut"; }; }' is not assignable to type 'undefined'.
+../../apps/web/src/app/landing.tsx(272,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(279,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(280,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(281,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(282,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(286,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(292,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(293,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(294,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(296,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(320,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(322,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(323,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(324,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(325,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(327,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(330,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(333,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(440,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(444,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(447,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(448,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(449,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(450,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(458,18): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(471,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(472,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(475,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(483,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(485,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(486,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(488,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(489,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(496,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(500,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(508,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(511,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(521,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(528,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(530,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(535,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(540,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(552,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(558,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(564,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(565,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(569,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(570,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(571,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(573,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(576,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(578,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(586,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(587,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(588,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(595,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(596,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(597,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(605,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(606,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(607,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(608,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(609,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(610,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(613,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(619,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(621,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(630,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(633,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(635,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(636,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(644,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(648,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(649,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(650,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(651,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(652,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(657,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(658,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(659,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(664,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(666,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(675,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(676,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(677,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(678,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(680,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(682,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(690,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(691,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(692,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(693,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(694,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(695,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(699,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(701,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(710,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(712,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(719,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(722,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(723,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(724,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(725,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(726,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(736,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(737,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(738,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(739,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(740,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(743,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(744,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(747,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(748,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(750,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(755,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(759,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(767,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(768,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(769,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(770,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(773,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/landing.tsx(775,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/layout.tsx(6,27): error TS2307: Cannot find module '@/components/layout-content' or its corresponding type declarations.
+../../apps/web/src/app/layout.tsx(7,23): error TS2307: Cannot find module '@/components/providers' or its corresponding type declarations.
+../../apps/web/src/app/layout.tsx(8,37): error TS2307: Cannot find module '@/lib/auth-server' or its corresponding type declarations.
+../../apps/web/src/app/layout.tsx(36,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/layout.tsx(37,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/layout.tsx(40,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/layout.tsx(41,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(21,24): error TS6142: Module '../../components/ui/button' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/button.tsx', but '--jsx' is not set.
+../../apps/web/src/app/onboarding/page.tsx(22,23): error TS6142: Module '../../components/ui/input' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/input.tsx', but '--jsx' is not set.
+../../apps/web/src/app/onboarding/page.tsx(23,23): error TS6142: Module '../../components/ui/label' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/label.tsx', but '--jsx' is not set.
+../../apps/web/src/app/onboarding/page.tsx(212,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(213,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(214,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(215,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(222,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(223,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(225,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(226,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(237,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(240,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(241,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(242,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(243,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(244,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(249,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(250,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(256,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(257,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(259,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(260,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(265,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(271,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(272,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(274,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(275,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(282,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(289,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(290,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(291,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(292,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(294,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(302,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(303,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(304,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(305,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(306,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(311,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(312,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(313,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(316,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(327,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(328,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(329,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(330,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(331,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(337,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(341,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(342,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(343,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(345,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(346,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(349,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(358,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(366,30): error TS2339: Property 'files' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/app/onboarding/page.tsx(374,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(375,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(376,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(382,59): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/app/onboarding/page.tsx(386,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(395,20): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(397,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(412,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(413,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(414,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(415,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(417,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(422,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(431,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(432,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(433,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(434,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(435,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(436,23): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(447,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(457,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(458,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(463,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(469,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/onboarding/page.tsx(485,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/page.tsx(1,25): error TS6142: Module './landing' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/landing.tsx', but '--jsx' is not set.
+../../apps/web/src/app/page.tsx(4,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.test.tsx(26,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.test.tsx(47,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-in/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-in/page.test.tsx(48,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.test.tsx(70,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-in/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-in/page.test.tsx(71,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(8,39): error TS6142: Module '../../components/auth/email-password-auth-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/auth/email-password-auth-form.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-in/page.tsx(44,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(46,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(47,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(59,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(60,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(61,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(62,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(64,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(70,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(71,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(72,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(73,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(76,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(78,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(79,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(80,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(81,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(82,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(84,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(85,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(90,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(104,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(105,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(107,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(109,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(110,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(111,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(115,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(116,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(117,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(118,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(119,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(120,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(123,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(124,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(145,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-in/page.tsx(147,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(29,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(67,25): error TS2304: Cannot find name 'window'.
+../../apps/web/src/app/sign-up/page.test.tsx(70,8): error TS2304: Cannot find name 'window'.
+../../apps/web/src/app/sign-up/page.test.tsx(92,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-up/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.test.tsx(93,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(124,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-up/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.test.tsx(125,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(157,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-up/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.test.tsx(158,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(186,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-up/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.test.tsx(187,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(214,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-up/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.test.tsx(215,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.test.tsx(236,48): error TS6142: Module './page' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/app/sign-up/page.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.test.tsx(237,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(8,39): error TS6142: Module '../../components/auth/email-password-auth-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/auth/email-password-auth-form.tsx', but '--jsx' is not set.
+../../apps/web/src/app/sign-up/page.tsx(18,2): error TS2304: Cannot find name 'window'.
+../../apps/web/src/app/sign-up/page.tsx(36,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(38,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(39,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(51,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(52,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(53,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(54,22): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(56,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(62,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(64,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(65,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(67,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(69,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(70,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(71,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(73,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(85,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(92,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(95,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(96,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(98,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(100,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(101,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(102,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(103,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(106,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(113,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(126,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(127,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(129,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(131,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(132,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(133,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(137,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(138,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(139,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(140,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(141,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(142,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(145,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(146,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(170,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/app/sign-up/page.tsx(172,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(46,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(48,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(50,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(60,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(61,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(75,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(77,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(78,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(86,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(91,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(100,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(101,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(102,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(109,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(110,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(111,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(112,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(113,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(115,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(118,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/app-sidebar.tsx(126,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.test.tsx(4,39): error TS6142: Module './email-password-auth-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/auth/email-password-auth-form.tsx', but '--jsx' is not set.
+../../apps/web/src/components/auth/email-password-auth-form.test.tsx(16,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.test.tsx(43,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.test.tsx(75,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.test.tsx(110,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.test.tsx(144,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(7,24): error TS6142: Module '../ui/button' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/button.tsx', but '--jsx' is not set.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(8,23): error TS6142: Module '../ui/input' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/input.tsx', but '--jsx' is not set.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(9,23): error TS6142: Module '../ui/label' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/label.tsx', but '--jsx' is not set.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(65,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(67,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(68,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(69,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(77,35): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(82,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(83,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(84,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(93,36): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(97,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(98,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(99,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(100,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(109,40): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(113,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(122,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(124,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(130,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/email-password-auth-form.tsx(134,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(20,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(28,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(29,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(36,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(44,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(45,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(84,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(86,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(87,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(93,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(100,41): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/auth/landing-auth-form.tsx(105,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(106,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(112,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(119,41): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/auth/landing-auth-form.tsx(123,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(124,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(130,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(131,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(138,45): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/auth/landing-auth-form.tsx(141,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(147,23): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(147,40): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(152,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/auth/landing-auth-form.tsx(154,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.test.tsx(12,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.test.tsx(31,20): error TS6142: Module './header' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/header.tsx', but '--jsx' is not set.
+../../apps/web/src/components/header.test.tsx(45,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.test.tsx(72,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(16,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(17,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(18,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(19,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(23,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(24,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(31,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(35,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(46,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(47,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(53,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/header.tsx(63,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/layout-content.tsx(8,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/providers.tsx(7,28): error TS2307: Cannot find module '@/lib/auth-client' or its corresponding type declarations.
+../../apps/web/src/components/providers.tsx(9,31): error TS6142: Module './theme-provider' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/theme-provider.tsx', but '--jsx' is not set.
+../../apps/web/src/components/providers.tsx(10,25): error TS6142: Module './ui/sonner' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/sonner.tsx', but '--jsx' is not set.
+../../apps/web/src/components/providers.tsx(22,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/providers.tsx(28,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/providers.tsx(35,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/__tests__/ticket-table.test.tsx(13,29): error TS6142: Module '../ticket-table' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/queue/ticket-table.tsx', but '--jsx' is not set.
+../../apps/web/src/components/queue/__tests__/ticket-table.test.tsx(18,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/__tests__/ticket-table.test.tsx(26,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/__tests__/ticket-table.test.tsx(33,20): error TS2812: Property 'firstChild' does not exist on type 'HTMLElement'. Try changing the 'lib' compiler option to include 'dom'.
+../../apps/web/src/components/queue/queue-table-error-boundary.tsx(27,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/queue-table-error-boundary.tsx(28,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/queue-table-error-boundary.tsx(31,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(65,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(81,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(82,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(83,23): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(84,25): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(88,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(90,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(91,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(92,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(97,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(102,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(105,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(110,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(111,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(115,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(116,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(122,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(123,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(124,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(128,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(148,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(149,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(156,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(157,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(163,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(164,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(165,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(166,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(167,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(168,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(169,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(170,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(171,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(174,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/queue/ticket-table.tsx(176,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(37,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(38,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(44,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(46,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(47,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(49,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(50,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(53,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(61,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(65,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(70,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(76,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(78,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(82,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/review/review-list.tsx(85,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(32,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(66,45): error TS6142: Module './agent-profile-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/agent-profile-form.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(67,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(87,45): error TS6142: Module './agent-profile-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/agent-profile-form.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(88,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(125,45): error TS6142: Module './agent-profile-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/agent-profile-form.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/agent-profile-form.test.tsx(126,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(15,24): error TS6142: Module '../ui/button' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/button.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/agent-profile-form.tsx(126,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(127,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(137,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(138,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(188,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(189,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(191,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(192,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(193,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(194,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(198,63): error TS2339: Property 'files' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/settings/agent-profile-form.tsx(206,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(214,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(215,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(216,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(232,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(237,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(248,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(254,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(262,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(266,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(267,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(271,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(275,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(281,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(291,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(299,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(300,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(301,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(306,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(308,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(309,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(310,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/agent-profile-form.tsx(317,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.test.tsx(28,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.test.tsx(33,51): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.test.tsx(38,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.test.tsx(42,28): error TS6142: Module './policy-form' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/policy-form.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/policy-form.test.tsx(62,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.test.tsx(85,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(10,24): error TS6142: Module '../ui/button' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/button.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/policy-form.tsx(11,23): error TS6142: Module '../ui/input' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/input.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/policy-form.tsx(12,23): error TS6142: Module '../ui/label' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/label.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/policy-form.tsx(46,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(47,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(66,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(67,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(69,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(70,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(71,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(72,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(83,54): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/settings/policy-form.tsx(87,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(92,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(93,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(94,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(105,58): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/settings/policy-form.tsx(109,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(114,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(115,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(122,45): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/settings/policy-form.tsx(126,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(127,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(130,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(136,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(137,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(144,48): error TS2339: Property 'checked' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/settings/policy-form.tsx(148,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(149,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(152,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(160,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(168,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(169,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(170,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(174,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(178,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(181,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/policy-form.tsx(185,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(4,39): error TS6142: Module './team-profiles-directory' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/settings/team-profiles-directory.tsx', but '--jsx' is not set.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(13,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(33,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(72,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(127,5): error TS2812: Property 'closest' does not exist on type 'HTMLElement'. Try changing the 'lib' compiler option to include 'dom'.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(130,5): error TS2812: Property 'closest' does not exist on type 'HTMLElement'. Try changing the 'lib' compiler option to include 'dom'.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(133,5): error TS2812: Property 'closest' does not exist on type 'HTMLElement'. Try changing the 'lib' compiler option to include 'dom'.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(136,5): error TS2812: Property 'closest' does not exist on type 'HTMLElement'. Try changing the 'lib' compiler option to include 'dom'.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(157,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.test.tsx(198,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(86,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(87,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(88,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(92,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(93,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(94,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(97,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(101,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(102,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(105,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(107,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(108,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(111,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(115,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(116,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(119,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(123,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(124,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(125,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(126,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(127,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(133,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(139,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(147,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(152,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(153,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(154,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(155,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(156,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(160,14): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(165,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(170,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/settings/team-profiles-directory.tsx(173,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/theme-provider.tsx(10,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(38,8): error TS6142: Module '../draft-reply-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ticket/draft-reply-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(55,33): error TS2345: Argument of type '{ ticketId: string; draftState: { ticketId: string; summary: string; recommendedAction: string; draftReply: string; generationSource: "deterministic"; usedFallback: false; fallbackReason: null; generatedAt: number; generatedAtLabel: string; }; ... 5 more ...; nextDraft: { ...; }; }' is not assignable to parameter of type 'DraftReplyPanelViewState & { currentTicketId: string; nextDraft: TicketDraftWorkspace; }'.
+  Property 'isSavingDraft' is missing in type '{ ticketId: string; draftState: { ticketId: string; summary: string; recommendedAction: string; draftReply: string; generationSource: "deterministic"; usedFallback: false; fallbackReason: null; generatedAt: number; generatedAtLabel: string; }; ... 5 more ...; nextDraft: { ...; }; }' but required in type 'DraftReplyPanelViewState'.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(97,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(135,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(156,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(181,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(222,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(274,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(310,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(329,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(364,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(422,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(443,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(491,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/draft-reply-panel.test.tsx(512,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/ticket-detail.test.tsx(22,30): error TS6142: Module '../ticket-detail' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ticket/ticket-detail.tsx', but '--jsx' is not set.
+../../apps/web/src/components/ticket/__tests__/ticket-detail.test.tsx(27,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/__tests__/ticket-detail.test.tsx(37,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(88,10): error TS6133: 'result' is declared but its value is never read.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(145,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(147,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(148,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(149,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(150,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(151,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(152,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(160,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(170,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(176,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(187,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(188,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(189,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(190,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(200,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(211,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(218,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(219,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(220,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(223,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(226,48): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLTextAreaElement'.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(233,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(234,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(237,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(240,58): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLTextAreaElement'.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(247,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(248,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(251,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(254,51): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLTextAreaElement'.
+../../apps/web/src/components/ticket/draft-reply-panel.tsx(264,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(8,33): error TS6142: Module './draft-reply-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ticket/draft-reply-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/ticket/ticket-detail.tsx(9,46): error TS6142: Module './ticket-notes' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ticket/ticket-notes.tsx', but '--jsx' is not set.
+../../apps/web/src/components/ticket/ticket-detail.tsx(10,40): error TS6142: Module './ticket-workspace-actions' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ticket/ticket-workspace-actions.tsx', but '--jsx' is not set.
+../../apps/web/src/components/ticket/ticket-detail.tsx(91,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(93,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(94,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(95,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(96,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(97,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(99,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(104,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(111,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(113,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(114,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(115,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(116,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(122,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(123,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(126,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(128,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(129,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(130,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(146,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(147,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(148,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(149,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(150,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(159,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(169,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(177,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(178,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(179,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(185,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(186,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(187,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(194,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(195,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(203,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-detail.tsx(205,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(10,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(11,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(14,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(18,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(20,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(29,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(38,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(39,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-notes.tsx(41,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(125,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(126,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(129,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(130,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(133,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(136,51): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLTextAreaElement'.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(141,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(153,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(161,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(162,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(163,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(168,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(169,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(175,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(180,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(184,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(205,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(220,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(221,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(223,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(237,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(248,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(249,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(257,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(267,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(272,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(273,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ticket/ticket-workspace-actions.tsx(286,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/button.tsx(49,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(3,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+../../apps/web/src/components/ui/card.tsx(11,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(25,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(38,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(48,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(58,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(68,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/card.tsx(78,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/checkbox.tsx(4,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+../../apps/web/src/components/ui/checkbox.tsx(8,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/checkbox.tsx(16,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/checkbox.tsx(20,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(5,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+../../apps/web/src/components/ui/dropdown-menu.tsx(8,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(12,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(16,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(29,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(30,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(37,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(51,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(62,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(81,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(95,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(107,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(117,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(131,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(153,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(162,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(166,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(167,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(176,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(181,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(189,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(193,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(194,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(204,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/dropdown-menu.tsx(214,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/input.tsx(8,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/label.tsx(9,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/skeleton.tsx(1,20): error TS2307: Cannot find module '@/lib/utils' or its corresponding type declarations.
+../../apps/web/src/components/ui/skeleton.tsx(5,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/sonner.tsx(17,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/sonner.tsx(21,18): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/sonner.tsx(22,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/sonner.tsx(23,18): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/sonner.tsx(24,16): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/ui/sonner.tsx(25,18): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(58,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(59,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(65,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(70,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(76,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(77,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(78,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(79,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(81,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(82,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(83,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(90,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(91,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(92,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(94,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(103,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(107,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(108,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(109,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(121,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(122,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(123,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(138,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(144,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(145,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(146,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(147,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(151,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(152,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(153,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(155,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(159,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(160,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(161,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(163,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(167,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(168,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(169,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(171,12): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(178,8): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/visibility/workload-cards.tsx(179,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(24,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(91,49): error TS6142: Module './workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(92,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(120,49): error TS6142: Module './workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(121,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(145,49): error TS6142: Module './workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(146,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(173,49): error TS6142: Module './workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(174,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(195,49): error TS6142: Module './workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(196,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(225,49): error TS6142: Module './workspace-access-panel' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/workspace/workspace-access-panel.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(226,23): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.test.tsx(247,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(22,40): error TS6142: Module '../ui/button' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/button.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(23,23): error TS6142: Module '../ui/input' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/input.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(24,23): error TS6142: Module '../ui/label' was resolved to 'C:/Users/Vincent/Documents/GitHub/dev-camp/apps/web/src/components/ui/label.tsx', but '--jsx' is not set.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(31,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(51,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(52,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(53,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(54,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(55,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(57,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(61,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(65,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(66,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(67,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(139,7): error TS2304: Cannot find name 'window'.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(212,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(213,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(220,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(221,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(222,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(223,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(224,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(226,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(227,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(228,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(236,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(237,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(244,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(245,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(250,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(257,3): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(258,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(259,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(260,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(265,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(266,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(273,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(277,4): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(278,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(279,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(280,6): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(286,51): error TS2339: Property 'value' does not exist on type 'EventTarget & HTMLInputElement'.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(289,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/components/workspace/workspace-access-panel.tsx(292,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+../../apps/web/src/lib/auth-client.ts(7,10): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/auth-client.ts(8,6): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(20,13): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(24,2): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(28,13): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(32,14): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(41,3): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(47,13): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(51,2): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(55,13): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(59,2): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(63,13): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(67,14): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(76,3): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(82,13): error TS2304: Cannot find name 'window'.
+../../apps/web/src/lib/workspace-access-state.ts(86,2): error TS2304: Cannot find name 'window'.
+../../apps/web/tests/e2e/pilot-app.spec.ts(22,20): error TS2304: Cannot find name 'window'.
+../../apps/web/tests/e2e/pilot-app.spec.ts(27,16): error TS2304: Cannot find name 'window'.
+../../apps/web/tests/e2e/pilot-app.spec.ts(28,3): error TS2304: Cannot find name 'window'.
+../../apps/web/tests/e2e/resend-live.spec.ts(11,20): error TS2304: Cannot find name 'window'.
+../../apps/web/tests/e2e/resend-live.spec.ts(16,16): error TS2304: Cannot find name 'window'.
+../../apps/web/tests/e2e/resend-live.spec.ts(17,3): error TS2304: Cannot find name 'window'.
+convex/ai/generate_routing_reason.ts(4,1): error TS6133: 'AgentProfileSnapshot' is declared but its value is never read.
+convex/lib/__tests__/resend-client.test.ts(86,44): error TS2345: Argument of type '{ RESEND_API_KEY: string; RESEND_FROM: string; }' is not assignable to parameter of type 'ProcessEnv'.
+  Property 'NODE_ENV' is missing in type '{ RESEND_API_KEY: string; RESEND_FROM: string; }' but required in type 'ProcessEnv'.
+convex/lib/__tests__/resend-client.test.ts(96,30): error TS2345: Argument of type '{ RESEND_FROM_EMAIL: string; }' is not assignable to parameter of type 'ProcessEnv'.
+  Property 'NODE_ENV' is missing in type '{ RESEND_FROM_EMAIL: string; }' but required in type 'ProcessEnv'.
+convex/lib/__tests__/resend-client.test.ts(104,30): error TS2345: Argument of type '{ RESEND_API_KEY: string; }' is not assignable to parameter of type 'ProcessEnv'.
+  Property 'NODE_ENV' is missing in type '{ RESEND_API_KEY: string; }' but required in type 'ProcessEnv'.
+convex/lib/pilot_workspace.ts(25,2): error TS2322: Type 'T | undefined' is not assignable to type 'T'.
+  'T' could be instantiated with an arbitrary type which could be unrelated to 'T | undefined'.
+convex/lib/routing/route_ticket.ts(7,6): error TS6196: 'RoutingPolicyOverrides' is declared but never used.
+convex/tickets.ts(13,1): error TS6133: 'classifyAndRouteTicketReference' is declared but its value is never read.
+convex/tickets.ts(904,24): error TS6133: 'viewerMemberships' is declared but its value is never read.

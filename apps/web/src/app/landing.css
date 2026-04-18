@@ -851,3 +851,78 @@ body:has(.landing-page) {
 .landing-page .role-card:hover .role-card-bar {
 	background: rgba(167, 139, 250, 0.2);
 }
+
+/* ═══════════════════════════════════════════════
+   SUB-PAGE SHARED  (How It Works · Pricing · Resources)
+   These classes are used by the three dedicated pages
+   that share the .landing-page root.
+═══════════════════════════════════════════════ */
+
+/* ── How It Works: step visual shell ── */
+.landing-page .hiw-visual-shell {
+	background: rgba(16, 16, 16, 0.95);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 8px;
+	padding: 1.25rem;
+	box-shadow:
+		0 0 0 1px rgba(255, 255, 255, 0.03),
+		0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+.landing-page .hiw-email-row {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	padding: 0.55rem 0.65rem;
+	border-radius: 4px;
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	margin-bottom: 0.4rem;
+	transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.landing-page .hiw-email-row:last-child {
+	margin-bottom: 0;
+}
+
+.landing-page .hiw-email-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+/* ── Pricing: billing toggle track ── */
+.landing-page .pricing-toggle-track {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	justify-content: center;
+}
+
+/* ── Resources: changelog timeline ── */
+.landing-page .changelog-dot {
+	position: absolute;
+	left: 0;
+	top: 0.35rem;
+	width: 0.875rem;
+	height: 0.875rem;
+	border-radius: 50%;
+	border: 1px solid rgba(167, 139, 250, 0.3);
+	background: rgba(167, 139, 250, 0.12);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* ── Shared sub-page hero radial glow ── */
+.landing-page .subpage-hero-glow {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(
+		ellipse 70% 50% at 50% 0%,
+		rgba(167, 139, 250, 0.07) 0%,
+		transparent 70%
+	);
+}

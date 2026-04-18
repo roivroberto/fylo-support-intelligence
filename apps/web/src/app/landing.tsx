@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { Route as NextRoute } from "next";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import {
@@ -456,17 +457,23 @@ export default function LandingPage() {
                 style={{ width: 'auto', height: '28px' }} // Change 20px to your desired height
                 priority
               /> <p className="text-white text-2xl font-bold">Fylo</p>
-						{/* <nav className="hidden md:flex items-center gap-6">
-							{["Product", "Pricing", "Resources"].map((item) => (
-								<a
-									key={item}
-									href={`#${item.toLowerCase()}`}
+						<nav className="hidden md:flex items-center gap-6">
+							{(
+								[
+									{ label: "How it Works", href: "/how-it-works" },
+									{ label: "Pricing", href: "/pricing" },
+									{ label: "Resources", href: "/resources" },
+								] as { label: string; href: string }[]
+							).map((item) => (
+								<Link
+									key={item.href}
+								href={item.href as NextRoute}
 									className="nav-link"
 								>
-									{item}
-								</a>
+									{item.label}
+								</Link>
 							))}
-						</nav> */}
+						</nav>
 					</div>
 					<div className="flex items-center gap-3">
 						<Link href="/sign-in" className="nav-link hidden sm:block">

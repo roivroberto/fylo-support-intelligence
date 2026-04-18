@@ -1164,6 +1164,21 @@ const ingestInboundTicketReference = makeFunctionReference<
 	{ ticketId: string; created: boolean }
 >("tickets:ingestInbound");
 
+export const scheduleClassification = mutation({
+	args: { ticketId: v.id("tickets") },
+	handler: async (ctx, args) => {
+		await ctx.scheduler.runAfter(0, classifyAndRouteActionReference, {
+			ticketId: args.ticketId,
+		});
+	},
+});
+
+const scheduleClassificationReference = makeFunctionReference<
+	"mutation",
+	{ ticketId: string },
+	null
+>("tickets:scheduleClassification");
+
 export const createTicketFromForm = action({
 	args: {
 		requesterEmail: v.union(v.string(), v.null()),
@@ -1205,8 +1220,8 @@ export const createTicketFromForm = action({
 			subject: args.subject ?? null,
 			receivedAt,
 		})) as { ticketId: string; created: boolean };
-		await ctx.runAction(classifyAndRouteActionReference, {
-			ticketId: ticketResult.ticketId,
+		await ctx.runMutation(scheduleClassificationReference, {
+			ticketId: ticketResult.ticketId as any,
 		});
 		return { ticketId: ticketResult.ticketId };
 	},
