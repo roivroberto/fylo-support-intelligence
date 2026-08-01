@@ -92,7 +92,7 @@ The latest recorded verification and known gaps are maintained in [`docs/current
 
 ## Team
 
-Fylo was co-built by [Roi Victor Roberto](https://github.com/roivroberto), [Vincent Ferrer](https://github.com/vinnyy-ph), and [Miguel Kalaw](https://github.com/Miguel2604).
+Fylo was co-built by [Roi Victor Roberto](https://github.com/roivroberto), [Kean Louis Rosales](https://github.com/keanlouis30), [Vincent Ferrer](https://github.com/vinnyy-ph), and [Miguel Kalaw](https://github.com/Miguel2604).
 
 ## License
 
